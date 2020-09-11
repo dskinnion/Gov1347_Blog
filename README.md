@@ -1,7 +1,6 @@
 # Dominic Skinnion's Election Analytics Blog
 
 &nbsp;
-&nbsp;
 
 Welcome to my blog! I will be updating this blog weekly on Fridays. I am a student in Harvard's Election Analytics (GOV 1347) Fall 2020 course taught by Professor Ryan Enos.
 
