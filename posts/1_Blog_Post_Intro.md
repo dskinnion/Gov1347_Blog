@@ -22,3 +22,16 @@ where D<sub>y</sub> and R<sub>y</sub> are the number of votes for the Democratic
 ![2016 Presidential Election Swing Map](../figures/PV_states_swing_2016.png)
 
 The more blue that a state is, the more that their votes swung in favor of the Democratic Candidate in 2016 compared to 2012. The more red that a state is, the more that their votes swung in favor of the Republican Candidate in 2016 compared to 2012. *This does not mean that the state voted the way that it swung*, but rather that *the state's proportion of votes has shifted more that way*. For example, from 2012 to 2016, we can see that Utah swung more Democratic, but it still voted Republican, and that New York swung more Republican, but it still voted Democratic. 
+
+States that swung the most from 2012 to 2016:
+
+* **Utah** with a swing of 0.122 (*+D*)
+* **North Dakota** with a swing of -0.097 (*+R*)
+* **West Virginia** with a swing of -0.0849 (*+R*)
+* **Iowa** with a swing of -0.0802 (*+R*)
+* **South Dakota** with a swing of -0.675 (*+R*)
+* **Maine** with a swing of -0.0626 (*+R*)
+* **Ohio** with a swing of -0.0578 (*+R*)
+* **Rhode Island** with a swing of -0.0571 (*+R*)
+* **Missouri** with a swing of -0.0504 (*+R*)
+* **Michigan** with a swing of -0.0492 (*+R*)

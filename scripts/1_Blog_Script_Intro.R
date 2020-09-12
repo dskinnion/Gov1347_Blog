@@ -19,7 +19,8 @@ states_list <- unique(pop_state$state)
 pop_state_prior <- map_df(states_list, prior)
 
 pop_state_swing <- pop_state_prior %>%
-  mutate(swing = ((D) / (D + R)) - ((D_prior) / (D_prior + R_prior)))
+  mutate(swing = ((D) / (D + R)) - ((D_prior) / (D_prior + R_prior))) %>%
+  mutate(abs_swing = abs(swing))
 
 states_map <- map_data("state")
 
