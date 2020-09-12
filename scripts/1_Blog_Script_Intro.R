@@ -41,7 +41,7 @@ ggplot(pop_swing_map, aes(long, lat, group = group)) +
     name = "Vote Swing"
     ) +
   theme_void() +
-  labs(title = "2016") +
+  labs(title = "Presidential Vote Swing from 2012 - 2016") +
   theme(plot.title = element_text(hjust = 0.5,))
 
 ggsave("figures/PV_states_swing_2016.png", height = 3, width = 6)
