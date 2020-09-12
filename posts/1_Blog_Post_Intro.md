@@ -2,8 +2,6 @@
 
 ## September 11, 2020
 
-<h>
-
 ### Swing States
 
 For the purposes of this post, "swing" refers to the difference in a state's voting proportions from year to year. Mathematically, this is calculated as:
