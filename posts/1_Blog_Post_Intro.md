@@ -31,7 +31,7 @@ States that swung the most from 2012 to 2016:
 * **Iowa** with a swing of -0.0802 (*+R*)
 * **South Dakota** with a swing of -0.675 (*+R*)
 * **Maine** with a swing of -0.0626 (*+R*)
-* **Ohio** with a swing of -0.0578 (*+R*)
+* **Ohio** with a swing of -0.0578 (*+R*). Just one of many Midwest states that Clinton was unable to win, [Real Clear Politics](https://www.realclearpolitics.com/articles/2017/01/19/how_trump_won_the_midwest_132834.html) says that Democratic support in rural Midwestern areas dropped significantly from 2012 to 2016.
 * **Rhode Island** with a swing of -0.0571 (*+R*)
 * **Missouri** with a swing of -0.0504 (*+R*)
 * **Michigan** with a swing of -0.0492 (*+R*). In what was one of the closer states in 2016, [Politico](https://www.politico.com/story/2016/12/michigan-hillary-clinton-trump-232547) blames poor Democratic campaign management, among many other factors, for Michigan's swing towards Trump.
