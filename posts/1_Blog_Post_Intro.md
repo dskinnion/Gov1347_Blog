@@ -19,3 +19,5 @@ where D<sub>y</sub> and R<sub>y</sub> are the number of votes for the Democratic
 #### 2016 Election Swing Map
 
 ![2016 Presidential Election Swing Map ](../figures/PV_states_swing_2016.png)
+
+The more blue that a state is, the more that their votes swung in favor of the Democratic Candidate in 2016 compared to 2012. The more red that a state is, the more that their votes swung in favor of the Republican Candidate in 2016 compared to 2012.
