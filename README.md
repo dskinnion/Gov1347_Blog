@@ -1,4 +1,4 @@
-# Dominic Skinnion's Election Analytics Blog
+# Election Analytics Blog
 
 &nbsp;
 
