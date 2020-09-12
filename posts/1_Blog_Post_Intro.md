@@ -16,16 +16,16 @@ For the purposes of this post, "vote swing," or simply "swing," refers to the di
 
 where D<sub>y</sub> and R<sub>y</sub> are the number of votes for the Democratic Candidate and Republican Candidate in the current election, and D<sub>y-4</sub> and R<sub>y-4</sub> are the number of votes for the Democratic Candidate and Republican Candidate in the prior election. **Note that a positive value means that the state has swung more Democratic, and a negative value means that the state has swung more Republican**. 
 
+<br>
 #### 2016 Election Swing
 <br> 
-
 ![2016 Presidential Election Swing Map](../figures/PV_states_swing_2016.png)
 
 The more blue that a state is, the more that their votes swung in favor of the Democratic Candidate in 2016 compared to 2012. The more red that a state is, the more that their votes swung in favor of the Republican Candidate in 2016 compared to 2012. *This does not mean that the state voted the way that it swung*, but rather that *the state's proportion of votes has shifted more that way*. For example, from 2012 to 2016, we can see that Utah swung more Democratic, but it still voted Republican, and that New York swung more Republican, but it still voted Democratic. 
 
 States that swung the most from 2012 to 2016:
 
-* **Utah** with a swing of 0.122 (*+D*)
+* **Utah** with a swing of 0.122 (*+D*). In what is usually a Republican stronghold, Trump won with much less support than Romney had earned from the state in 2012. In 2016, [Time](https://time.com/4397192/donald-trump-utah-gary-johnson/) speculated that Utah's Mormon values kept many Republicans from voting for Trump.
 * **North Dakota** with a swing of -0.097 (*+R*)
 * **West Virginia** with a swing of -0.0849 (*+R*)
 * **Iowa** with a swing of -0.0802 (*+R*)
@@ -34,4 +34,4 @@ States that swung the most from 2012 to 2016:
 * **Ohio** with a swing of -0.0578 (*+R*)
 * **Rhode Island** with a swing of -0.0571 (*+R*)
 * **Missouri** with a swing of -0.0504 (*+R*)
-* **Michigan** with a swing of -0.0492 (*+R*)
+* **Michigan** with a swing of -0.0492 (*+R*). In what was one of the closer states in 2016, [Politico](https://www.politico.com/story/2016/12/michigan-hillary-clinton-trump-232547) blames poor Democratic campaign management, among many other factors, for Michigan's swing towards Trump.
