@@ -16,8 +16,8 @@ For the purposes of this post, "vote swing," or simply "swing," refers to the di
 
 where D<sub>y</sub> and R<sub>y</sub> are the number of votes for the Democratic Candidate and Republican Candidate in the current election, and D<sub>y-4</sub> and R<sub>y-4</sub> are the number of votes for the Democratic Candidate and Republican Candidate in the prior election. **Note that a positive value means that the state has swung more Democratic, and a negative value means that the state has swung more Republican**. 
 
-#### 2016 Election Swing Map
+#### 2016 Election Swing
 
-![2016 Presidential Election Swing Map ](../figures/PV_states_swing_2016.png)
+![2016 Presidential Election Swing Map](../figures/PV_states_swing_2016.png)
 
 The more blue that a state is, the more that their votes swung in favor of the Democratic Candidate in 2016 compared to 2012. The more red that a state is, the more that their votes swung in favor of the Republican Candidate in 2016 compared to 2012. *This does not mean that the state voted the way that it swung*, but rather that *the state's proportion of votes has shifted more that way*. For example, from 2012 to 2016, we can see that Utah swung more Democratic, but it still voted Republican, and that New York swung more Republican, but it still voted Democratic. 
