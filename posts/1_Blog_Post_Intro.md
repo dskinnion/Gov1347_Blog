@@ -17,6 +17,7 @@ For the purposes of this post, "vote swing," or simply "swing," refers to the di
 where D<sub>y</sub> and R<sub>y</sub> are the number of votes for the Democratic Candidate and Republican Candidate in the current election, and D<sub>y-4</sub> and R<sub>y-4</sub> are the number of votes for the Democratic Candidate and Republican Candidate in the prior election. **Note that a positive value means that the state has swung more Democratic, and a negative value means that the state has swung more Republican**. 
 
 #### 2016 Election Swing
+<br> 
 
 ![2016 Presidential Election Swing Map](../figures/PV_states_swing_2016.png)
 
