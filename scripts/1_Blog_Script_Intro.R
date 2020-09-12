@@ -1,5 +1,6 @@
 library(tidyverse)
 library(maps)
+library(usmap)
 
 pop <- read_csv("data/popvote_1948-2016.csv")
 pop_state <- read_csv("data/popvote_bystate_1948-2016.csv")
@@ -37,7 +38,7 @@ ggplot(pop_swing_map, aes(long, lat, group = group)) +
     high = "blue",
     breaks = c(-0.15, -0.075, 0, 0.075, 0.15),
     limits = c(-0.15, 0.15),
-    name = "Dem. Swing"
+    name = "Vote Swing"
     ) +
   theme_void() +
   labs(title = "2016") +
