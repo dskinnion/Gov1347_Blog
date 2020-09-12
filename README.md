@@ -10,4 +10,4 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 
 ## Posts:
 
-### [Introduction](https://dskinnion.github.io/Gov1347_Blog/posts/1_Blog_Post_Intro.html)
+### [Introduction](posts/1_Blog_Post_Intro.html)
