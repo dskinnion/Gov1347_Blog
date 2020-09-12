@@ -57,7 +57,7 @@ plot_usmap(data = pop_swing_map_grid, regions = "states", values = "swing", colo
     high = "blue",
     breaks = c(-0.25, -0.125, 0, 0.125, 0.25),
     limits = c(-0.25, 0.25),
-    name = "Dem. Swing"
+    name = "Vote Swing"
   ) +
   theme_void() +
   theme(strip.text = element_text(size = 12),
