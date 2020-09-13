@@ -85,4 +85,7 @@ pop_state_swing_wm %>%
     theme(legend.position = "none") +
   theme(plot.title = element_text(hjust = 0.5))
 
+ggsave("figures/PV_battleground_swing_2016.png", height = 3, width = 6)
+
+
     
