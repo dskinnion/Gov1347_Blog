@@ -6,7 +6,7 @@
 
 ### Election History
 
-It is important for us to look at historical trends in order to better inform ourselves on current and future trends. For this reason, this introductory blog post will focus exclusively on past elections. Rather than trying to predict the 2020 election with models, this week, I will simply look at trends from past elections. Specifically, I will look at states which have recently become swing states.
+It is important for us to look at historical trends in order to better inform ourselves on current and future trends. For this reason, this introductory blog post will focus exclusively on past elections. Rather than trying to predict the 2020 election with models, this week, I will simply look at trends from past elections. Specifically, I'd like to explore which states were swing states in 2016, which way they swung, how they have changed over time, and how 2016 battleground states swung.
 
 ### Swing States
 
@@ -56,6 +56,7 @@ In 1988, 1992, and 2008, the maps are almost completely blue, meaning that almos
 * **1992, George H.W. Bush vs. Bill Clinton**: In **[The Political Nor'easter of 1992: A Northeastern USA Critical Election?](http://search.proquest.com.ezp-prod1.hul.harvard.edu/docview/2204514794?accountid=11311)**, Tures notes that this was a critical election in which the Northeast became a Democratic stronghold. It would also appear that Clinton was more popular across the country compared to Dukakis.
 * **2008, John McCain vs. Barack Obama**: [Caraley](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/25655695) notes Obama's ability to win over voters in Republican strongholds such as North Carolina, Virginia, and Indiana. Coupled with strong support from Black Americans who showed up in stronger numebers, Obama was able to swing many states more Democratic.
 
+We can also see that there are not really any states that consistently don't swing from time to time. This means that although some states may be Democratic or Republican strongholds, their respective proportions nonetheless changing.
 
 <br>
 #### Battleground State Swings
