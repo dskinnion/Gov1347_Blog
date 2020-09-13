@@ -37,3 +37,9 @@ States that swung the most from 2012 to 2016:
 * **Michigan** with a swing of -0.0492 (*+R*). In what was one of the closer states in 2016, [Politico](https://www.politico.com/story/2016/12/michigan-hillary-clinton-trump-232547) blames poor Democratic campaign management, among many other factors, for Michigan's swing towards Trump.
 
 It is interesting to note that only one of these ten states swung more Democratic. This tells us that 1) Trump did a much better job of swinging voters who had voted for Obama and retaining voters who had voted for Romney; and 2) Clinton did a poor job of swinging voters who had voted for Romney and retaining voters who had voted for Obama.
+
+<br>
+### Modern Election Swings
+<br> 
+
+![Modern Election Swing Maps](../figures/PV_states_swing.png)
