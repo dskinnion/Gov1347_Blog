@@ -81,7 +81,7 @@ pop_swing_map_grid <- pop_state_swing %>%
   filter(year >= 1980)
 
 # Again, I used the same reasoning as above to opt
-# for white as a midtone rather than purple
+# for white as a mid tone rather than purple
 
 plot_usmap(data = pop_swing_map_grid, regions = "states", values = "swing", color = "black") +
   facet_wrap(facets = year ~.) + 
