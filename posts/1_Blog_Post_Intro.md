@@ -39,7 +39,19 @@ States that swung the most from 2012 to 2016:
 It is interesting to note that only one of these ten states swung more Democratic. This tells us that 1) Trump did a much better job of swinging voters who had voted for Obama and retaining voters who had voted for Romney; and 2) Clinton did a poor job of swinging voters who had voted for Romney and retaining voters who had voted for Obama.
 
 <br>
-### Modern Election Swings
+### Modern Election Swings (1980 to 2016)
 <br> 
 
 ![Modern Election Swing Maps](../figures/PV_states_swing.png)
+
+In 1980, 2000, and 2012, the maps are almost completely red, meaning that almost all of the 50 states during those years swung more Republican compared to the previous election.
+
+* **1980, Ronald Reagan vs. Jimmy Carter**: In *[Three Trends Over Eight Presidential Elections, 1980–2008: Toward the Emergence of a Democratic Majority Realignment?](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/25655695)*, Caraley states that in 1980, people had become much more likely to split their tickets, voting for the candidate rather than the party. Coupled with Reagan's popularity, this led to many states swinging more Republican.
+* **2000, George W. Bush vs. Al Gore**: Despite the infamous recount and controversy that Gore had actually won the popular vote, most states in 2000 actually swung more Republican. [Caraley](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/25655695) cites Gore's ineffective campaign as reason for Bush's flipping of 11 states which had voted Democratic in 1996.
+* **2012, Mitt Romney vs. Barack Obama**: In *[The decline in the white vote for Barack Obama in 2012: Racial attitudes or the economy?](https://doi.org/10.1016/j.electstud.2014.09.014)*, Weisberg notes that the economy led to a decline in his support from white voters in 2012.
+
+In 1988, 1992, and 2008, the maps are almost completely blue, meaning that almost all of the 50 states during those years swung more Democratic compared to the previous election.
+
+* **1988, George H.W. Bush vs. Michael Dukakis**: [Caraley](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/25655695) notes that Reagan won 1984 in a landslide election. The swing here may just be an artefact from the fact that 1984 was a landslide election for Reagan. 
+* **1992, George H.W. Bush vs. Bill Clinton**: In [The Political Nor'easter of 1992: A Northeastern USA Critical Election?](http://search.proquest.com.ezp-prod1.hul.harvard.edu/docview/2204514794?accountid=11311), Tures notes that this was a critical election in which the Northeast became a Democratic stronghold. It would also appear that Clinton was more popular across the country compared to Dukakis.
+* **2008, John McCain vs. Barack Obama**: [Caraley](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/25655695) notes Obama's ability to win over voters in Republican strongholds such as North Carolina, Virginia, and Indiana. Coupled with strong support from Black Americans who showed up in stronger numebers, Obama was able to swing many states more Democratic.
