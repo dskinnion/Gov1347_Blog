@@ -55,3 +55,14 @@ In 1988, 1992, and 2008, the maps are almost completely blue, meaning that almos
 * **1988, George H.W. Bush vs. Michael Dukakis**: [Caraley](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/25655695) notes that Reagan won 1984 in a landslide election. The swing here may just be an artefact from the fact that 1984 was a landslide election for Reagan. 
 * **1992, George H.W. Bush vs. Bill Clinton**: In **[The Political Nor'easter of 1992: A Northeastern USA Critical Election?](http://search.proquest.com.ezp-prod1.hul.harvard.edu/docview/2204514794?accountid=11311)**, Tures notes that this was a critical election in which the Northeast became a Democratic stronghold. It would also appear that Clinton was more popular across the country compared to Dukakis.
 * **2008, John McCain vs. Barack Obama**: [Caraley](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/25655695) notes Obama's ability to win over voters in Republican strongholds such as North Carolina, Virginia, and Indiana. Coupled with strong support from Black Americans who showed up in stronger numebers, Obama was able to swing many states more Democratic.
+
+
+<br>
+#### Battleground State Swings
+<br>
+
+![Battleground State Swings](../figures/PV_battleground_swing_2016.png)
+
+For the purposes of this post, I've defined "battleground states" as states whose Two-Party-Vote-Shares differ by no more than 5%. 10 states are thus defined as battleground states.
+
+In this graphic, the battleground states are listed by how close the 2016 Presidential Election was, with Michigan the closest. Out of the 10 battleground states, only one, Arizona, swung more Democratic. All of the rest swung more Republican. If these trends continue, Trump's lead in those battleground states will continue to grow. However, it is important to note that the 2016 states that swung more Republican are representative of both how many votes Trump gained compared to Romney, ***and*** how many votes Clinton lost compared to Obama. During the next election, we will see how many votes Trump has retained ***and*** how many votes Biden receives compared to Clinton. If Biden can win back ground lost by Clinton, then these trends may be reversed.
