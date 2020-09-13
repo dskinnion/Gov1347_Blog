@@ -43,7 +43,7 @@ ggplot(pop_swing_map, aes(long, lat, group = group)) +
     ) +
   theme_void() +
   labs(title = "Presidential Election Vote Swing from 2012 - 2016") +
-  theme(plot.title = element_text(hjust = 0.5,))
+  theme(plot.title = element_text(hjust = 0.5))
 
 ggsave("figures/PV_states_swing_2016.png", height = 3, width = 6)
 
@@ -66,3 +66,23 @@ plot_usmap(data = pop_swing_map_grid, regions = "states", values = "swing", colo
         aspect.ratio=1)
 
 ggsave("figures/PV_states_swing.png", height = 6, width = 9)
+
+pop_state_swing_wm <- pop_state_swing %>%
+  mutate(win_margin = (D_pv2p - R_pv2p) / 100) %>%
+  mutate(abs_win_margin = abs(win_margin)) %>%
+  mutate(swing_party = ifelse(swing > 0, "D", "R")) %>%
+  mutate(Winner = ifelse(D > R, "D", "R"))
+
+pop_state_swing_wm %>%
+  filter(year == 2016) %>%
+  arrange(desc(abs_win_margin)) %>%
+  filter(abs_win_margin <= 0.05) %>%
+  ggplot(aes(x = fct_reorder(state, -abs_win_margin), y = swing, fill = swing_party)) +
+    scale_fill_manual(values = c("blue", "red")) +
+    coord_flip() +
+    geom_col() +
+    labs(x = "", y = "Vote Swing", title = "2016 Presidential Election Vote Swings \n in Battleground States") +
+    theme(legend.position = "none") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+    
