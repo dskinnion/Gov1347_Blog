@@ -68,3 +68,6 @@ For the purposes of this post, I've defined "battleground states" as states whos
 In this graphic, the battleground states are listed by how close the 2016 Presidential Election was, with Michigan the closest. Out of the 10 battleground states, only one, Arizona, swung more Democratic. All of the rest swung more Republican. If these trends continue, Trump's lead in those battleground states will continue to grow. However, if Biden can win back ground lost by Clinton, then these trends may be reversed.
 
 Most of these battleground states have swung more Republican in 2012 and 2016, but some have also swung more Democratic in 2000-2008. If Biden can build on the trends that pushed states to swing more towards Obama, he may stand a chance. If Trump continues to swing states more Republican, he will further strengthen his base.
+
+###### Data Sources:
+Data is from state-level presidential election results, 1948-2016.
