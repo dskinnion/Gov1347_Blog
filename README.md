@@ -10,4 +10,6 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 
 ## Posts:
 
-### [Introduction](posts/1_Blog_Post_Intro.html)
+### [Introduction](posts/1_Blog_Post_Intro.md)
+
+### [Economy](posts/2_Blog_Post_Econ.md)
