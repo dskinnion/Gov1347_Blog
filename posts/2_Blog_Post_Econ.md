@@ -16,6 +16,8 @@ Here I've focused on national economic statistics. Due to the research by [Achen
 
 ![Q2 GDP Growth Model](../figures/Econ_GDPQ2_model.png)
 
+In this model, we predict the incumbent party's two party vote share from the 2nd Quarter GDP Growth during the election year.
+
 ### Q2 RDI Growth Model:
 
 ![Q2 RDI Growth Model](../figures/Econ_RDIQ2_model.png)
