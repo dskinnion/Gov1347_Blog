@@ -53,10 +53,10 @@ pop_and_econ_Q1_Q3 %>%
   filter(incumbent_party == 'TRUE') %>%
   ggplot(aes(x = GDP_growth_Q2, y = pv2p, color = incumbent_2, shape = incumbent_2)) +
     geom_point() +
-    geom_smooth(method = "lm", 
+    geom_smooth(method = "glm",
+                method.args = list(family = "quasibinomial"),
                 se = FALSE, 
-                formula = y ~ x,
-                method.args = list(family = "quasibinomial")) +
+                formula = y ~ x) +
     labs(x = "GDP Growth in Q2 of Election Year",
          y = "Two Party Vote Share",
          title = " 2nd Quarter GDP Growth's effect on Two Party \n Vote Share for Incumbent Party",
