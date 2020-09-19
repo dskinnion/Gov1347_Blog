@@ -23,7 +23,7 @@ In this model, we predict the incumbent party's two party vote share from the GD
 
 Because there are few observations, rather than training and testing the model, I am going to instead evaluate it by its R-Squared coefficient: 0.4916. This is a moderate R-Squared value, indicating that our model is not great, but also not awful.
 
-Since the 2020 Q2 GDP Growth is approximately -10%, which is far outside the range of our model's values (-2.5% to 2.5%), we should be extremely cautious of the predicted value of the two party vote share. With a Q2 GDP Growth of -10%, the model predicts an Incumbent President to only receive *less than 20%* of the two party vote share (indicated by the red crosshairs). This is extremely low. However, because we had to extrapolate from our model, this is very imprecise, and should not be used as a solid prediction.
+Since the 2020 Q2 GDP Growth is approximately -10%, which is far outside the range of our model's values (-2.5% to 2.5%), we should be extremely cautious of the predicted value of the two party vote share. With a Q2 GDP Growth of -10%, the model predicts Trump will only receive *less than 20%* of the two party vote share (indicated by the red crosshairs). This is extremely low. However, because we had to extrapolate from our model, this is very imprecise, and should not be used as a solid prediction.
 
 #### Q2 RDI Growth Model:
 
@@ -35,7 +35,7 @@ In this model, we predict the incumbent party's two vote share from the RDI Grow
 
 Again, because of the limited number of observations, I am going to evaluate this model by its R-Squared value: 0.5778. This is also a moderate R-Squared value, again indicating that our model is not great, but not awful.
 
-Since the 2020 Q2 RDI Growth is approximately 0.1%, which is far outside the range of our model's values (-0.01% to 0.027%), we should again be extremely cautious of the predicted value of the two party vote share. With a Q2 RDI Growth of ~0.1%, the model predicts an Incumbent President to receive *almost 100%* of the two party vote share (indicated by the red crosshairs). This is extremely high. Again, because we had to extrapolate from our model, this is also imprecise, and should not be used as a solid prediction. 
+Since the 2020 Q2 RDI Growth is approximately 0.1%, which is far outside the range of our model's values (-0.01% to 0.027%), we should again be extremely cautious of the predicted value of the two party vote share. With a Q2 RDI Growth of ~0.1%, the model predicts Trump will receive *almost 100%* of the two party vote share (indicated by the red crosshairs). This is extremely high. Again, because we had to extrapolate from our model, this is also imprecise, and should not be used as a solid prediction. 
 
 #### Why Should We Be Cautious?
 
