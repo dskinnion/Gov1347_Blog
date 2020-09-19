@@ -13,7 +13,7 @@ The guiding question for this blog post is whether or not the effect of the econ
 
 Here I've focused on national economic statistics. Due to the research by [Achen and Bartels](https://muse-jhu-edu.ezp-prod1.hul.harvard.edu/chapter/2341029), I've selected 2nd Quarter Growth in *GDP* (Gross Domestic Product -- the total value of goods and services in the time period) and *RDI* (Read Disposable Income). The research suggests that voters TODO TODO TODO TODO
 
-### Q2 GDP Growth Model:
+#### Q2 GDP Growth Model:
 
 ![Q2 GDP Growth Model](../figures/Econ_GDPQ2_model.png)
 
@@ -21,7 +21,7 @@ Here I've focused on national economic statistics. Due to the research by [Achen
 
 In this model, we predict the incumbent party's two party vote share from the GDP Growth during Q2 of the election year. The data is split into two categories: Incumbent President and Prospective Same-Party Heir. As we can see from the model, the Incumbent Presidents' Two Party Vote Share is more strongly affected by Q2 GDP Growth compared to the Prospective Same-Party Heirs' Two Party Vote Share.
 
-### Q2 RDI Growth Model:
+#### Q2 RDI Growth Model:
 
 ![Q2 RDI Growth Model](../figures/Econ_RDIQ2_model.png)
 

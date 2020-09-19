@@ -124,7 +124,7 @@ ggplot(pop_and_econ_Q1_Q4, aes(x = GDP_growth_Q2,
   labs(x = "GDP Growth in Q2 of Election Year",
        y = "Two Party Vote Share",
        title = " 2nd Quarter GDP Growth's effect on Two Party \n Vote Share for Incumbent Party",
-       subtitle = "GDP Growth more strongly helps Incumbent Presidents \n compared to Prospective Same-Party Heirs") +
+       subtitle = "Incumbent Presidents More Strongly Affected by the Economy") +
   scale_color_manual(values = c('green', 'purple')) +
   theme_classic() +
   theme(legend.title = element_blank()) +
@@ -148,7 +148,7 @@ ggplot(pop_and_econ_Q1_Q4, aes(x = RDI_growth_Q2,
   labs(x = "RDI Growth in Q2 of Election Year",
        y = "Two Party Vote Share",
        title = " 2nd Quarter RDI Growth's effect on Two Party \n Vote Share for Incumbent Party",
-       subtitle = "") +
+       subtitle = "Incumbent Presidents More Strongly Affected by the Economy") +
   scale_color_manual(values = c('green', 'purple')) +
   theme_classic() +
   theme(legend.title = element_blank()) +
