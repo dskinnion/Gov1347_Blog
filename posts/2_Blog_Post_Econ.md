@@ -37,6 +37,15 @@ Again, because of the limited number of observations, I am going to evaluate thi
 
 Since the 2020 Q2 RDI Growth is approximately 0.1%, which is far outside the range of our model's values (-0.01% to 0.027%), we should again be extremely cautious of the predicted value of the two party vote share. With a Q2 RDI Growth of ~0.1%, the model predicts Trump will receive *almost 100%* of the two party vote share (indicated by the red crosshairs). This is extremely high. Again, because we had to extrapolate from our model, this is also imprecise, and should not be used as a solid prediction. 
 
+#### Residuals
+
+We should then wonder if the predictive powers of the models vary significantly over time. To check this, we plot the residuals of our data over time.
+
+![GDP Growth Residuals](../figures/Econ_GDPQ2_residuals.png)
+![RDI Growth Residuals](../figures/Econ_RDIQ2_residuals.png)
+
+Since there is no clear pattern over time, then our models' predictive powers do not significantly vary over time. 
+
 #### Why Should We Be Cautious?
 
 2020 is not a typical year by any means. Because of the Coronavirus Pandemic, statistics of our economy are extremely different compared to prior election years. These extreme statistics are not within the range of our models, and thus, our models' predictive powers for 2020 are not going to be strong. As [The Economist](https://projects.economist.com/us-2020-forecast/president/how-this-works) notes, "History provides no guide as to how voters will respond to these extreme and potentially fast-reversing economic conditions."

@@ -96,6 +96,10 @@ pop_and_econ_Q1_Q4$GDPQ2_preds_pv2p = GDPQ2_preds_pv2p
 RDIQ2_preds_pv2p <- predict(RDIQ2_model, newdata = pop_and_econ_Q1_Q4)
 pop_and_econ_Q1_Q4$RDIQ2_preds_pv2p = RDIQ2_preds_pv2p
 
+# add residuals to data frame
+pop_and_econ_Q1_Q4 <- pop_and_econ_Q1_Q4 %>%
+  mutate(GDPQ2_residuals = pv2p - GDPQ2_preds_pv2p) %>%
+  mutate(RDIQ2_residuals = pv2p - RDIQ2_preds_pv2p)
 
 # 2020 prediction as separate data frame
 
@@ -157,3 +161,28 @@ ggplot(pop_and_econ_Q1_Q4, aes(x = RDI_growth_Q2,
 
 ggsave("figures/Econ_RDIQ2_model.png", height = 3, width = 6)
 
+pop_and_econ_Q1_Q4 %>%
+  ggplot(aes(x = year, y = GDPQ2_residuals)) +
+    geom_point() +
+    labs(x = "Year", 
+         y = "Residual", 
+         title = "Residuals for Q2 GDP Growth Model",
+         subtitle = "No Discernable Pattern Over Time") +
+    theme_classic() +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(plot.subtitle = element_text(hjust = 0.5))
+
+ggsave("figures/Econ_GDPQ2_residuals.png", height = 3, width = 4)
+
+pop_and_econ_Q1_Q4 %>%
+  ggplot(aes(x = year, y = RDIQ2_residuals)) +
+    geom_point() +
+    labs(x = "Year", 
+         y = "Residual", 
+         title = "Residuals for Q2 RDI Growth Model",
+         subtitle = "No Discernable Pattern Over Time") +
+    theme_classic() +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(plot.subtitle = element_text(hjust = 0.5))
+
+ggsave("figures/Econ_RDIQ2_residuals.png", height = 3, width = 4)
