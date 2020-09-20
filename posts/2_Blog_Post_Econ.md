@@ -15,9 +15,9 @@ First we want to investigate the effect of the economy on elections. We also wan
 Here I've focused on national economic statistics. Due to the research by [Achen and Bartels](https://muse-jhu-edu.ezp-prod1.hul.harvard.edu/chapter/2341029), I've selected 2nd Quarter Growth in *GDP* (Gross Domestic Product -- the total value of goods and services in the time period) and *RDI* (Read Disposable Income). 
 
 These assume that voting behavior with regards to the economy is:
-* *Indirect*: Voters look generally at the economy, rather than at specific, direct effects of economic policies. GDP and RDI are good variables for broad generalizations of the economy. This means that economy may be a proxy for other variables of importance.
-* *Partially Informed*: Voters do not understand everything about the economy and do not have a perfectly rational view of the past to inform their decisions. This is why Q2 of the election year is only referenced, as myopic retrospection indicates that more recent developments are more likely to influence decisions. [Healy and Lenz](https://www.jstor.org/stable/24363467) explain that this phenomenon is largely psychological, as most experiences are judged by their peak and their end.
-* *Sociotropic*: Voters vote with others in mind, not just their own economic conditions. Ideally, we could have data on an individual level, where we could see whether each voter lost income, lost their job, etc. However, because we have aggregate data, we must assume that voters are sociotropic on the national (or state and local) level, depending on the data at hand. Since this model uses national statistics, we'll assume voters are sociotropic on the national level.
+* *Indirect*: **Voters look generally at the economy**, rather than at specific, direct effects of economic policies. GDP and RDI are good variables for broad generalizations of the economy. This means that economy may be a proxy for other variables of importance.
+* *Partially Informed*: **Voters do not understand everything about the economy and do not have a perfectly rational view of the past to inform their decisions**. This is why Q2 of the election year is only referenced, as myopic retrospection indicates that more recent developments are more likely to influence decisions. [Healy and Lenz](https://www.jstor.org/stable/24363467) explain that this phenomenon is largely psychological, as most experiences are judged by their peak and their end.
+* *Sociotropic*: Voters vote with others in mind, not just their own economic conditions. Ideally, we could have data on an individual level, where we could see whether each voter lost income, lost their job, etc. (In that case, we may assume voters are Individual). **However, because we use aggregate data on the national level for the model, we must assume that voters are sociotropic on the national level**.
 
 Note that if we were to change our model of voting behavior, we would select different variables, and thus our entire models would be different.
 
@@ -31,7 +31,7 @@ In this model, we predict the incumbent party's two party vote share from the GD
 
 Because there are few observations, rather than training and testing the model, I am going to instead evaluate it by its R-Squared coefficient: 0.4916. This is a moderate R-Squared value, indicating that our model is not great, but also not awful.
 
-Since the 2020 Q2 GDP Growth is approximately -10%, which is far outside the range of our model's values (-2.5% to 2.5%), we should be extremely cautious of the predicted value of the two party vote share. With a Q2 GDP Growth of -10%, the model predicts Trump will only receive *less than 20%* of the two party vote share (indicated by the red crosshairs). This is extremely low. However, because we had to extrapolate from our model, this is very imprecise, and should not be used as a solid prediction. 
+**Since the 2020 Q2 GDP Growth is approximately -10%, which is far outside the range of our model's values (-2.5% to 2.5%), we should be extremely cautious of the predicted value of the two party vote share**. With a Q2 GDP Growth of -10%, the model predicts Trump will only receive *less than 20%* of the two party vote share (indicated by the red crosshairs). This is extremely low. However, because we had to extrapolate from our model, this is very imprecise, and should not be used as a solid prediction. 
 
 #### Q2 RDI Growth Model:
 
@@ -43,7 +43,7 @@ In this model, we predict the incumbent party's two vote share from the RDI Grow
 
 Again, because of the limited number of observations, I am going to evaluate this model by its R-Squared value: 0.5778. This is also a moderate R-Squared value, again indicating that our model is not great, but not awful.
 
-Since the 2020 Q2 RDI Growth is approximately 0.1%, which is far outside the range of our model's values (-0.01% to 0.027%), we should again be extremely cautious of the predicted value of the two party vote share. With a Q2 RDI Growth of ~0.1%, the model predicts Trump will receive *almost 100%* of the two party vote share (indicated by the red crosshairs). This is extremely high. Again, because we had to extrapolate from our model, this is also imprecise, and should not be used as a solid prediction.
+**Since the 2020 Q2 RDI Growth is approximately 0.1%, which is far outside the range of our model's values (-0.01% to 0.027%), we should again be extremely cautious of the predicted value of the two party vote share**. With a Q2 RDI Growth of ~0.1%, the model predicts Trump will receive *almost 100%* of the two party vote share (indicated by the red crosshairs). This is extremely high. Again, because we had to extrapolate from our model, this is also imprecise, and should not be used as a solid prediction.
 
 #### Residuals
 
