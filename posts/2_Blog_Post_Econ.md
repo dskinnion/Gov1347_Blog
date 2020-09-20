@@ -81,7 +81,9 @@ We should also check to see if the predictive powers of the models vary signific
 
 2020 is not a typical year by any means. Because of the Coronavirus Pandemic, statistics of our economy are extremely different compared to prior election years. These extreme statistics are not within the range of our models, and thus, our models' predictive powers for 2020 are not going to be strong. As [The Economist](https://projects.economist.com/us-2020-forecast/president/how-this-works) notes, "History provides no guide as to how voters will respond to these extreme and potentially fast-reversing economic conditions." 
 
-Even though the economy has been, and probably still remains, a key factor in voters' retrospective decision-making processes, this year is unlike any other in modern election history. As a result, I will remain cautious about using variables for which the 2020 election is a huge outlier.
+Even though the economy has been, and probably still remains, a key factor in voters' retrospective decision-making processes, this year is unlike any other in modern election history. As a result, I will remain cautious about using national economic variables, for which the 2020 election is a huge outlier.
+
+All in all, because of the extreme economic effects of the Coronavirus Pandemic, the economy does not seem to predict the 2020 election well on a national level.
 
 ###### Data Sources:
 GDP data is from the US Bureau of Economic Analysis and the Department of Commerce
