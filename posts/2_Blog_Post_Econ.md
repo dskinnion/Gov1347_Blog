@@ -46,7 +46,7 @@ Since the 2020 Q2 RDI Growth is approximately 0.1%, which is far outside the ran
 
 #### Residuals
 
-We should then wonder if the predictive powers of the models vary significantly over time. To check this, we plot the residuals of our data over time. If there is a clear pattern, then there is evidence to suggest that the models are better predictors for some time periods compared to others.
+We should also check to see if the predictive powers of the models vary significantly over time. To check this, we plot the residuals of our data over time. If there is a clear pattern, then there is evidence to suggest that the models are better predictors for some time periods compared to others.
 
 ![Residuals Plot](../figures/Econ_residuals.png)
 
