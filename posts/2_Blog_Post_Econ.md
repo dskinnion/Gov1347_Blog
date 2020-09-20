@@ -27,11 +27,17 @@ Note that if we were to change our model of voting behavior, we would select dif
 
 **This model is unhelpful for predicting the 2020 election due to extreme extrapolation.**
 
-In this model, we predict the incumbent party's two party vote share from the GDP Growth during Q2 of the election year. The data is split into two categories: Incumbent President and Prospective Same-Party Heir. As we can see from the model, the Incumbent Presidents' Two Party Vote Share is more strongly affected by Q2 GDP Growth compared to the Prospective Same-Party Heirs' Two Party Vote Share. While Q2 GDP Growth is positively associated with the incumbent party two party vote share, there is a stronger effect for incumbent presidents compared to prospective same-party heirs. 
+**Incumbent presidents are more strongly affected by the economy compared to prospective same-party heirs**.
 
+In this model, we predict the incumbent party's two party vote share from the GDP Growth during Q2 of the election year. The data is split into two categories: Incumbent President and Prospective Same-Party Heir. As we can see from the model, the Incumbent Presidents' Two Party Vote Share is more strongly affected by Q2 GDP Growth compared to the Prospective Same-Party Heirs' Two Party Vote Share. While Q2 GDP Growth is positively associated with the incumbent party two party vote share, there is a stronger effect for incumbent presidents (coef. = 0.03385) compared to prospective same-party heirs (coef. = 0.01197). So, for every 1% increase in Q2 GDP Growth, the model predicts a 3.385% increase in two party vote share for an incumbent president, but only a 1.197% increase in two party vote share for a prospective same-party heir.
+
+Incumbent President:
 ```
-Y = (0.03385 - 0.02188)X + 0.50540
-Y = 0.03385X + 0.50540
+(Two Party Vote Share) = (0.03385 - 0.02188)(Q2 GDP Growth) + 0.50540
+```
+Prospective Same-Party Heir:
+```
+(Two Party Vote Share) = 0.03385(Q2 GDP Growth) + 0.50540
 ```
 
 Because there are few observations, rather than training and testing the model, I am going to instead evaluate it by its R-Squared coefficient: 0.4916. This is a moderate R-Squared value, indicating that our model is not great, but also not awful.
@@ -44,7 +50,16 @@ Because there are few observations, rather than training and testing the model, 
 
 **This model is unhelpful for predicting the 2020 election due to extreme extrapolation.**
 
-In this model, we predict the incumbent party's two vote share from the RDI Growth during Q2 of the election year. The data is again split into the same two categories of Incumbent President and Prospective Same-Party Heir. This model actually predicts that Prospective Same-Party Heirs are *hurt* by gains in RDI during Q2 of the election year, which seems counterintuitive. This inaccuracy is likely due to the fact that we only have data on RDI for 6 elections with Prospective Same-Party Heirs. 
+In this model, we predict the incumbent party's two vote share from the RDI Growth during Q2 of the election year. The data is again split into the same two categories of Incumbent President and Prospective Same-Party Heir. This model actually predicts that Prospective Same-Party Heirs are *hurt* by gains in RDI during Q2 of the election year, which seems counterintuitive. This inaccuracy is likely due to the fact that we only have data on RDI for 6 elections with Prospective Same-Party Heirs. Specifically, for every .01% increase in Q2 RDI Growth, the model predicts a 5.0068% increase in two party vote share for an incumbent president, compared to a 1.8903% decrease in two party vote share for a prospective same-party heir.
+
+Incumbent President:
+```
+(Two Party Vote Share) = (5.00680-6.89717)(Q2 RDI Growth) + 0.48333
+```
+Prospective Same-Party Heir:
+```
+(Two Party Vote Share) = 5.00680(Q2 RDI Growth) + 0.48333
+```
 
 Again, because of the limited number of observations, I am going to evaluate this model by its R-Squared value: 0.5778. This is also a moderate R-Squared value, again indicating that our model is not great, but not awful.
 
@@ -56,7 +71,7 @@ We should also check to see if the predictive powers of the models vary signific
 
 ![Residuals Plot](../figures/Econ_residuals.png)
 
-Since there is no clear pattern over time, then our models' predictive powers do not significantly vary over time. 
+**Since there is no clear pattern over time, then our models' predictive powers do not significantly vary over time**.
 
 #### Why Should We Be Cautious?
 
