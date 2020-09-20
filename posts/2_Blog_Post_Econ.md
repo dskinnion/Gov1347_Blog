@@ -6,12 +6,19 @@
 
 ### Background
 
-The idea that voters use past information to inform their voting decisions is known as the **retrospective theory**. As posited in [*Democracy for Realists*](https://muse-jhu-edu.ezp-prod1.hul.harvard.edu/chapter/2341025) by Christopher Achen and Larry Bartels, voters may use economic information to inform their voting decisions. The idea is nothing new; leaders have known for centuries that the economy is a pressing matter to citizens. [Achen and Bartels](https://muse-jhu-edu.ezp-prod1.hul.harvard.edu/chapter/2341029) introduced their model to explain the incumbent party's popular vote margin by using the *Q14-Q15* (14th Quarter - 15th Quarter of the President's term) growth in *real disposable income* per capita (average amount of income a person takes home after taxes), because this statistic usually accounts for many other economic factors, such as *inflation*, *taxes*, and *unemployment*. There is significant evidence to suggest that these short-term growths late in the Presidential term have a positive impact on the incumbent party's margin of the popular vote. 
-First we want to investigate the effect of the economy on elections. We also want to see whether or not the effect of the economy is stronger for incumbent presidents compared to prospective same-party heirs (those of the same party as the outgoing president -- e.g. John McCain in 2008 and Hillary Clinton in 2016).
+The idea that voters use past information to inform their future voting decisions is known as the **retrospective theory**. As posited in [*Democracy for Realists*](https://muse-jhu-edu.ezp-prod1.hul.harvard.edu/chapter/2341025) by Christopher Achen and Larry Bartels, voters may use economic information to inform their voting decisions. The idea is nothing new; leaders have known for centuries that the economy is a pressing matter to citizens. [Achen and Bartels](https://muse-jhu-edu.ezp-prod1.hul.harvard.edu/chapter/2341029) introduced their model to explain the incumbent party's popular vote margin by using the *Q14-Q15* (14th Quarter - 15th Quarter of the President's term) growth in *real disposable income* per capita (average amount of income a person takes home after taxes), because this statistic usually accounts for many other economic factors, such as *inflation*, *taxes*, and *unemployment*. There is significant evidence to suggest that these short-term growths late in the Presidential term have a positive impact on the incumbent party's margin of the popular vote. 
+First we want to investigate the effect of the economy on elections. We also want to see whether or not the effect of the economy is stronger for incumbent presidents compared to prospective same-party heirs (those of the same party as the outgoing president -- e.g. John McCain in 2008 and Hillary Clinton in 2016). Finally, we'll explore whether or not the models' predictive power changes over time.
 
 ### Economic Factors
 
-Here I've focused on national economic statistics. Due to the research by [Achen and Bartels](https://muse-jhu-edu.ezp-prod1.hul.harvard.edu/chapter/2341029), I've selected 2nd Quarter Growth in *GDP* (Gross Domestic Product -- the total value of goods and services in the time period) and *RDI* (Read Disposable Income). The research suggests that voters TODO TODO TODO TODO
+Here I've focused on national economic statistics. Due to the research by [Achen and Bartels](https://muse-jhu-edu.ezp-prod1.hul.harvard.edu/chapter/2341029), I've selected 2nd Quarter Growth in *GDP* (Gross Domestic Product -- the total value of goods and services in the time period) and *RDI* (Read Disposable Income). 
+
+These assume that voting behavior with regards to the economy is:
+* *Indirect*: Voters look generally at the economy, rather than at specific, direct effects of economic policies. GDP and RDI are good variables for broad generalizations of the economy. This means that economy may be a proxy for other variables of importance.
+* *Partially Informed*: Voters do not understand everything about the economy and do not have a perfectly rational view of the past to inform their decisions. This is why Q2 of the election year is only referenced, as myopic retrospection indicates that more recent developments are more likely to influence decisions. [Healy and Lenz](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/24363467?seq=1#metadata_info_tab_contents) explain that this phenomenon is largely psychological, as most experiences are judged by their peak and their end.
+* *Sociotropic*: Voters vote with others in mind, not just their own economic conditions. Ideally, we could have data on an individual level, where we could see whether each voter lost income, lost their job, etc. However, because we have aggregate data, we must assume that voters are sociotropic on the national (or state and local) level, depending on the data at hand. Since this model uses national statistics, we'll assume voters are sociotropic on the national level.
+
+Note that if we were to change our model of voting behavior, we would select different variables, and thus our entire models would be different.
 
 #### Q2 GDP Growth Model:
 
@@ -39,7 +46,7 @@ Since the 2020 Q2 RDI Growth is approximately 0.1%, which is far outside the ran
 
 #### Residuals
 
-We should then wonder if the predictive powers of the models vary significantly over time. To check this, we plot the residuals of our data over time.
+We should then wonder if the predictive powers of the models vary significantly over time. To check this, we plot the residuals of our data over time. If there is a clear pattern, then there is evidence to suggest that the models are better predictors for some time periods compared to others.
 
 ![Residuals Plot](../figures/Econ_residuals.png)
 
