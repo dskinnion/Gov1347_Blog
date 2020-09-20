@@ -55,11 +55,11 @@ In this model, we predict the incumbent party's two vote share from the RDI Grow
 
 Incumbent President:
 ```
-(Predicted Two Party Vote Share) = 5.00680(Q2 RDI Growth) + 0.48333
+(Predicted Two Party Vote Share) = 5.00680(Q2 RDI Growth %) + 0.48333
 ```
 Prospective Same-Party Heir:
 ```
-(Predicted Two Party Vote Share) = (5.00680-6.89717)(Q2 RDI Growth) + 0.48333
+(Predicted Two Party Vote Share) = (5.00680-6.89717)(Q2 RDI Growth %) + 0.48333
 ```
 
 
