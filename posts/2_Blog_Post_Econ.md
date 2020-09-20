@@ -41,8 +41,7 @@ Since the 2020 Q2 RDI Growth is approximately 0.1%, which is far outside the ran
 
 We should then wonder if the predictive powers of the models vary significantly over time. To check this, we plot the residuals of our data over time.
 
-![GDP Growth Residuals](../figures/Econ_GDPQ2_residuals.png)
-![RDI Growth Residuals](../figures/Econ_RDIQ2_residuals.png)
+![Residuals Plot](../figures/Econ_residuals.png)
 
 Since there is no clear pattern over time, then our models' predictive powers do not significantly vary over time. 
 

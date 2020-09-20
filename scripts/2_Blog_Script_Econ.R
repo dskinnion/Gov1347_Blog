@@ -1,8 +1,7 @@
 # load in libraries 
 
 library(tidyverse)
-library(maps)
-library(usmap)
+library(gridExtra)
 library(rstanarm)
 
 # load data
@@ -161,7 +160,7 @@ ggplot(pop_and_econ_Q1_Q4, aes(x = RDI_growth_Q2,
 
 ggsave("figures/Econ_RDIQ2_model.png", height = 3, width = 6)
 
-pop_and_econ_Q1_Q4 %>%
+GDP_residuals <- pop_and_econ_Q1_Q4 %>%
   ggplot(aes(x = year, y = GDPQ2_residuals)) +
     geom_point() +
     labs(x = "Year", 
@@ -172,9 +171,7 @@ pop_and_econ_Q1_Q4 %>%
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5))
 
-ggsave("figures/Econ_GDPQ2_residuals.png", height = 3, width = 4)
-
-pop_and_econ_Q1_Q4 %>%
+RDI_residuals <- pop_and_econ_Q1_Q4 %>%
   ggplot(aes(x = year, y = RDIQ2_residuals)) +
     geom_point() +
     labs(x = "Year", 
@@ -185,4 +182,6 @@ pop_and_econ_Q1_Q4 %>%
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5))
 
-ggsave("figures/Econ_RDIQ2_residuals.png", height = 3, width = 4)
+p <- grid.arrange(GDP_residuals, RDI_residuals)
+
+ggsave(plot = p, "figures/Econ_residuals.png", height = 3, width = 5)
