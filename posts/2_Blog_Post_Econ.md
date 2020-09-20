@@ -47,6 +47,9 @@ Since there is no clear pattern over time, then our models' predictive powers do
 
 #### Why Should We Be Cautious?
 
-2020 is not a typical year by any means. Because of the Coronavirus Pandemic, statistics of our economy are extremely different compared to prior election years. These extreme statistics are not within the range of our models, and thus, our models' predictive powers for 2020 are not going to be strong. As [The Economist](https://projects.economist.com/us-2020-forecast/president/how-this-works) notes, "History provides no guide as to how voters will respond to these extreme and potentially fast-reversing economic conditions."
+**The economy may not be the best for helping us to predict the 2020 election.**
 
+2020 is not a typical year by any means. Because of the Coronavirus Pandemic, statistics of our economy are extremely different compared to prior election years. These extreme statistics are not within the range of our models, and thus, our models' predictive powers for 2020 are not going to be strong. As [The Economist](https://projects.economist.com/us-2020-forecast/president/how-this-works) notes, "History provides no guide as to how voters will respond to these extreme and potentially fast-reversing economic conditions." 
+
+Even though the economy has been, and probably still remains, a key factor in voters' retrospective decision-making processes, this year is unlike any other in modern election history. As a result, I will remain cautious about using variables for which the 2020 election is a huge outlier.
 
