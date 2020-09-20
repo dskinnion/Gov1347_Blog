@@ -90,11 +90,11 @@ RDIQ2_model <-
 
 # Put predictions into the data frame
 
-GDPQ2_preds <- predict(GDPQ2_model, newdata = pop_and_econ_Q1_Q4)
-pop_and_econ_Q1_Q4$GDPQ2_preds = GDPQ2_preds
+GDPQ2_preds_pv2p <- predict(GDPQ2_model, newdata = pop_and_econ_Q1_Q4)
+pop_and_econ_Q1_Q4$GDPQ2_preds_pv2p = GDPQ2_preds_pv2p
 
-RDIQ2_preds <- predict(RDIQ2_model, newdata = pop_and_econ_Q1_Q4)
-pop_and_econ_Q1_Q4$RDIQ2_preds = RDIQ2_preds
+RDIQ2_preds_pv2p <- predict(RDIQ2_model, newdata = pop_and_econ_Q1_Q4)
+pop_and_econ_Q1_Q4$RDIQ2_preds_pv2p = RDIQ2_preds_pv2p
 
 
 # 2020 prediction as separate data frame
@@ -114,7 +114,7 @@ ggplot(pop_and_econ_Q1_Q4, aes(x = GDP_growth_Q2,
                                y = pv2p,
                                color = incumbent_2, 
                                shape = incumbent_2)) +
-  geom_point(data = GDPQ2_prediction, aes(x = GDP_growth_Q2, y = GDPQ2_preds),
+  geom_point(data = GDPQ2_prediction, aes(x = GDP_growth_Q2, y = GDPQ2_preds_pv2p),
              color = 'red', shape = 13, size = 5) +
   geom_point(size = 2) +
   geom_smooth(formula = y~x,
@@ -138,7 +138,7 @@ ggplot(pop_and_econ_Q1_Q4, aes(x = RDI_growth_Q2,
                                y = pv2p,
                                color = incumbent_2, 
                                shape = incumbent_2)) +
-  geom_point(data = RDIQ2_prediction, aes(x = RDI_growth_Q2, y = RDIQ2_preds),
+  geom_point(data = RDIQ2_prediction, aes(x = RDI_growth_Q2, y = RDIQ2_preds_pv2p),
              color = 'red', shape = 13, size = 5) +
   geom_point(size = 2) +
   geom_smooth(formula = y~x,
