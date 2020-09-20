@@ -27,7 +27,12 @@ Note that if we were to change our model of voting behavior, we would select dif
 
 **This model is unhelpful for predicting the 2020 election due to extreme extrapolation.**
 
-In this model, we predict the incumbent party's two party vote share from the GDP Growth during Q2 of the election year. The data is split into two categories: Incumbent President and Prospective Same-Party Heir. As we can see from the model, the Incumbent Presidents' Two Party Vote Share is more strongly affected by Q2 GDP Growth compared to the Prospective Same-Party Heirs' Two Party Vote Share.
+In this model, we predict the incumbent party's two party vote share from the GDP Growth during Q2 of the election year. The data is split into two categories: Incumbent President and Prospective Same-Party Heir. As we can see from the model, the Incumbent Presidents' Two Party Vote Share is more strongly affected by Q2 GDP Growth compared to the Prospective Same-Party Heirs' Two Party Vote Share. While Q2 GDP Growth is positively associated with the incumbent party two party vote share, there is a stronger effect for incumbent presidents compared to prospective same-party heirs. 
+
+```
+Y = (0.03385 - 0.02188)X + 0.50540
+Y = 0.03385X + 0.50540
+```
 
 Because there are few observations, rather than training and testing the model, I am going to instead evaluate it by its R-Squared coefficient: 0.4916. This is a moderate R-Squared value, indicating that our model is not great, but also not awful.
 
