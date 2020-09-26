@@ -62,14 +62,46 @@ polls_state <- inner_join(poll_avg_state_wider, pop_vote_state_natl, by = c("yea
          dem_poll_natl_dif = dem_poll - dem_natl_actual,
          rep_poll_natl_dif = rep_poll - rep_natl_actual)
 
-# EDA
+# Make a state model df to find good weighting averages for two prior years
+# to predict this year
 
-pop_vote_state_natl %>%
-  filter(state == "California") %>%
-  ggplot(aes(x = year, y = dem_state_natl_dif)) +
-    geom_point()
+state_models <- tibble(A = double(),
+                       B = double(),
+                       error = double(),
+                       state = as.character())
 
-pop_vote_state_natl %>%
-  filter(state == "Massachusetts") %>%
-  ggplot(aes(x = year, y = dem_state_natl_dif)) +
-    geom_point() 
+datalist = list()
+
+make_state_model_df <- function(statename){
+  
+  state_df <- pop_vote_state_natl %>%
+    filter(state == statename)
+  statename = statename
+  
+  for (i in 0:1000)
+  {
+    a = i / 1000
+    b = 1 - a
+    for (j in 3:length(state_df$dem_state_natl_dif))
+    {
+      pred = a * state_df$dem_state_natl_dif[j-2] + b * state_df$dem_state_natl_dif[j-1]
+      error = pred - state_df$dem_state_natl_dif[j]
+      df <- tibble(A = a,
+                   B = b,
+                   error = error,
+                   state = statename)
+      index = (length(state_df$dem_state_natl_dif) - 2) * (i) + (j - 2)
+      datalist[[index]] <- df
+      statename <- rbind(datalist)
+    }
+  }
+  return(statename)
+}
+  
+
+states_list <- pop_vote_state$state %>%
+  unique()
+
+make_state_model_df("Alabama")
+
+#map(states_list, make_state_model_df)
