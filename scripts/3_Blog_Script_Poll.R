@@ -2,6 +2,8 @@
 
 library(tidyverse)
 library(mlr3)
+library(maps)
+library(usmap)
 
 # Load in data
 
@@ -11,6 +13,7 @@ poll_avg_state <- read_csv('data/pollavg_bystate_1968-2016.csv')
 poll_avg <- read_csv('data/pollavg_1968-2016.csv')
 pop_vote <- read_csv('data/popvote_1948-2016.csv')
 pop_vote_state <- read_csv('data/popvote_bystate_1948-2016.csv')
+ec <- read_csv('data/electoralcollegepost1948.csv')
 
 # Data Cleaning
 
@@ -220,7 +223,7 @@ polls_2020_dte_state <- polls_2020_dte %>%
   summarise(total_days_until_election = sum(days_until_election))
 
 polls_2020_dte_weights <- inner_join(polls_2020_dte, polls_2020_dte_state, by = 'state') %>%
-  mutate(rel_weight = 1 - (days_until_election / total_days_until_election))
+  mutate(rel_weight = 1 - (days_until_election / (total_days_until_election + 1)))
 
 polls_2020_dte_weights_state <- polls_2020_dte_weights %>%
   group_by(state) %>%
@@ -244,3 +247,75 @@ polls_2020_natl_pred <- inner_join(state_models_predicted, polls_2020_weighted_a
          natl_rep_pred = rep_weighted_avg - rep_state_natl_dif_2020_pred,
          natl_winner_pred = ifelse(natl_dem_pred > natl_rep_pred, 'democrat', 'republican'))
 
+# Map of state predictions
+
+states_map <- map_data("state")
+
+polls_2020_natl_pred$region <- tolower(polls_2020_natl_pred$state)
+
+polls_2020_map <- left_join(states_map, polls_2020_natl_pred, by = 'region')
+
+ggplot(polls_2020_map, aes(long, lat, group = group)) +
+  geom_polygon(aes(fill = dem_margin), color = "black") +
+  scale_fill_gradient2(
+    low = "red", 
+    # mid = scales::muted("purple"),
+    mid = "white",
+    high = "blue",
+    breaks = c(-0.5, -0.25, 0, 0.25, 0.5),
+    limits = c(-0.5, 0.5),
+    name = "Dem. Margin"
+  ) +
+  theme_void() +
+  labs(title = "2020 Presidential Election State Dem. Margin \n Predictions from Weighted Polling Averages") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+new_EVs <- data.frame(region = c('wyoming', 'south dakota', 'nebraska', 'rhode island', 'illinois', 'district of columbia'),
+                      state_winner_pred = c('republican', 'republican', 'republican', 'democrat', 'democrat', 'democrat'),
+                      state = c('Wyoming', 'South Dakota', 'Nebraska', 'Rhode Island', 'Illinois', 'District of Columbia'))
+
+EV_2020_pred <- polls_2020_natl_pred %>%
+  select(state, region, state_winner_pred) %>%
+  rbind(new_EVs)
+
+EV_2020_map <- left_join(states_map, EV_2020_pred, by = 'region')
+
+ggplot(EV_2020_map, aes(long, lat, group = group)) +
+  geom_polygon(aes(fill = state_winner_pred), color = "black") +
+  scale_fill_manual(values = c('blue', 'red'),
+                    name = "State Winner") +
+  theme_void() +
+  labs(title = "2020 Presidential Election State Predictions \n from Weighted Polling Averages") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ec2020 <- ec %>%
+  rename(state = X1) %>%
+  rename(electors_2020 = '2020') %>%
+  select(state, electors_2020)
+
+EV_2020_preds <- inner_join(EV_2020_pred, ec2020, by = 'state')
+
+EV_totals <- EV_2020_preds %>%
+  group_by(state_winner_pred) %>%
+  summarise(total_EV = sum(electors_2020)) %>%
+  mutate(year = 2020)
+
+dem_EV <- EV_totals$total_EV[1]
+rep_EV <- EV_totals$total_EV[2]
+
+ggplot(EV_totals) +
+  geom_bar(aes(fill = state_winner_pred, y = total_EV, x = year),
+           position = "stack",
+           stat = 'identity') +
+  scale_fill_manual(values = c('blue', 'red')) +
+  coord_flip() +
+  theme_classic() +
+  theme(legend.position = 'none',
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        plot.title = element_text(hjust = 0.5)) +
+  geom_hline(yintercept = 270, size = 2) +
+  labs(y = 'Electoral Votes',
+       title = "2020 Predicted Electoral Votes from Weighted Polling Averages")
