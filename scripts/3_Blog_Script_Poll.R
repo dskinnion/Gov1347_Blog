@@ -60,7 +60,8 @@ polls_state <- inner_join(poll_avg_state_wider, pop_vote_state_natl, by = c("yea
   mutate(dem_poll_state_dif = dem_poll - dem_state_actual,
          rep_poll_state_dif = rep_poll - rep_state_actual,
          dem_poll_natl_dif = dem_poll - dem_natl_actual,
-         rep_poll_natl_dif = rep_poll - rep_natl_actual)
+         rep_poll_natl_dif = rep_poll - rep_natl_actual) %>%
+  distinct()
 
 # Make a state model df to find good weighting averages for two prior years
 # to predict this year
@@ -68,40 +69,69 @@ polls_state <- inner_join(poll_avg_state_wider, pop_vote_state_natl, by = c("yea
 state_models <- tibble(A = double(),
                        B = double(),
                        error = double(),
-                       state = as.character())
+                       state = as.character(),
+                       year = double())
 
 datalist = list()
 
 make_state_model_df <- function(statename){
   
   state_df <- pop_vote_state_natl %>%
-    filter(state == statename)
+    filter(state == statename) %>%
+    filter(is.na(dem_state_natl_dif) == FALSE) %>%
+    arrange(year)
+  
   statename = statename
   
-  for (i in 0:1000)
+  for (i in 0:100)
   {
-    a = i / 1000
+    a = i / 100
     b = 1 - a
     for (j in 3:length(state_df$dem_state_natl_dif))
     {
+      year = state_df$year[j]
       pred = a * state_df$dem_state_natl_dif[j-2] + b * state_df$dem_state_natl_dif[j-1]
       error = pred - state_df$dem_state_natl_dif[j]
       df <- tibble(A = a,
                    B = b,
                    error = error,
-                   state = statename)
-      index = (length(state_df$dem_state_natl_dif) - 2) * (i) + (j - 2)
-      datalist[[index]] <- df
-      statename <- rbind(datalist)
+                   state = statename,
+                   year = year)
+      state_models <<- rbind(state_models, df)
     }
   }
-  return(statename)
 }
   
 
 states_list <- pop_vote_state$state %>%
   unique()
 
-make_state_model_df("Alabama")
+map(states_list, make_state_model_df)
 
-#map(states_list, make_state_model_df)
+state_models <- state_models %>%
+  mutate(error_squared = error * error)
+
+state_models_weighted_A_B <- state_models %>%
+  group_by(state, A, B) %>%
+  summarize(MSE = mean(error_squared)) %>%
+  group_by(state) %>%
+  arrange(MSE) %>%
+  slice(1)
+
+# Predicting 2020 State vs. national Difs
+
+pop_vote_state_natl_2020 <- pop_vote_state_natl %>%
+  filter(year %in% c(2012, 2016)) %>%
+  pivot_wider(names_from = year,
+              values_from = dem_state_natl_dif) %>%
+  group_by(state) %>%
+  fill('2012', '2016', .direction = "updown") %>%
+  select(state, '2012', '2016') %>%
+  distinct() %>%
+  mutate(dem_state_natl_dif_2012 = '2012',
+         dem_state_natl_dif_2016 = '2016') %>%
+  select(state, dem_state_natl_dif_2012, dem_state_natl_dif_2016)
+
+state_models_predicted <- inner_join(state_models_weighted_A_B, pop_vote_state_natl_2020,
+                                     by = 'state')
+
