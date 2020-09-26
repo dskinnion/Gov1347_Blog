@@ -66,15 +66,19 @@ polls_state <- inner_join(poll_avg_state_wider, pop_vote_state_natl, by = c("yea
 # Make a state model df to find good weighting averages for two prior years
 # to predict this year
 
-state_models <- tibble(A = double(),
-                       B = double(),
-                       error = double(),
-                       state = as.character(),
-                       year = double())
+state_models_dem_dif <- tibble(A = double(),
+                               B = double(),
+                               error = double(),
+                               state = as.character(),
+                               year = double())
 
-datalist = list()
+state_models_rep_dif <- tibble(A = double(),
+                               B = double(),
+                               error = double(),
+                               state = as.character(),
+                               year = double())
 
-make_state_model_df <- function(statename){
+make_state_model_dem_dif_df <- function(statename){
   
   state_df <- pop_vote_state_natl %>%
     filter(state == statename) %>%
@@ -97,21 +101,59 @@ make_state_model_df <- function(statename){
                    error = error,
                    state = statename,
                    year = year)
-      state_models <<- rbind(state_models, df)
+      state_models_dem_dif <<- rbind(state_models_dem_dif, df)
     }
   }
 }
+
+make_state_model_rep_dif_df <- function(statename){
   
+  state_df <- pop_vote_state_natl %>%
+    filter(state == statename) %>%
+    filter(is.na(rep_state_natl_dif) == FALSE) %>%
+    arrange(year)
+  
+  statename = statename
+  
+  for (i in 0:100)
+  {
+    a = i / 100
+    b = 1 - a
+    for (j in 3:length(state_df$rep_state_natl_dif))
+    {
+      year = state_df$year[j]
+      pred = a * state_df$rep_state_natl_dif[j-2] + b * state_df$rep_state_natl_dif[j-1]
+      error = pred - state_df$rep_state_natl_dif[j]
+      df <- tibble(A = a,
+                   B = b,
+                   error = error,
+                   state = statename,
+                   year = year)
+      state_models_rep_dif <<- rbind(state_models_rep_dif, df)
+    }
+  }
+}
 
 states_list <- pop_vote_state$state %>%
   unique()
 
-map(states_list, make_state_model_df)
+map(states_list, make_state_model_dem_dif_df)
+map(states_list, make_state_model_rep_dif_df)
 
-state_models <- state_models %>%
+state_models_dem_dif <- state_models_dem_dif %>%
   mutate(error_squared = error * error)
 
-state_models_weighted_A_B <- state_models %>%
+state_models_rep_dif <- state_models_rep_dif %>%
+  mutate(error_squared = error * error)
+
+state_models_dem_weighted_A_B <- state_models_dem_dif %>%
+  group_by(state, A, B) %>%
+  summarize(MSE = mean(error_squared)) %>%
+  group_by(state) %>%
+  arrange(MSE) %>%
+  slice(1)
+
+state_models_rep_weighted_A_B <- state_models_rep_dif %>%
   group_by(state, A, B) %>%
   summarize(MSE = mean(error_squared)) %>%
   group_by(state) %>%
@@ -120,7 +162,7 @@ state_models_weighted_A_B <- state_models %>%
 
 # Predicting 2020 State vs. national Difs
 
-pop_vote_state_natl_2020 <- pop_vote_state_natl %>%
+pop_vote_state_natl_2020_dem <- pop_vote_state_natl %>%
   filter(year %in% c(2012, 2016)) %>%
   pivot_wider(names_from = year,
               values_from = dem_state_natl_dif) %>%
@@ -128,10 +170,77 @@ pop_vote_state_natl_2020 <- pop_vote_state_natl %>%
   fill('2012', '2016', .direction = "updown") %>%
   select(state, '2012', '2016') %>%
   distinct() %>%
-  mutate(dem_state_natl_dif_2012 = '2012',
+  rename(dem_state_natl_dif_2012 = '2012',
          dem_state_natl_dif_2016 = '2016') %>%
   select(state, dem_state_natl_dif_2012, dem_state_natl_dif_2016)
 
-state_models_predicted <- inner_join(state_models_weighted_A_B, pop_vote_state_natl_2020,
+state_models_predicted_dem <- inner_join(state_models_dem_weighted_A_B, pop_vote_state_natl_2020_dem,
                                      by = 'state')
+
+state_models_predicted_dem <- state_models_predicted_dem %>%
+  mutate(dem_state_natl_dif_2020_pred = A * dem_state_natl_dif_2012 + B * dem_state_natl_dif_2016) %>%
+  rename(dem_A = A,
+         dem_B = B,
+         dem_MSE = MSE)
+
+pop_vote_state_natl_2020_rep <- pop_vote_state_natl %>%
+  filter(year %in% c(2012, 2016)) %>%
+  pivot_wider(names_from = year,
+              values_from = rep_state_natl_dif) %>%
+  group_by(state) %>%
+  fill('2012', '2016', .direction = "updown") %>%
+  select(state, '2012', '2016') %>%
+  distinct() %>%
+  rename(rep_state_natl_dif_2012 = '2012',
+         rep_state_natl_dif_2016 = '2016') %>%
+  select(state, rep_state_natl_dif_2012, rep_state_natl_dif_2016)
+
+state_models_predicted_rep <- inner_join(state_models_rep_weighted_A_B, pop_vote_state_natl_2020_rep,
+                                         by = 'state')
+
+state_models_predicted_rep <- state_models_predicted_rep %>%
+  mutate(rep_state_natl_dif_2020_pred = A * rep_state_natl_dif_2012 + B * rep_state_natl_dif_2016) %>%
+  rename(rep_A = A,
+         rep_B = B,
+         rep_MSE = MSE)
+
+state_models_predicted <- inner_join(state_models_predicted_dem, state_models_predicted_rep,
+                                     by = 'state')
+# Finding weighted ensembles for state poll avg
+
+polls_2020_dte <- polls_2020_wider %>%
+  mutate(election_day = as.Date.character(election_date, "%m/%d/%y"),
+         start_day = as.Date.character(start_date, "%m/%d/%y"),
+         end_day = as.Date.character(end_date, "%m/%d/%y"),
+         days_until_election = as.integer(election_day - end_day))
+
+polls_2020_dte_state <- polls_2020_dte %>%
+  filter(state %in% states_list) %>%
+  group_by(state) %>%
+  summarise(total_days_until_election = sum(days_until_election))
+
+polls_2020_dte_weights <- inner_join(polls_2020_dte, polls_2020_dte_state, by = 'state') %>%
+  mutate(rel_weight = 1 - (days_until_election / total_days_until_election))
+
+polls_2020_dte_weights_state <- polls_2020_dte_weights %>%
+  group_by(state) %>%
+  summarise(total_rel_weights = sum(rel_weight))
+
+polls_2020_dte_weights_2 <- inner_join(polls_2020_dte_weights, polls_2020_dte_weights_state, by = 'state') %>%
+  mutate(weight = rel_weight / total_rel_weights) %>%
+  mutate(weighted_dem = weight * DEM / 100,
+         weighted_rep = weight * REP / 100)
+
+polls_2020_weighted_avg <- polls_2020_dte_weights_2 %>%
+  group_by(state) %>%
+  summarise(dem_weighted_avg = sum(weighted_dem),
+            rep_weighted_avg = sum(weighted_rep)) %>%
+  mutate(state_winner_pred = ifelse(dem_weighted_avg > rep_weighted_avg, 'democrat', 'republican')) %>%
+  mutate(dem_margin = dem_weighted_avg - rep_weighted_avg,
+         rep_margin = rep_weighted_avg - dem_weighted_avg)
+
+polls_2020_natl_pred <- inner_join(state_models_predicted, polls_2020_weighted_avg, by = 'state') %>%
+  mutate(natl_dem_pred = dem_weighted_avg - dem_state_natl_dif_2020_pred,
+         natl_rep_pred = rep_weighted_avg - rep_state_natl_dif_2020_pred,
+         natl_winner_pred = ifelse(natl_dem_pred > natl_rep_pred, 'democrat', 'republican'))
 
