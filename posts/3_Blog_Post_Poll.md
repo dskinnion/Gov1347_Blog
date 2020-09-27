@@ -90,6 +90,8 @@ With a weighted average of these national predictions by 2016 Turnout, we get th
 
 ![National Prediction Overall](../figures/Poll_GT_Natl_Preds_Overall.png)
 
+### Final Prediction Based on State Polls
+
 So our prediction based off of state polls is:
 
 Electoral Vote: Biden Wins (352 - 186)
