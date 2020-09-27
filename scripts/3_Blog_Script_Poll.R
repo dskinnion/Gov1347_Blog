@@ -4,6 +4,7 @@ library(tidyverse)
 library(mlr3)
 library(maps)
 library(usmap)
+library(gt)
 
 # Load in data
 
@@ -270,6 +271,8 @@ ggplot(polls_2020_map, aes(long, lat, group = group)) +
   labs(title = "2020 Presidential Election State Dem. Margin \n Predictions from Weighted Polling Averages") +
   theme(plot.title = element_text(hjust = 0.5))
 
+ggsave("figures/Poll_margin_map.png", height = 3, width = 5)
+
 new_EVs <- data.frame(region = c('wyoming', 'south dakota', 'nebraska', 'rhode island', 'illinois', 'district of columbia'),
                       state_winner_pred = c('republican', 'republican', 'republican', 'democrat', 'democrat', 'democrat'),
                       state = c('Wyoming', 'South Dakota', 'Nebraska', 'Rhode Island', 'Illinois', 'District of Columbia'))
@@ -287,6 +290,8 @@ ggplot(EV_2020_map, aes(long, lat, group = group)) +
   theme_void() +
   labs(title = "2020 Presidential Election State Predictions \n from Weighted Polling Averages") +
   theme(plot.title = element_text(hjust = 0.5))
+
+ggsave("figures/Poll_EV_map.png", height = 3, width = 5)
 
 ec2020 <- ec %>%
   rename(state = X1) %>%
@@ -318,4 +323,12 @@ ggplot(EV_totals) +
         plot.title = element_text(hjust = 0.5)) +
   geom_hline(yintercept = 270, size = 2) +
   labs(y = 'Electoral Votes',
-       title = "2020 Predicted Electoral Votes from Weighted Polling Averages")
+       title = "2020 Predicted Electoral Votes \n from Weighted Polling Averages")
+
+ggsave("figures/Poll_EV.png", height = 2, width = 5)
+
+
+
+
+
+
