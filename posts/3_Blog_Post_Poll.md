@@ -86,6 +86,14 @@ Converting these proportions into the Two-Party Vote Share, we predict the follo
 
 Note that only five state polls thus predict a Trump popular vote win. Also note that these are significantly less decisive victories than those for Biden.
 
+With a weighted average of these national predictions by 2016 Turnout, we get the following prediction for the Two-Party Popular Vote Share:
+
+![National Prediction Overall](../figures/Poll_GT_Natl_Preds_Overall.png)
+
+So our prediction based off of state polls is:
+
+Electoral Vote: Biden Wins (352 - 186)
+Two-Party Popular Vote: Biden Wins (52.77% to 47.23%)
 
 
 
