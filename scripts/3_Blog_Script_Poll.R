@@ -7,9 +7,11 @@ library(maps)
 library(usmap)
 library(tidyverse)
 
-# Load in data
+# Make sure no scientific notation
 
 options(scipen = 999)
+
+# Load in data
 
 polls_2020 <- read_csv('data/polls_2020.csv')
 polls_2016 <- read_csv('data/polls_2020.csv')
@@ -72,6 +74,7 @@ polls_state <- inner_join(poll_avg_state_wider, pop_vote_state_natl, by = c("yea
 
 # Make a state model df to find good weighting averages for two prior years
 # to predict this year
+# knn Regression using k = 2, iterating through a and b values
 
 state_models_dem_dif <- tibble(A = double(),
                                B = double(),
@@ -141,11 +144,17 @@ make_state_model_rep_dif_df <- function(statename){
   }
 }
 
+# Get a list of states
+
 states_list <- pop_vote_state$state %>%
   unique()
 
+# Map the function to get model values
+
 map_dfr(states_list, make_state_model_dem_dif_df)
 map_dfr(states_list, make_state_model_rep_dif_df)
+
+# Find the best model parameters
 
 state_models_dem_dif <- state_models_dem_dif %>%
   mutate(error_squared = error * error)
@@ -213,6 +222,7 @@ state_models_predicted_rep <- state_models_predicted_rep %>%
 
 state_models_predicted <- inner_join(state_models_predicted_dem, state_models_predicted_rep,
                                      by = 'state')
+
 # Finding weighted ensembles for state poll avg
 
 polls_2020_dte <- polls_2020_wider %>%
@@ -276,6 +286,8 @@ ggplot(polls_2020_map, aes(long, lat, group = group)) +
 
 ggsave("figures/Poll_margin_map.png", height = 3, width = 5)
 
+# Map of EV Predictions
+
 new_EVs <- data.frame(region = c('wyoming', 'south dakota', 'nebraska', 'rhode island', 'illinois', 'district of columbia'),
                       state_winner_pred = c('republican', 'republican', 'republican', 'democrat', 'democrat', 'democrat'),
                       state = c('Wyoming', 'South Dakota', 'Nebraska', 'Rhode Island', 'Illinois', 'District of Columbia'))
@@ -295,6 +307,8 @@ ggplot(EV_2020_map, aes(long, lat, group = group)) +
   theme(plot.title = element_text(hjust = 0.5))
 
 ggsave("figures/Poll_EV_map.png", height = 3, width = 5)
+
+# EV Bar chart
 
 ec2020 <- ec %>%
   rename(state = X1) %>%
@@ -329,6 +343,8 @@ ggplot(EV_totals) +
        title = "2020 Predicted Electoral Votes \n from Weighted Polling Averages")
 
 ggsave("figures/Poll_EV.png", height = 2, width = 5)
+
+# Table of national predictions from states
 
 table_preds <- polls_2020_natl_pred %>%
   mutate('National Dem. Percent' = (natl_dem_pred / (natl_dem_pred + natl_rep_pred)) * 100,
@@ -365,6 +381,8 @@ table <- table_preds %>%
   )
 
 gtsave(table, "figures/Poll_GT_Natl_Preds.png")
+
+# Table of final prediction
 
 turnout_2016 <- pop_vote_state %>%
   filter(year == 2016) %>%
