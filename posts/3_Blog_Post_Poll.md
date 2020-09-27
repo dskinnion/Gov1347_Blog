@@ -90,14 +90,13 @@ With a weighted average of these national predictions by 2016 Turnout, we get th
 
 ![National Prediction Overall](../figures/Poll_GT_Natl_Preds_Overall.png)
 
+To better improve our prediction, we could also weight based on poll rating and sample sizes.
+
 ### Final Prediction Based on State Polls
 
 So our prediction based off of state polls is:
 
-
 Electoral Vote: Biden Wins (352 - 186)
 
 Two-Party Popular Vote: Biden Wins (52.77% to 47.23%)
-
-
 
