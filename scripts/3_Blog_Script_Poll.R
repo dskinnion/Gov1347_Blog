@@ -5,8 +5,11 @@ library(mlr3)
 library(maps)
 library(usmap)
 library(gt)
+library(webshot)
 
 # Load in data
+
+options(scipen = 999)
 
 polls_2020 <- read_csv('data/polls_2020.csv')
 polls_2016 <- read_csv('data/polls_2020.csv')
@@ -327,8 +330,41 @@ ggplot(EV_totals) +
 
 ggsave("figures/Poll_EV.png", height = 2, width = 5)
 
+table_preds <- polls_2020_natl_pred %>%
+  mutate('National Dem. Percent' = (natl_dem_pred / (natl_dem_pred + natl_rep_pred)) * 100,
+         'National Rep. Percent' = (natl_rep_pred / (natl_dem_pred + natl_rep_pred)) * 100,
+         'Predicted Winner' = ifelse(natl_winner_pred == 'democrat', 'Biden', 'Trump')) %>%
+  select(state, 
+         'National Dem. Percent',
+         'National Rep. Percent',
+         'Predicted Winner')
 
+table <- table_preds %>%
+  gt() %>%
+  tab_header(
+    title = "National Election Predictions Based on State Polls",
+    subtitle = "Percentages are of the Two-Party Vote Share"
+  ) %>%
+  data_color(
+    columns = vars('National Dem. Percent'),
+    colors = scales::col_numeric(
+      palette = c("red", "white", "blue"),
+      domain = c(35, 65))
+  ) %>%
+  data_color(
+    columns = vars('National Rep. Percent'),
+    colors = scales::col_numeric(
+      palette = c("blue", "white", "red"),
+      domain = c(35, 65))
+  ) %>%
+  data_color(
+    columns = vars('Predicted Winner'),
+    colors = scales::col_factor(
+      palette = c("blue", "red"),
+      domain = c('Biden', 'Trump'))
+  )
 
+gtsave(table, "figures/Poll_GT_Natl_Preds.png")
 
 
 
