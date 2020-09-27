@@ -1,11 +1,11 @@
 # Load libraries
 
-library(tidyverse)
+library(gt)
+library(webshot)
 library(mlr3)
 library(maps)
 library(usmap)
-library(gt)
-library(webshot)
+library(tidyverse)
 
 # Load in data
 
@@ -144,8 +144,8 @@ make_state_model_rep_dif_df <- function(statename){
 states_list <- pop_vote_state$state %>%
   unique()
 
-map(states_list, make_state_model_dem_dif_df)
-map(states_list, make_state_model_rep_dif_df)
+map_dfr(states_list, make_state_model_dem_dif_df)
+map_dfr(states_list, make_state_model_rep_dif_df)
 
 state_models_dem_dif <- state_models_dem_dif %>%
   mutate(error_squared = error * error)
