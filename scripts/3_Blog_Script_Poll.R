@@ -366,5 +366,60 @@ table <- table_preds %>%
 
 gtsave(table, "figures/Poll_GT_Natl_Preds.png")
 
+turnout_2016 <- pop_vote_state %>%
+  filter(year == 2016) %>%
+  select(state, total)
 
+turnout_2016_total <- sum(turnout_2016$total)
 
+turnout_2020_polls <- inner_join(turnout_2016, polls_2020_natl_pred, by = 'state') %>%
+  mutate(turnout = total) %>%
+  mutate(sum_turnout = turnout_2016_total) %>%
+  mutate(weighted_dem_pred = turnout * natl_dem_pred / sum_turnout,
+         weighted_rep_pred = turnout * natl_rep_pred / sum_turnout)
+
+dem_2020_pred_weighted <- sum(turnout_2020_polls$weighted_dem_pred)
+rep_2020_pred_weighted <- sum(turnout_2020_polls$weighted_rep_pred)
+
+dem_2020_2pv <- 100 * dem_2020_pred_weighted / (dem_2020_pred_weighted + rep_2020_pred_weighted)
+rep_2020_2pv <- 100 * rep_2020_pred_weighted / (dem_2020_pred_weighted + rep_2020_pred_weighted)
+
+overall <- data.frame('name' = "Weighted Average",
+                      'ndp' = dem_2020_2pv,
+                      'nrp' = rep_2020_2pv,
+                      'pw' = ifelse(dem_2020_2pv > rep_2020_2pv, 'Biden', 'Trump'))
+
+overall <- overall %>%
+  mutate('National Dem. Percent' = ndp,
+         'National Rep. Percent' = nrp,
+         'Predicted Winner' = pw) %>%
+  select('National Dem. Percent',
+         'National Rep. Percent',
+         'Predicted Winner')
+
+table2 <- overall %>%
+  gt() %>%
+  tab_header(
+    title = "Weighted Average of State Predictions",
+    subtitle = "Percentages are of the Two-Party Vote Share"
+  ) %>%
+  data_color(
+    columns = vars('National Dem. Percent'),
+    colors = scales::col_numeric(
+      palette = c("red", "white", "blue"),
+      domain = c(35, 65))
+  ) %>%
+  data_color(
+    columns = vars('National Rep. Percent'),
+    colors = scales::col_numeric(
+      palette = c("blue", "white", "red"),
+      domain = c(35, 65))
+  ) %>%
+  data_color(
+    columns = vars('Predicted Winner'),
+    colors = scales::col_factor(
+      palette = c("blue", "red"),
+      domain = c('Biden', 'Trump'))
+  )
+
+gtsave(table2, "figures/Poll_GT_Natl_Preds_Overall.png") 

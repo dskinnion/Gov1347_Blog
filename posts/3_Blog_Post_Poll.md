@@ -30,7 +30,7 @@ I will use the term *lean* to describe how much more/less Democratic/Republican 
 
 First, I calculated the Democratic and Republican lean for each state in 2012 and 2016. Then, using a k-NN regression with k = 2, I iterated through possible coefficients (A, B, C, and D) ranging from 0 to 1 for these values for each state. Looking at the MSE for each coefficient pairing, I was able to select the best model for each state by minimizing the MSE.
 
-Thus, for each state, we had the equations:
+Thus, for each state, we have the equations:
 ```
 Democratic_Lean_2020 = A * Democratic_Lean_2012 + B * Democratic_Lean_2016 
 ```
@@ -38,7 +38,7 @@ and
 ```
 Republican_Lean_2020 = C * Republican_Lean_2012 + D * Republican_Lean_2016
 ```
-where A, B, C, and D were calculated minimizing the MSE. A positive Democratic/Republican lean indicates that the state votes more Democratic/Republican than the nation. A negative lean means the opposite.
+where A, B, C, and D are calculated minimizing the MSE. A positive Democratic/Republican lean indicates that the state votes more Democratic/Republican than the nation. A negative lean means the opposite.
 
 #### How Can We Find A Weighted Average for State Polls?
 
@@ -58,7 +58,7 @@ We can also use these to predict the winner in each state, giving us an electora
 
 ![Electoral Vote Map](../figures/Poll_EV_map.png)
 
-Note that for the missing states above, I filled in their predicted winner with the party they voted for in 2016. (These were all pretty decisive victories, so I feel comfortable doing so -- If these were less decisive, I would have left these out).
+Note that for the missing states above, I filled in their predicted winner with the party they voted for in 2016. (These were all pretty decisive victories, so I feel comfortable doing so -- If these were less decisive, I would have left these out). Biden is predicted to win most key battleground states: Michigan, Wisconsin, New Hampshire, Pennsylvania, Ohio, North Carolina, Virginia, Florida, and Arizona. Trump is predicted to win Iowa and Georgia.
 
 This gives us the following electoral breakdown:
 
