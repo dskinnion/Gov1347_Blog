@@ -15,3 +15,5 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 ### [Economy](posts/2_Blog_Post_Econ.md)
 
 ### [Polling](posts/3_Blog_Post_Poll.md)
+
+### [Incumbency](posts/4_Blog_Post_Incumbency.md)
