@@ -12,4 +12,6 @@
 
 ### Time For Change Model
 
-![TFC MODEL](../figures/TFC_2020_prediction.png)
+![TFC MODEL](../figures/TFC_Model.png)
+
+![TFC MODEL PREDICTION](../figures/TFC_2020_prediction.png)
