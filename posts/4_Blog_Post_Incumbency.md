@@ -57,7 +57,9 @@ However, as noted before, the economy in 2020 is a huge outlier, because of the 
 
 Abramowitz himself notes this in his article for [UVA Center for Politics](https://centerforpolitics.org/crystalball/articles/its-the-pandemic-stupid-a-simplified-model-for-forecasting-the-2020-presidential-election/), and refines his own model with different variables. Using Net Approval in late October as his only predictor, Abramowitz now estimates the Electoral Vote instead of the Popular Vote for elections in which an Incumbent President is running.
 
-Using this same method we form a new simplified model:
+### Simplified Model
+
+Using this same method we form a new simplified model, using the same Net Approval Rating data, and Presidential Election data from Wikipedia:
 
 ![TFC2 MODEL](../figures/TFC_2_model.png)
 
@@ -65,6 +67,11 @@ Using the coefficients, this gives us the equation:
 ```
 (Predicted Incumbent Electoral Vote) = 271.34 + 5.23 * (Net Approval Rating)
 ```
+This means that the model predicts for each additional percent in Net Approval Rating, an Incumbent President will earn about 5.23 more Electoral Votes.
+
+It's interesting to note that if the President's Net Approval Rating were 0 (as many people disapproved of him as those who approved of him), the model predicts the slightest Electoral College victory for him (~271, which is one more than needed to win).
+
+### Simplified Model 2020 Prediction
 
 For 2020, Trump's most recent Net Approval Rating is -15%, so we get the following prediction:
 
@@ -72,9 +79,12 @@ For 2020, Trump's most recent Net Approval Rating is -15%, so we get the followi
 
 This predicts Trump will lose with ~193 Electoral Votes. However, the upper bound on the 95% Confidence Interval is ~353, which would be a win for Trump.
 
-Sources:
+### Comparison to Polling Model
 
-https://centerforpolitics.org/crystalball/articles/its-the-pandemic-stupid-a-simplified-model-for-forecasting-the-2020-presidential-election/
+It seems that the Polling Model is a better predictor for the 2020 election, based on the fact that the Time For Change Model uses the economy as a predictor, which as discussed will not be too helpful for the 2020 election prediction.
 
+However, the Simplified Model (just using approval ratings) does seem to do a moderately good job at predicting the electoral vote with an R-Squared Score of 0.66, which is not amazing, but not awful.
 
-https://www.washingtonpost.com/outlook/2020/08/21/trump-outsider-incumbent-campaign/?arc404=true
+Since the Simplified Model predicts the electoral vote and the Polling Model predicts the popular vote, it is difficult to directly compare the two. However, they do both predict a Biden win.
+
+In future models, it may be a good idea to possibly combine both of these models.
