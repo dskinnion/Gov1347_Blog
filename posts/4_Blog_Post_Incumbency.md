@@ -87,4 +87,4 @@ However, the Simplified Model (just using approval ratings) does seem to do a mo
 
 Since the Simplified Model predicts the electoral vote and the Polling Model predicts the popular vote, it is difficult to directly compare the two. However, they do both predict a Biden win.
 
-In future models, it may be a good idea to possibly combine both of these models.
+In future models, it may be a good idea to possibly combine both of these models, by making them both predict the electoral vote or both predict the popular vote (or possibly both).
