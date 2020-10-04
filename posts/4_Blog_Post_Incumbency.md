@@ -83,7 +83,7 @@ This predicts Trump will lose with ~193 Electoral Votes. However, the upper boun
 
 It seems that the Polling Model is a better predictor for the 2020 election, based on the fact that the Time For Change Model uses the economy as a predictor, which as discussed will not be too helpful for the 2020 election prediction.
 
-However, the Simplified Model (just using approval ratings) does seem to do a moderately good job at predicting the electoral vote with an R-Squared Score of 0.66, which is not amazing, but not awful.
+However, the Simplified Model (using only Net Approval Ratings) does seem to do a moderately good job at predicting the electoral vote with an R-Squared Score of 0.66, which is not amazing, but not awful.
 
 Since the Simplified Model predicts the electoral vote and the Polling Model predicts the popular vote, it is difficult to directly compare the two. However, they do both predict a Biden win.
 
