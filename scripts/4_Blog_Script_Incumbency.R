@@ -92,3 +92,57 @@ gt_2020 <- gt_2020 %>%
 gt_2020
 
 gtsave(gt_2020, "figures/TFC_2020_prediction.png") 
+
+ev_incumbents <- tibble(
+  "year" = c(1956, 1964, 1972, 1980, 1984, 1992, 1996, 2004, 2012, 2020),
+  "ev" = c(457, 486, 520, 49, 525, 168, 379, 286, 332, NA)
+)
+
+approval_final2 <- approval %>%
+  mutate(net_approval = approve - disapprove) %>%
+  mutate(month = month(poll_enddate)) %>%
+  filter(month %in% c(10, 9, 8, 7, 6)) %>%
+  filter(year %in% c(1956, 1964, 1972, 1980, 1984, 1992, 1996, 2004, 2012, 2020)) %>%
+  group_by(year) %>%
+  arrange(desc(poll_enddate)) %>%
+  slice(1) %>%
+  select(year, net_approval)
+
+TFC_2 <- inner_join(ev_incumbents, approval_final2, by = 'year')
+
+TFC_2_test <- TFC_2 %>%
+  filter(year != 2020)
+
+TFC_2_model <- lm(data = TFC_2_test, ev ~ net_approval)
+
+tab_model(TFC_2_model,
+          dv.labels = c('Incumbent President Electoral Vote'),
+          pred.labels = c('Constant', 'Net Approval'))
+
+preds_2 <- predict(TFC_2_model, TFC_2, interval = 'confidence')
+
+preds_2 <- as.data.frame(preds_2)
+
+TFC_2$pred <- preds_2$fit
+TFC_2$lower <- preds_2$lwr
+TFC_2$upper <- preds_2$upr
+
+TFC_2_2020 <- TFC_2 %>%
+  filter(year == 2020) %>%
+  select(year, pred, lower, upper)
+
+gt_2_2020 <- gt(data = TFC_2_2020)
+
+gt_2_2020 <- gt_2_2020 %>%
+  tab_header(title = "Trump's Predicted Electoral Vote Share",
+             subtitle = "Based on Abramowitz's Simplified Model") %>%
+  tab_source_note('Methods used from Abramowitz, "It’s the Pandemic, Stupid! A Simplified Model for Forecasting the 2020 Presidential Election" (2020)') %>%
+  cols_label(pred = 'Prediction', 
+             lower = 'Lower', 
+             upper = 'Upper')
+
+gt_2_2020
+
+gtsave(gt_2_2020, "figures/TFC_2_2020_prediction.png") 
+
+
