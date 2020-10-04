@@ -65,11 +65,11 @@ Using this same method we form a new simplified model, using the same Net Approv
 
 Using the coefficients, this gives us the equation:
 ```
-(Predicted Incumbent Electoral Vote) = 271.34 + 5.23 * (Net Approval Rating)
+(Predicted Incumbent Electoral Vote) = 272.73 + 5.19 * (Net Approval Rating)
 ```
-This means that the model predicts for each additional percent in Net Approval Rating, an Incumbent President will earn about 5.23 more Electoral Votes.
+This means that the model predicts for each additional percent in Net Approval Rating, an Incumbent President will earn about 5.19 more Electoral Votes.
 
-It's interesting to note that if the President's Net Approval Rating were 0 (as many people disapproved of him as those who approved of him), the model predicts the slightest Electoral College victory for him (~271, which is one more than needed to win).
+It's interesting to note that if the President's Net Approval Rating were 0 (as many people disapproved of him as those who approved of him), the model predicts the slightest Electoral College victory for him (~273).
 
 ### Simplified Model 2020 Prediction
 
@@ -77,7 +77,7 @@ For 2020, Trump's most recent Net Approval Rating is -15%, so we get the followi
 
 ![TFC2 MODEL PREDICTION](../figures/TFC_2_2020_prediction.png)
 
-This predicts Trump will lose with ~193 Electoral Votes. However, the upper bound on the 95% Confidence Interval is ~353, which would be a win for Trump, so this model does not definitively predict a win for Biden.
+This predicts Trump will lose with ~195 Electoral Votes. However, the upper bound on the 95% Confidence Interval is ~310, which would be a win for Trump, so this model does not definitively predict a win for Biden.
 
 ### Comparison to Polling Model
 
