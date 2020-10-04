@@ -77,7 +77,7 @@ For 2020, Trump's most recent Net Approval Rating is -15%, so we get the followi
 
 ![TFC2 MODEL PREDICTION](../figures/TFC_2_2020_prediction.png)
 
-This predicts Trump will lose with ~193 Electoral Votes. However, the upper bound on the 95% Confidence Interval is ~353, which would be a win for Trump.
+This predicts Trump will lose with ~193 Electoral Votes. However, the upper bound on the 95% Confidence Interval is ~353, which would be a win for Trump, so this model does not definitively predict a win for Biden.
 
 ### Comparison to Polling Model
 
