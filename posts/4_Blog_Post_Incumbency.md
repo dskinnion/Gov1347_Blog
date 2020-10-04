@@ -31,7 +31,7 @@ Using training data from 1948-2016, the model is summarize below:
 
 ![TFC MODEL](../figures/TFC_Model.png)
 
-Using the coefficient, this gives us the equation:
+Using the coefficients, this gives us the equation:
 ```
 (Predicted Incumbent Party Vote Share) = 47.55 + 0.11 * (Net Approval Rating) + 2.28 * (Q2 GDP Growth) + 4 * (First Term)
 ```
@@ -55,7 +55,22 @@ We predict Trump's Two-Party Vote Share:
 
 However, as noted before, the economy in 2020 is a huge outlier, because of the COVID-19 Pandemic. Because this model uses the economy as a predictor, we are extrapolating far outside the training set values, and thus we should be cautious. Because the Q2 GDP Growth is so low, this brings our prediction down significantly. 
 
-Abramowitz himself notes this in his article for [UVA Center for Politics](https://centerforpolitics.org/crystalball/articles/its-the-pandemic-stupid-a-simplified-model-for-forecasting-the-2020-presidential-election/), and refines his own model with different variables. Using Net Approval in late October as his only predictor, Abramowitz now estimates the Electoral Vote instead of the Popular Vote
+Abramowitz himself notes this in his article for [UVA Center for Politics](https://centerforpolitics.org/crystalball/articles/its-the-pandemic-stupid-a-simplified-model-for-forecasting-the-2020-presidential-election/), and refines his own model with different variables. Using Net Approval in late October as his only predictor, Abramowitz now estimates the Electoral Vote instead of the Popular Vote for elections in which an Incumbent President is running.
+
+Using this same method we form a new simplified model:
+
+![TFC2 MODEL](../figures/TFC_2_model.png)
+
+Using the coefficients, this gives us the equation:
+```
+(Predicted Incumbent Electoral Vote) = 271.34 + 5.23 * (Net Approval Rating)
+```
+
+For 2020, Trump's most recent Net Approval Rating is -15%, so we get the following prediction:
+
+![TFC2 MODEL PREDICTION](../figures/TFC_2_2020_prediction.png)
+
+This predicts Trump will lose with ~193 Electoral Votes. However, the upper bound on the 95% Confidence Interval is ~353, which would be a win for Trump.
 
 Sources:
 
