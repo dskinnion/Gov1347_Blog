@@ -84,7 +84,7 @@ gt_2020 <- gt(data = TFC_2020)
 gt_2020 <- gt_2020 %>%
     tab_header(title = "Trump's Predicted Two-Party Vote Share",
                subtitle = 'Based on the Time-For-Change Model') %>%
-    tab_source_note('Methods used from Abramowitz, "Will Time for Change Mean Time for Trump?" (2016)') %>%
+    tab_source_note('Methods used from Abramowitz (2016)') %>%
     cols_label(pred = 'Prediction', 
                lower = 'Lower', 
                upper = 'Upper')
@@ -136,7 +136,7 @@ gt_2_2020 <- gt(data = TFC_2_2020)
 gt_2_2020 <- gt_2_2020 %>%
   tab_header(title = "Trump's Predicted Electoral Vote Share",
              subtitle = "Based on Abramowitz's Simplified Model") %>%
-  tab_source_note('Methods used from Abramowitz, "It’s the Pandemic, Stupid! A Simplified Model for Forecasting the 2020 Presidential Election" (2020)') %>%
+  tab_source_note('Methods used from Abramowitz (2020)') %>%
   cols_label(pred = 'Prediction', 
              lower = 'Lower', 
              upper = 'Upper')
