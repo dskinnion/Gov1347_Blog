@@ -289,7 +289,20 @@ ggplot(EV_totals) +
         plot.title = element_text(hjust = 0.5)) +
   geom_hline(yintercept = 270, size = 2) +
   labs(y = 'Electoral Votes',
-       title = "2020 Predicted Electoral Votes \n from Advertising Spending")
+       title = "2020 Predicted Electoral Votes \n from Polling and Advertising Spending")
 
 ggsave("figures/Ads_EV.png", height = 2, width = 5)
 
+states_map <- map_data("state")
+
+EV_2020_map <- left_join(states_map, EV_2020_pred, by = 'region')
+
+ggplot(EV_2020_map, aes(long, lat, group = group)) +
+  geom_polygon(aes(fill = state_winner_pred), color = "black") +
+  scale_fill_manual(values = c('blue', 'red'),
+                    name = "State Winner") +
+  theme_void() +
+  labs(title = "2020 Presidential Election State Predictions \n from Polling and Advertising Spending") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggsave("figures/Ads_EV_map.png", height = 3, width = 5)
