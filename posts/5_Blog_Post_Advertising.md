@@ -90,7 +90,7 @@ Biden is predicted to win 314 - 224.
 
 While this model includes polling data and advertising data in order to predict the winner of each state, we should predict this against the Simple Polling Electoral Map made earlier (though this may be slightly inaccurate as the polls were from 2 weeks ago)
 
-![EV MAP Polling](../figures/Poll_EV_map.png)
+![EV MAP Polling Comparison](../figures/Ads_EV_Map_Comparison.png)
 
 We can see that the newer predictions (which includes advertising data), gives both Pennsylvania and Ohio to Trump, whereas the older prediction gave them to Biden. This means that while Biden is polling better in Pennsylvania and Ohio, the newer model predicts that Trump is spending enough money in those states to overtake Biden's lead.
 
