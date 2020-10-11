@@ -72,6 +72,8 @@ The following table summarizes the results:
 
 ![Total GT Table](../figures/Ads_Total_Table.png)
 
+Both Gerber and Huber's methods give the same results.
+
 A more user-friendly version of the same data is shown by this Predicted Electoral College Map:
 
 ![EV MAP](../figures/Ads_EV_map.png)
