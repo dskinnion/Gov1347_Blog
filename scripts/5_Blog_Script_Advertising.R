@@ -159,7 +159,7 @@ ad_campaigns_grouped_wider <- ad_campaigns_grouped %>%
 states_dist_with_ads <- inner_join(states_dist_final, ad_campaigns_grouped_wider, by = 'state') %>%
   mutate(est_biden_late_cost = est_biden_cost * D_late_early_ratio,
          est_trump_late_cost = est_trump_cost * R_late_early_ratio,
-         est_D_cash = est_biden_late_cost - est_trump_late_cost)
+         est_D_cash = (est_biden_late_cost - est_trump_late_cost)/5)
 
 cash <- states_dist_with_ads %>%
   select(state, mean_Gerber_D_Cash_Needed, lower_CI_Gerber_D_Cash_Needed, upper_CI_Gerber_D_Cash_Needed,
@@ -190,6 +190,7 @@ Gerber_table <- Gerber_predictions %>%
       palette = c("red", "blue"),
       domain = c('Yes', 'No'))
   )
+
 
 gtsave(Gerber_table, "figures/Ads_Gerber_Table.png") 
 
