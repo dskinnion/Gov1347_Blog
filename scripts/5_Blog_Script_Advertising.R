@@ -174,6 +174,9 @@ Gerber_predictions <- cash %>%
 Huber_predictions <- cash %>%
   select(state, mean_Huber_D_Cash_Needed, est_D_cash, above_Huber_mean)
 
+Total_prediction <- cash %>%
+  select(state, mean_Gerber_D_Cash_Needed, mean_Huber_D_Cash_Needed, est_D_cash, above_Gerber_mean, above_Huber_mean)
+
 Gerber_table <- Gerber_predictions %>%
   gt() %>%
   tab_header(
@@ -190,7 +193,6 @@ Gerber_table <- Gerber_predictions %>%
       palette = c("red", "blue"),
       domain = c('Yes', 'No'))
   )
-
 
 gtsave(Gerber_table, "figures/Ads_Gerber_Table.png") 
 
@@ -213,4 +215,29 @@ Huber_table <- Huber_predictions %>%
 
 gtsave(Huber_table, "figures/Ads_Huber_Table.png") 
 
-  
+Total_table <- Total_prediction %>%
+  gt() %>%
+  tab_header(
+    title = "Advertising Spending to Predict State Presidential Election Winners"
+  ) %>%
+  cols_label(
+    mean_Gerber_D_Cash_Needed = "Gerber Dem. Extra Cash Needed to Win",
+    mean_Huber_D_Cash_Needed = "Huber Dem. Extra Cash Needed to Win",
+    est_D_cash = "Predicted Dem. Extra Cash",
+    above_Gerber_mean = "Gerber Dem. Win Prediction",
+    above_Huber_mean = "Huber Dem. Win Prediction"
+  ) %>%
+  data_color(
+    columns = vars(above_Gerber_mean),
+    colors = scales::col_factor(
+      palette = c("red", "blue"),
+      domain = c('Yes', 'No'))
+  ) %>%
+  data_color(
+    columns = vars(above_Huber_mean),
+    colors = scales::col_factor(
+      palette = c("red", "blue"),
+      domain = c('Yes', 'No'))
+  )
+
+gtsave(Total_table, "figures/Ads_Total_Table.png")   
