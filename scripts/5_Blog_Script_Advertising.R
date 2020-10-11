@@ -39,6 +39,8 @@ states_list <- (vep %>%
   select(state))$state %>%
   unique()
 
+# Map function
+
 state_distribution <- function(state) {
   
   State <- state
@@ -110,17 +112,7 @@ states_dist_summary <- inner_join(states_dist_means, states_dist_lower_CIs, by =
          lower_CI_Huber_D_Cash_Needed = 175 * lower_CI_Huber_D_GRP_Needed,
          upper_CI_Huber_D_Cash_Needed = 175 * upper_CI_Huber_D_GRP_Needed)
 
-#states_dist_Gerber <- states_dist_summary %>%
-  #select(state, mean_Gerber_D_GRP_Needed, lower_CI_Gerber_D_GRP_Needed, upper_CI_Gerber_D_GRP_Needed) %>%
-  #mutate(mean_Gerber_D_Cash_Needed = 175 * mean_Gerber_D_GRP_Needed,
-         #lower_CI_Gerber_D_Cash_Needed = 175 * lower_CI_Gerber_D_GRP_Needed,
-         #upper_CI_Gerber_D_Cash_Needed = 175 * upper_CI_Gerber_D_GRP_Needed)
-  
-#states_dist_Huber <- states_dist_summary %>%
-  #select(state, mean_Huber_D_GRP_Needed, lower_CI_Huber_D_GRP_Needed, upper_CI_Huber_D_GRP_Needed) %>%
-  #mutate(mean_Huber_D_Cash_Needed = 175 * mean_Huber_D_GRP_Needed,
-         #lower_CI_Huber_D_Cash_Needed = 175 * lower_CI_Huber_D_GRP_Needed,
-         #upper_CI_Huber_D_Cash_Needed = 175 * upper_CI_Huber_D_GRP_Needed)
+# Transform Ad Data
 
 ads_2020 <- ads_2020 %>%
   mutate(est_biden_cost = biden_airings / total_airings * total_cost) %>%
@@ -179,6 +171,8 @@ Huber_predictions <- cash %>%
 
 Total_prediction <- cash %>%
   select(state, mean_Gerber_D_Cash_Needed, mean_Huber_D_Cash_Needed, est_D_cash, above_Gerber_mean, above_Huber_mean)
+
+# Tables of Results
 
 Gerber_table <- Gerber_predictions %>%
   gt() %>%
@@ -245,6 +239,8 @@ Total_table <- Total_prediction %>%
 
 gtsave(Total_table, "figures/Ads_Total_Table.png")   
 
+# Electoral Vote Calcs
+
 ec2020 <- ec %>%
   rename(state = X1) %>%
   rename(electors_2020 = '2020') %>%
@@ -273,6 +269,8 @@ EV_totals <- EV_2020_preds %>%
 
 dem_EV <- EV_totals$total_EV[1]
 rep_EV <- EV_totals$total_EV[2]
+
+# Plots
 
 ggplot(EV_totals) +
   geom_bar(aes(fill = state_winner_pred, y = total_EV, x = year),

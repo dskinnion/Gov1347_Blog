@@ -14,7 +14,11 @@ Using [Gerber's](https://www-cambridge-org.ezp-prod1.hul.harvard.edu/core/journa
 
 Using [Huber's](https://hollis.harvard.edu/primo-explore/fulldisplay?docid=TN_cdi_gale_infotracacademiconefile_A170741649&context=PC&vid=HVD2&search_scope=everything&tab=everything&lang=en_US) methods, the predicted vote share increases by 7.5 points for every 1000 more GRPs they get compared to their opponent.
 
-Because these effects diminish after about 1 week, we are going to predict the number of GRPs in the last week before the election.
+Because these effects diminish after about 1 week, we are going to predict the number of GRPs needed in the last week before the election in order to close simulated win margins.
+
+While advertising is a widely variable component of campaigns (from TV, Newspaper, Online, Social Media, etc.), we will be focusing solely on TV advertisements. 
+
+As a note of caution, this may skew some results, as the [Pew Research Center](https://www.journalism.org/2015/06/01/millennials-political-news/) notes that younger generations are increasingly moving away from cable television.
 
 ### Methods
 
