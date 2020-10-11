@@ -4,6 +4,8 @@ library(tidyverse)
 library(geofacet)
 library(lubridate)
 library(gt)
+library(maps)
+library(usmap)
 
 
 # Load Data
@@ -19,6 +21,7 @@ poll_avg_2020 <- read_csv('data/presidential_poll_averages_2020.csv')
 vep <- read_csv('data/vep_1980-2016.csv')
 pv_state <- read_csv('data/popvote_bystate_1948-2016.csv')
 abbs <- read_csv('data/state_abb.csv')
+ec <- read_csv('data/electoralcollegepost1948.csv')
 
 # Transform Data
 
@@ -241,3 +244,52 @@ Total_table <- Total_prediction %>%
   )
 
 gtsave(Total_table, "figures/Ads_Total_Table.png")   
+
+ec2020 <- ec %>%
+  rename(state = X1) %>%
+  rename(electors_2020 = '2020') %>%
+  select(state, electors_2020)
+
+new_EVs <- data.frame(region = c('connecticut', 'delaware', 'new jersey', 'rhode island', 'utah', 'north dakota'),
+                      state_winner_pred = c('democrat', 'democrat', 'democrat', 'democrat', 'republican', 'republican'),
+                      state = c('Connecticut', 'Delaware', 'New Jersey', 'Rhode Island', 'Utah', 'North Dakota'))
+
+ev2020_pred <- Total_prediction %>%
+  select(state, above_Gerber_mean) %>%
+  mutate(state_winner_pred = ifelse(above_Gerber_mean == "Yes", "democrat", "republican")) %>%
+  mutate(region = tolower(state)) %>%
+  select(state, state_winner_pred, region)
+
+EV_2020_pred <- ev2020_pred %>%
+  select(state, region, state_winner_pred) %>%
+  rbind(new_EVs)
+
+EV_2020_preds <- inner_join(EV_2020_pred, ec2020, by = 'state')
+
+EV_totals <- EV_2020_preds %>%
+  group_by(state_winner_pred) %>%
+  summarise(total_EV = sum(electors_2020)) %>%
+  mutate(year = 2020)
+
+dem_EV <- EV_totals$total_EV[1]
+rep_EV <- EV_totals$total_EV[2]
+
+ggplot(EV_totals) +
+  geom_bar(aes(fill = state_winner_pred, y = total_EV, x = year),
+           position = "stack",
+           stat = 'identity') +
+  scale_fill_manual(values = c('blue', 'red')) +
+  coord_flip() +
+  theme_classic() +
+  theme(legend.position = 'none',
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        plot.title = element_text(hjust = 0.5)) +
+  geom_hline(yintercept = 270, size = 2) +
+  labs(y = 'Electoral Votes',
+       title = "2020 Predicted Electoral Votes \n from Advertising Spending")
+
+ggsave("figures/Ads_EV.png", height = 2, width = 5)
+
