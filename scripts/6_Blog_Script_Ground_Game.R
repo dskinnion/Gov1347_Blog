@@ -16,6 +16,7 @@ field_office_2012_2016_address <- read_csv('data/fieldoffice_2012-2016_byaddress
 field_office_2012_county <- read_csv('data/fieldoffice_2012_bycounty.csv')
 pop_vote_state <- read_csv('data/popvote_bystate_1948-2016.csv')
 abbs <- read_csv('data/state_abb.csv')
+ec <- read_csv('data/electoralcollegepost1948.csv')
 
 # EDA
 
@@ -179,9 +180,10 @@ ggplot(preds_2020_map, aes(long, lat, group = group)) +
     name = "Predicted Margin"
   ) +
   theme_void() +
-  labs(title = "2020 Presidential Election Prediction \n by States' White Population") +
+  labs(title = "2020 Presidential Election Win Margin Prediction \n by States' White Population Proportions") +
   theme(plot.title = element_text(hjust = 0.5))
 
+ggsave("figures/GG_map.png", height = 2, width = 5)
 
 ggplot(preds_2020_map, aes(long, lat, group = group)) +
   geom_polygon(aes(fill = predicted_winner), color = "black") +
@@ -190,6 +192,42 @@ ggplot(preds_2020_map, aes(long, lat, group = group)) +
   labs(title = "2020 Presidential Election Prediction \n by States' White Population") +
   theme(plot.title = element_text(hjust = 0.5))
 
+ggsave("figures/GG_EV_map.png", height = 2, width = 5)
 
+ec2020 <- ec %>%
+  rename(state = X1) %>%
+  rename(electors_2020 = '2020') %>%
+  select(state, electors_2020)
 
+preds_2020_2 <- preds_2020 %>%
+  mutate(state = State)
+
+ev_pred <- inner_join(preds_2020_2, ec2020, by = 'state')
+
+EV_totals <- ev_pred %>%
+  group_by(predicted_winner) %>%
+  summarise(total_EV = sum(electors_2020)) %>%
+  mutate(year = 2020)
+
+dem_EV <- EV_totals$total_EV[1]
+rep_EV <- EV_totals$total_EV[2]
+
+ggplot(EV_totals) +
+  geom_bar(aes(fill = predicted_winner, y = total_EV, x = year),
+           position = "stack",
+           stat = 'identity') +
+  scale_fill_manual(values = c('blue', 'red')) +
+  coord_flip() +
+  theme_classic() +
+  theme(legend.position = 'none',
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        plot.title = element_text(hjust = 0.5)) +
+  geom_hline(yintercept = 270, size = 2) +
+  labs(y = 'Electoral Votes',
+       title = "2020 Predicted Electoral Votes \n from White Population Proportion")
+
+ggsave("figures/GG_EV.png", height = 2, width = 5)
 
