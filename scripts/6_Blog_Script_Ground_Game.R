@@ -183,7 +183,7 @@ ggplot(preds_2020_map, aes(long, lat, group = group)) +
   labs(title = "2020 Presidential Election Win Margin Prediction \n by States' White Population Proportions") +
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave("figures/GG_map.png", height = 2, width = 5)
+ggsave("figures/GG_map.png", height = 3, width = 5)
 
 ggplot(preds_2020_map, aes(long, lat, group = group)) +
   geom_polygon(aes(fill = predicted_winner), color = "black") +
@@ -192,7 +192,7 @@ ggplot(preds_2020_map, aes(long, lat, group = group)) +
   labs(title = "2020 Presidential Election Prediction \n by States' White Population") +
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave("figures/GG_EV_map.png", height = 2, width = 5)
+ggsave("figures/GG_EV_map.png", height = 3, width = 5)
 
 ec2020 <- ec %>%
   rename(state = X1) %>%
