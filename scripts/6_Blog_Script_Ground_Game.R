@@ -180,7 +180,7 @@ ggplot(preds_2020_map, aes(long, lat, group = group)) +
     name = "Predicted Margin"
   ) +
   theme_void() +
-  labs(title = "2020 Presidential Election Win Margin Prediction \n by States' White Population Proportions") +
+  labs(title = "2020 Presidential Election Win Margin \n by States' White Population Proportions") +
   theme(plot.title = element_text(hjust = 0.5))
 
 ggsave("figures/GG_map.png", height = 3, width = 5)
