@@ -53,4 +53,11 @@ We can see that this is indeed closer than prior predictions we have created, fo
 
 Biden wins 288 - 250.
 
+### Evaluation
+
+Our model did a pretty good job of predicting the entire dataset, even with leaving out 25%. We saw that it accurately predicted the winner of each state 91% of the time. The in-sample R-Squared value was 0.98, but again, in order to prevent over-fitting the training data, it is better to look at the accuracy score of 91%.
+
+The reason why this model predicts a tighter win for Biden is likely because demographics change at a much slower rate compared to other variables, like polling and the economy. Thus, this model maintains the status quo approach, meaning the predictions are more likely to reflect former elections.
+
+Because this seems like the most conservative approach so far, it makes sense that Biden is predicted to narrowly win. In future posts, I may combine demographics data with polling and possibly advertising in order to better predict the election without overfitting.
 
