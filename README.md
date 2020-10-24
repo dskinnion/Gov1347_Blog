@@ -21,3 +21,5 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 ### [Advertising](posts/5_Blog_Post_Advertising.md)
 
 ### [Demographics](posts/6_Blog_Post_Ground_Game.md)
+
+### [Shocks: The Coronavirus Pandemic](posts/6_Blog_Post_Ground_Game.md)
