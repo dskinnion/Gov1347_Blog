@@ -140,7 +140,7 @@ ggplot() +
        title = "Logistic Regression Accuracy (Actual vs. Predicted Values)",
        subtitle = "Line indicates perfect accuracy")
 
-ggsave("figures/Shocks_Model_Accuracy.png", height = 4, width = 6)
+ggsave("figures/Shocks_Model_Accuracy.png", height = 6, width = 6)
 
 trump_glm_baseline <- trump_glm$coefficients[2]
 trump_glm_intercept <- trump_glm$coefficients[1]
