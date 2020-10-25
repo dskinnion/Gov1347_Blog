@@ -165,9 +165,51 @@ arizona$pred_winner = ifelse(arizona$trump_pred_poll_avg > arizona$biden_pred_po
 
 cv_poll_prior_state %>%
   filter(State == "Arizona") %>%
-ggplot() +
-  geom_point(aes(x = tot_cases, y = pct_trend_adjusted, color = candidate_name))
+ggplot(aes(x = tot_cases, y = pct_trend_adjusted_dec, color = candidate_name)) +
+  geom_point() +
+  theme_bw() +
+  labs(color = "Candidate") +
+  scale_color_manual(values =  c('red', 'blue')) +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "quasibinomial"), 
+              se = FALSE) +
+  labs(x = "Total Coronavirus Cases", y = "Polling Average (Trend Adjusted",
+       title = "Arizona Polling Averages Predicted by Coronavirus Cases",
+       subtitle = "Logistic Regression Lines Shown")
 
+ggsave("figures/Shocks_Model_Arizona.png", height = 2, width = 5)
+
+cv_poll_prior_state %>%
+  filter(State == "Michigan") %>%
+  ggplot(aes(x = tot_cases, y = pct_trend_adjusted_dec, color = candidate_name)) +
+  geom_point() +
+  theme_bw() +
+  labs(color = "Candidate") +
+  scale_color_manual(values =  c('red', 'blue')) +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "quasibinomial"), 
+              se = FALSE) +
+  labs(x = "Total Coronavirus Cases", y = "Polling Average (Trend Adjusted",
+       title = "Michigan Polling Averages Predicted by Coronavirus Cases",
+       subtitle = "Logistic Regression Lines Shown")
+
+ggsave("figures/Shocks_Model_Michigan.png", height = 2, width = 5)
           
-           
+cv_poll_prior_state %>%
+  filter(State == "Pennsylvania") %>%
+  ggplot(aes(x = tot_cases, y = pct_trend_adjusted_dec, color = candidate_name)) +
+  geom_point() +
+  theme_bw() +
+  labs(color = "Candidate") +
+  scale_color_manual(values =  c('red', 'blue')) +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "quasibinomial"), 
+              se = FALSE) +
+  labs(x = "Total Coronavirus Cases", y = "Polling Average (Trend Adjusted",
+       title = "Pennsylvania Polling Averages Predicted by Coronavirus Cases",
+       subtitle = "Logistic Regression Lines Shown")
+
+ggsave("figures/Shocks_Model_Pennsylvania.png", height = 2, width = 5)
+
+
            
