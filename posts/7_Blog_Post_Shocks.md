@@ -10,9 +10,13 @@ As previously discussed, the Coronavirus Pandemic has affected many different fa
 
 As we have discussed in previous posts, economic data is a difficult predictor to use in this election because of the drastic effects of the pandemic. [The Wall Street Journal](https://www.wsj.com/articles/its-the-economy-stupid-carries-less-weight-in-2020-election-11599989400) shares this view, saying that the econmy does not carry as much weight during this electoin cycle, due to both increasing polarization, which skews people's perceptions of the economy, and the pandemic.
 
-In this blog, I want to explore how the Coronavirus Pandemic will affect the 2020 Election Results.
+In this blog, I want to explore how the Coronavirus Pandemic will affect the 2020 Election Results. Because of this, most if not all of this blog will be dedicated to descriptive analysis rather than predictive analysis of the actual election results.
 
 Polling is arguably the predictor which most reflects the opinions of the people, as it comes directly from the people themselves. Because polling reflects people's opinions, I will use Presidential Election polling averages from [FiveThirtyEight](https://data.fivethirtyeight.com) as my response variable, since it seems like a good proxy for public opinion. (An argument could also be made for using Presidential Approval, but because the Presidential Election polling is used most often in predictions). For this reason, I look at how the number of total Coronavirus Cases relates to Polling Averages.
+
+### Theory
+
+***The working theory for this blog is that as Coronavirus Cases increase, less people will vote for Trump, because they will blame him for inadequately responding to the pandemic.***
 
 ### Methods
 
@@ -50,10 +54,24 @@ RMSE = sqrt(mean((actual - predicted)^2))
 
 For Trump's model, the training RMSE was 0.001689, or about 0.1689%, and the testing RMSE was 0.002877, or about 0.2877%. For Biden's model, the training RMSE was 0.001798, or about 0.1798%, and the testing RMSE was 0.002877, or about 0.2877%. Even on the testing set, the RMSE is low. 0.2877% is very small, and elections are unlikely to be within that margin of error (though, still possible!). This tells us that our model is pretty accurate for predicting the polling averages.
 
-We can look at a graph of predicted vs. actual values to also see this accuracy:
+### Results
+
+***While the model RMSE is extremely low, this is likely due to low variance in the data, rather than predictive power.***
+
+## Accuracy
+
+We can look at a graph of predicted vs. actual values to also see the results and accuracy of the regression:
 
 ![Model Accuracy](../figures/Shocks_Model_Accuracy.png)
 
+However, this does seem suspicious, given that some of the interaction terms indicate that some states actually respond more positively towards Trump the higher that their Total Cases increases, which is contrary to our theory.
 
+## Battleground State Investigations
 
+We can investigate some states to see these relationships. Because we are particularly interested in Battleground states, it would be cool to look at Arizona, Michigan, and Ohio in particular.
 
+![Arizona Model](../figures/Shocks_Model_Accuracy.png)
+
+![Michigan Model](../figures/Shocks_Model_Accuracy.png)
+
+![Ohio Model](../figures/Shocks_Model_Accuracy.png)

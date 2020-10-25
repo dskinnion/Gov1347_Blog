@@ -22,4 +22,4 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 
 ### [Demographics](posts/6_Blog_Post_Ground_Game.md)
 
-### [Shocks: The Coronavirus Pandemic](posts/6_Blog_Post_Ground_Game.md)
+### [Shocks: The Coronavirus Pandemic](posts/7_Blog_Post_Shocks.md)
