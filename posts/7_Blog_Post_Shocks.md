@@ -22,11 +22,11 @@ Polling is arguably the predictor which most reflects the opinions of the people
 
 ***I created logistic regression models from CDC Coronavirus data and FiveThirtyEight Polling Averages.***
 
-## Data 
+#### Data 
 
 I used Coronavirus state-level data from the [CDC](https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36) and [FiveThirtyEight](https://data.fivethirtyeight.com) state polling averages. Particularly, I used the number of Total Coronavirus Cases in each state (CDC) and Polling Average (Trend Adjusted), which is an average of polls for a specified time period, adjusted by FiveThirtyEight for changing trends in the data.
 
-## Logistic Regression 
+#### Logistic Regression 
 
 ***We should use a train-test split and make sure to check test accuracy.***
 
@@ -58,7 +58,7 @@ For Trump's model, the training RMSE was 0.001689, or about 0.1689%, and the tes
 
 ***While the model RMSE is extremely low, this is likely due to low variance in the data, rather than predictive power.***
 
-## Accuracy
+#### Accuracy
 
 We can look at a graph of predicted vs. actual values to also see the results and accuracy of the regression:
 
@@ -66,7 +66,7 @@ We can look at a graph of predicted vs. actual values to also see the results an
 
 However, this does seem suspicious, given that some of the interaction terms indicate that some states actually respond more positively towards Trump the higher that their Total Cases increases, which is contrary to our theory.
 
-## Battleground State Investigations
+#### Battleground State Investigations
 
 We can investigate some states to see these relationships. Because we are particularly interested in Battleground states, it would be cool to look at Arizona, Michigan, and Ohio in particular.
 
