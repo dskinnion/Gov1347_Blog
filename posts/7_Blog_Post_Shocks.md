@@ -70,8 +70,8 @@ However, this does seem suspicious, given that some of the interaction terms ind
 
 We can investigate some states to see these relationships. Because we are particularly interested in Battleground states, it would be cool to look at Arizona, Michigan, and Ohio in particular.
 
-![Arizona Model](../figures/Shocks_Model_Accuracy.png)
+![Arizona Model](../figures/Shocks_Model_Arizona.png)
 
-![Michigan Model](../figures/Shocks_Model_Accuracy.png)
+![Michigan Model](../figures/Shocks_Model_Michigan.png)
 
-![Ohio Model](../figures/Shocks_Model_Accuracy.png)
+![Ohio Model](../figures/Shocks_Model_Ohio.png)
