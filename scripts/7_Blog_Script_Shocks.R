@@ -5,6 +5,8 @@ library(usmap)
 library(maps)
 library(loo)
 library(geofacet)
+library(broom)
+library(stringr)
 
 # Load data
 
@@ -68,7 +70,11 @@ cv_poll_prior_state <- cv_poll_state %>%
   drop_na() %>%
   mutate(pct_trend_adjusted_dec = pct_trend_adjusted / 100,
          R_pv2p_dec = R_pv2p / 100,
-         D_pv2p_dec = D_pv2p / 100)
+         D_pv2p_dec = D_pv2p / 100,
+         R_pv_dec = R / total,
+         D_pv_dec = D / total) %>%
+  mutate(D_poll_2016_dif = ifelse(candidate_name == "Joseph R. Biden Jr.", pct_trend_adjusted_dec - D_pv_dec, NA),
+         R_poll_2016_dif = ifelse(candidate_name == "Donald Trump", pct_trend_adjusted_dec - R_pv_dec, NA))
 
 
 smp_size <- floor(0.75 * nrow(cv_poll_prior_state))
@@ -87,7 +93,7 @@ test_trump <- test %>%
   filter(candidate_name == "Donald Trump")
 
 biden_glm <- train_biden %>%
-  glm(formula = pct_trend_adjusted_dec ~ tot_cases + D_pv2p_dec, family = 'quasibinomial')
+  glm(formula = pct_trend_adjusted_dec ~ tot_cases * State, family = 'quasibinomial')
 
 summary(biden_glm)  
 
@@ -101,7 +107,7 @@ train_biden_RMSE = mean(sqrt((train_biden$residual)^2))
 test_biden_RMSE = mean(sqrt((test_biden$residual)^2))
 
 trump_glm <- train_trump %>%
-  glm(formula = pct_trend_adjusted_dec ~ tot_cases + R_pv2p_dec, family = 'quasibinomial')
+  glm(formula = pct_trend_adjusted_dec ~ tot_cases * State, family = 'quasibinomial')
 
 summary(trump_glm)  
 
@@ -129,6 +135,39 @@ ggplot() +
 
 ggsave("figures/Shocks_Model_Accuracy.png", height = 2, width = 5)
 
+trump_glm_baseline <- trump_glm$coefficients[2]
+trump_glm_intercept <- trump_glm$coefficients[1]
 
+summary(trump_glm)
 
+#trump_glm_df <- tidy(trump_glm)
 
+#trump_glm_its <- tail(trump_glm_df, 21) %>%
+#  mutate(tot_cases_coef = estimate + trump_glm_baseline) %>%
+#  separate(col = "term", into = c('term', 'state'), sep = ":State") %>%
+#  select(state, tot_cases_coef)
+
+#trump_glm_intercepts <- slice(trump_glm_df, 3:23) %>%
+#  mutate(intercepts = estimate + trump_glm_intercept) %>%
+#  separate(col = "term", into = c('term', 'state'), sep = "State") %>%
+#  select(state, intercepts)
+
+#trump_glm_coefs = inner_join(trump_glm_intercepts, trump_glm_its, by = 'state')
+ 
+arizona <- tibble(
+  State = "Arizona",
+  tot_cases = 0:1000000
+)
+
+arizona$trump_pred_poll_avg = predict.glm(trump_glm, arizona, type = "response")
+arizona$biden_pred_poll_avg = predict.glm(biden_glm, arizona, type = "response")
+arizona$pred_winner = ifelse(arizona$trump_pred_poll_avg > arizona$biden_pred_poll_avg, "Donald Trump", "Joseph R. Biden Jr.")
+
+cv_poll_prior_state %>%
+  filter(State == "Arizona") %>%
+ggplot() +
+  geom_point(aes(x = tot_cases, y = pct_trend_adjusted, color = candidate_name))
+
+          
+           
+           
