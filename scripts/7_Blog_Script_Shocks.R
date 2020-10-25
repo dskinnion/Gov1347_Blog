@@ -140,7 +140,7 @@ ggplot() +
        title = "Logistic Regression Accuracy (Actual vs. Predicted Values)",
        subtitle = "Line indicates perfect accuracy")
 
-ggsave("figures/Shocks_Model_Accuracy.png", height = 2, width = 5)
+ggsave("figures/Shocks_Model_Accuracy.png", height = 5, width = 8)
 
 trump_glm_baseline <- trump_glm$coefficients[2]
 trump_glm_intercept <- trump_glm$coefficients[1]
@@ -186,7 +186,7 @@ ggplot(aes(x = tot_cases, y = pct_trend_adjusted_dec, color = candidate_name)) +
        title = "Arizona Polling Averages Predicted by Coronavirus Cases",
        subtitle = "Logistic Regression Lines Shown")
 
-ggsave("figures/Shocks_Model_Arizona.png", height = 2, width = 5)
+ggsave("figures/Shocks_Model_Arizona.png", height = 5, width = 8)
 
 cv_poll_prior_state %>%
   filter(State == "Michigan") %>%
@@ -202,7 +202,7 @@ cv_poll_prior_state %>%
        title = "Michigan Polling Averages Predicted by Coronavirus Cases",
        subtitle = "Logistic Regression Lines Shown")
 
-ggsave("figures/Shocks_Model_Michigan.png", height = 2, width = 5)
+ggsave("figures/Shocks_Model_Michigan.png", height = 5, width = 8)
           
 cv_poll_prior_state %>%
   filter(State == "Ohio") %>%
@@ -218,7 +218,7 @@ cv_poll_prior_state %>%
        title = "Ohio Polling Averages Predicted by Coronavirus Cases",
        subtitle = "Logistic Regression Lines Shown")
 
-ggsave("figures/Shocks_Model_Ohio.png", height = 2, width = 5)
+ggsave("figures/Shocks_Model_Ohio.png", height = 5, width = 8)
 
 
            
