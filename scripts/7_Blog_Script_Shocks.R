@@ -49,6 +49,8 @@ pres_and_cv_appr_toplines %>%
   ggplot() +
     geom_point(aes(x = approve_estimate_cv, y = approve_estimate_pres))
 
+# Joining COVID Data with Polling Data
+
 cv_cases_deaths_state <- cv_cases_deaths_state %>%
   inner_join(abbs, by = c('state' = 'Code'))
 
@@ -76,6 +78,7 @@ cv_poll_prior_state <- cv_poll_state %>%
   mutate(D_poll_2016_dif = ifelse(candidate_name == "Joseph R. Biden Jr.", pct_trend_adjusted_dec - D_pv_dec, NA),
          R_poll_2016_dif = ifelse(candidate_name == "Donald Trump", pct_trend_adjusted_dec - R_pv_dec, NA))
 
+# Making Regressions for Biden and Trump
 
 smp_size <- floor(0.75 * nrow(cv_poll_prior_state))
 train_ind <- sample(seq_len(nrow(cv_poll_prior_state)), size = smp_size)
@@ -111,6 +114,8 @@ trump_glm <- train_trump %>%
 
 summary(trump_glm)  
 
+# Model Accury
+
 train_trump$pred = predict.glm(trump_glm, train_trump, type = "response")
 test_trump$pred = predict.glm(trump_glm, test_trump, type = "response")
 
@@ -119,6 +124,8 @@ test_trump$residual = test_trump$pct_trend_adjusted_dec - test_trump$pred
 
 train_trump_RMSE = mean(sqrt((train_trump$residual)^2))
 test_trump_RMSE = mean(sqrt((test_trump$residual)^2))
+
+# Plotting Accuracy
 
 ggplot() +
   geom_point(data = test_trump, aes(x = pred, y = pct_trend_adjusted_dec, color = candidate_name)) +
@@ -163,6 +170,8 @@ arizona$trump_pred_poll_avg = predict.glm(trump_glm, arizona, type = "response")
 arizona$biden_pred_poll_avg = predict.glm(biden_glm, arizona, type = "response")
 arizona$pred_winner = ifelse(arizona$trump_pred_poll_avg > arizona$biden_pred_poll_avg, "Donald Trump", "Joseph R. Biden Jr.")
 
+# Plotting Battleground States
+
 cv_poll_prior_state %>%
   filter(State == "Arizona") %>%
 ggplot(aes(x = tot_cases, y = pct_trend_adjusted_dec, color = candidate_name)) +
@@ -196,7 +205,7 @@ cv_poll_prior_state %>%
 ggsave("figures/Shocks_Model_Michigan.png", height = 2, width = 5)
           
 cv_poll_prior_state %>%
-  filter(State == "Pennsylvania") %>%
+  filter(State == "Ohio") %>%
   ggplot(aes(x = tot_cases, y = pct_trend_adjusted_dec, color = candidate_name)) +
   geom_point() +
   theme_bw() +
@@ -206,10 +215,10 @@ cv_poll_prior_state %>%
               method.args = list(family = "quasibinomial"), 
               se = FALSE) +
   labs(x = "Total Coronavirus Cases", y = "Polling Average (Trend Adjusted",
-       title = "Pennsylvania Polling Averages Predicted by Coronavirus Cases",
+       title = "Ohio Polling Averages Predicted by Coronavirus Cases",
        subtitle = "Logistic Regression Lines Shown")
 
-ggsave("figures/Shocks_Model_Pennsylvania.png", height = 2, width = 5)
+ggsave("figures/Shocks_Model_Ohio.png", height = 2, width = 5)
 
 
            
