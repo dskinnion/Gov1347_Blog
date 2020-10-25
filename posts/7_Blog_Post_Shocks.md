@@ -66,12 +66,34 @@ We can look at a graph of predicted vs. actual values to also see the results an
 
 However, this does seem suspicious, given that some of the interaction terms indicate that some states actually respond more positively towards Trump the higher that their Total Cases increases, which is contrary to our theory.
 
+The reason why these values may be so close to the line of accuracy is because for each state, there is relatively low variance due to a small number of data points, which means regressions will be able to better predict the points, even if we do a train-test split.
+
 #### Battleground State Investigations
 
 We can investigate some states to see these relationships. Because we are particularly interested in Battleground states, it would be cool to look at Arizona, Michigan, and Ohio in particular.
 
 ![Arizona Model](../figures/Shocks_Model_Arizona.png)
 
+As we can see, **both** Trump and Biden are predicted to poll **better** when the Total Cases increases. Perhaps both parties are more mobilized the more the pandemic goes on: Republicans may turn out more for Trump in order to prevent further measures from being enacted, and Democrats may turn out more for Biden in hopes of curbing the virus. While this may be true for some time, since we know that the sum of the two polling averages can never exceed 1, this is unrealistic for larger numbers of total cases. In any case, under the realistic domain, it seems that Biden will remain above Trump in polling. However, because of the unrealistic relationship between the two variables, we should be wary of this conclusion. Perhaps instead, we could recalculate each polling average as a 2-party polling average, and then only do one regression (and the other prediction would necessarily be 1 - prediction) in order to get a better relationship between the two variables. 
+
 ![Michigan Model](../figures/Shocks_Model_Michigan.png)
 
+As we can see, **both** Trump and Biden are predicted to poll **worse** when the Total Cases increases. This may be due to the fact that as the virus rages on, people may be less likely to vote for either candidate, as they may be dissatisfied with the two parties. Again, while this may be true for sometime, since we know that their sum can never exceed 1 (which this would do as Total Cases is near 0), this is unrealistic for small numbers of cases. And again, we should be wary of this result. 
+
 ![Ohio Model](../figures/Shocks_Model_Ohio.png)
+
+Here we can that as Total Cases increases, Trump's average increases, and Biden's decreases. This is contrary to our theory which would predict the incumbent Trump's average to decrease. However, this does mean that it is more likely for the sum of the two averages to add up to 1, which means this may be a more realistic regression than that for Arizona and Michigan.
+
+While these regressions look like they are linear, that is just because they are super zoomed in pictures of the S-curvy logistic regression.
+
+### Discussion
+
+***We should be worried about (lots of) confounding variables!***
+
+In addition, we should note that total coronavirus cases increases over time (afterall, you cannot remove cases from having occurred; this can only increase), which means that the variable we used as a predictor will have high collinearity with other variables associated with an increase in time. Perhaps the economy in a particular state is getting better, or worse, with time, and that might explain the changes in polling opinion better than coronavirus cases would.
+
+These variables are called confounding variables, and they are essentially hidden variables which might be the *actual* variables that affect our poll averages. Because COVID cases are associated with time so well, there are a multitude of possible confounding variables, especially within each state.
+
+So yes, while our model did predict polling averages well, coronavirus cases may not actually be the variable of interest we are looking for (as evidenced by the very different trends in different states). We can certainly affect the Coronavirus Pandemic to affect the election, but it does not seem like total cases in each state is actually the reason for the change in polling averages.
+
+In future blogs, it may be beneficial to instead consider two-party vote share, since we would not have to worry about making two different regression models, and instead, we would have a single model which could simultaneously be used to predict either Biden or Trump's two-party vote share.
