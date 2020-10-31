@@ -6,9 +6,9 @@
 
 ### Background
 
-As previously discussed, the Coronavirus Pandemic has affected many different facets which will in some way change the outcome of the 2020 Presidential Election. First and foremost, the pandemic makes in-person voting dangerous. As a result, many states have strengthened and expanded mail-in voting. [The New York Times](https://www.nytimes.com/2020/10/11/us/elections/vote-by-mail-election.html?auth=login-google) predicts that the 2020 election may end up much like the 2000 election, ending with a Supreme Court case as a result of possible lawsuits cause by the rejection of ballots filled out incorrectly.
+As previously discussed, the Coronavirus Pandemic has affected many different facets which will in some way change the outcome of the 2020 Presidential Election. First and foremost, the pandemic makes in-person voting dangerous. As a result, many states have strengthened and expanded mail-in voting. [The New York Times](https://www.nytimes.com/2020/10/11/us/elections/vote-by-mail-election.html?auth=login-google) predicts that the 2020 election may end up much like the 2000 election, ending with a Supreme Court case as a result of possible lawsuits caused by the rejection of ballots filled out incorrectly.
 
-As we have discussed in previous posts, economic data is a difficult predictor to use in this election because of the drastic effects of the pandemic. [The Wall Street Journal](https://www.wsj.com/articles/its-the-economy-stupid-carries-less-weight-in-2020-election-11599989400) shares this view, saying that the econmy does not carry as much weight during this electoin cycle, due to both increasing polarization, which skews people's perceptions of the economy, and the pandemic.
+As we have discussed in previous posts, economic data is a difficult predictor to use in this election because of the drastic effects of the pandemic. [The Wall Street Journal](https://www.wsj.com/articles/its-the-economy-stupid-carries-less-weight-in-2020-election-11599989400) shares this view, saying that the economy does not carry as much weight during this election cycle, due to both increasing polarization, which skews people's perceptions of the economy, and the pandemic.
 
 In this blog, I want to explore how the Coronavirus Pandemic will affect the 2020 Election Results. Because of this, most if not all of this blog will be dedicated to descriptive analysis rather than predictive analysis of the actual election results.
 
@@ -30,7 +30,7 @@ I used Coronavirus state-level data from the [CDC](https://data.cdc.gov/Case-Sur
 
 ***We should use a train-test split and make sure to check test accuracy.***
 
-Because our data was split into observations by candidate (i.e. for each poll there were actually two observations, one for Trump and one for Biden), I decided to fit two different regression models. I decided to
+Because our data was split into observations by candidate (i.e. for each poll there were actually two observations, one for Trump and one for Biden), I decided to fit two different regression models.
 
 I did this for two reasons:
 * I did not like how the 2 party vote share made it seem like 100% of people voted for either Trump or Biden. I thought it would be interesting to see if there were any trends relating to people refusing to vote for either candidate depending on Coronavirus Cases. (i.e. I wondered if people would be less inclined to vote for either major candidate because they lose faith in the parties to solve the pandemic issue.)
