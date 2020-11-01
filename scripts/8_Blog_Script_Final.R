@@ -9,6 +9,7 @@ library(broom)
 library(caret)
 library(stringr)
 library(gt)
+library(statebins)
 
 # Load Data
 
@@ -20,6 +21,8 @@ pres_poll_avg_hist_state <- read_csv("data/pollavg_bystate_1968-2016.csv")
 demog <- read_csv("data/demographic_1990-2018.csv")
 pv_hist_natl <- read_csv("data/popvote_1948-2016.csv")
 pv_hist_state <- read_csv("data/popvote_bystate_1948-2016.csv")
+state_abbs <- read_csv("data/state_abb.csv")
+ec <- read_csv("data/electoralcollegepost1948.csv")
 
 # Data Wrangling
 
@@ -443,6 +446,245 @@ pres_poll_avg_2020_state <- pres_poll_avg_2020 %>%
                                          as.Date.character(date, format = "%m/%d/%Y"), 
                                          units = "days"))) %>%
   mutate(party = ifelse(candidate == "Donald Trump", "republican", "democrat")) %>%
-  select(state, year, party, candidate, poll_avg, days_left)
+  select(state, year, party, candidate, poll_avg, days_left) %>%
+  pivot_wider(id_cols = c(year, state, days_left), names_from = party, values_from = poll_avg) %>%
+  mutate(D_pa = democrat,
+         R_pa = republican,
+         D_pa2p = D_pa / (D_pa + R_pa),
+         R_pa2p = R_pa / (D_pa + R_pa)) %>%
+  select(year, state, days_left, D_pa2p, R_pa2p) %>%
+  mutate(weight = 1 / days_left) %>%
+  filter(days_left > 0) %>%
+  filter(days_left < 63) %>%
+  drop_na() %>%
+  group_by(year, state) %>%
+  mutate(weight = 1 / days_left) %>%
+  mutate(rel_weight = weight / sum(weight)) %>%
+  ungroup() %>%
+  mutate(D_pa2p_rw = D_pa2p * rel_weight,
+         R_pa2p_rw = R_pa2p * rel_weight) %>%
+  group_by(year, state) %>%
+  summarize(D_pa2p_weighted = sum(D_pa2p_rw),
+            R_pa2p_weighted = sum(R_pa2p_rw)) %>%
+  filter(state != "ME-1",
+         state != "ME-2", 
+         state != "NE-1", 
+         state != "NE-2")
+
+pres_poll_avg_hist_state <- pres_poll_avg_hist_state %>%
+  mutate(poll_avg = avg_poll) %>%
+  select(year, state, party, days_left, poll_avg) %>%
+  pivot_wider(id_cols = c(year, state, days_left), names_from = party, values_from = poll_avg) %>%
+  mutate(D_pa = democrat,
+         R_pa = republican,
+         D_pa2p = D_pa / (D_pa + R_pa),
+         R_pa2p = R_pa / (D_pa + R_pa)) %>%
+  select(year, state, days_left, D_pa2p, R_pa2p) %>%
+  mutate(weight = 1 / days_left) %>%
+  filter(days_left > 0) %>%
+  filter(days_left < 63) %>%
+  drop_na() %>%
+  group_by(year, state) %>%
+  mutate(weight = 1 / days_left) %>%
+  mutate(rel_weight = weight / sum(weight)) %>%
+  ungroup() %>%
+  mutate(D_pa2p_rw = D_pa2p * rel_weight,
+         R_pa2p_rw = R_pa2p * rel_weight) %>%
+  group_by(year, state) %>%
+  summarize(D_pa2p_weighted = sum(D_pa2p_rw),
+            R_pa2p_weighted = sum(R_pa2p_rw)) %>%
+  filter(state != "ME-1",
+         state != "ME-2", 
+         state != "NE-1", 
+         state != "NE-2")
+
+pv_hist_state <- pv_hist_state %>%
+  select(state, year, R_pv2p, D_pv2p) %>%
+  mutate(R_pv2p = R_pv2p / 100,
+         D_pv2p = D_pv2p / 100) %>%
+  mutate(R_inc = case_when(
+    year == "2016" ~ 0,
+    year == "2012" ~ 0,
+    year == "2008" ~ 0,
+    year == "2004" ~ 1,
+    year == "2000" ~ 0,
+    year == "1996" ~ 0,
+    year == "1992" ~ 1,
+    year == "1988" ~ 0,
+    year == "1984" ~ 1,
+    year == "1980" ~ 0,
+    year == "1976" ~ 1,
+    year == "1972" ~ 1,
+    year == "1968" ~ 0,
+    year == "1964" ~ 0,
+    year == "1960" ~ 0,
+    year == "1956" ~ 1,
+    year == "1952" ~ 0,
+    year == "1948" ~ 0)) %>%
+  group_by(state) %>%
+  mutate(fmr_D_pv2p = lag(D_pv2p),
+         fmr_R_pv2p = lag(R_pv2p)) %>%
+  ungroup() %>%
+  drop_na()
+
+demog_hist_state <- demog %>%
+  mutate(white_pct = White / 100) %>%
+  select(year, state, white_pct) %>%
+  left_join(state_abbs, by = c("state" = "Code")) %>%
+  select(year, State, white_pct) %>%
+  mutate(state = State) %>%
+  select(year, state, white_pct) %>%
+  filter(year %in% c(1976, 1980, 1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016))
+
+demog_2020_state <- demog %>%
+  filter(year == 2018) %>%
+  mutate(year = 2020) %>%
+  mutate(white_pct = White / 100) %>%
+  select(year, state, white_pct) %>%
+  left_join(state_abbs, by = c("state" = "Code")) %>%
+  select(year, State, white_pct) %>%
+  mutate(state = State) %>%
+  select(year, state, white_pct)
+
+state_hist <- full_join(pres_poll_avg_hist_state, pv_hist_state, by = c("year", "state")) %>%
+  full_join(demog_hist_state, by = c("year", "state"))
+
+fmr_state_2020 <- pv_hist_state %>%
+  filter(year == 2016) %>%
+  select(state, R_pv2p, D_pv2p) %>%
+  mutate(fmr_D_pv2p = D_pv2p,
+         fmr_R_pv2p = R_pv2p) %>%
+  mutate(year = 2020) %>%
+  select(year, state, fmr_R_pv2p, fmr_D_pv2p)
+
+state_2020 <- full_join(pres_poll_avg_2020_state, demog_2020_state, by = c("year", "state")) %>%
+  full_join(fmr_state_2020, by = c("year", "state")) %>%
+  mutate(R_inc = 1)
+
+# State Models
+
+R_state_polls_fmr_model_df <- state_hist %>%
+  select(year, state, R_pa2p_weighted, R_pv2p, fmr_R_pv2p) %>%
+  drop_na()
+
+R_state_polls_fmr_model <- train(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted, 
+                                     data = R_state_polls_fmr_model_df, method = "lm", trControl = trainControl(method = "LOOCV"))
+
+summary(R_state_polls_fmr_model)
+
+R_state_polls_fmr_inc_model_df <- state_hist %>%
+  select(year, state, R_pa2p_weighted, R_pv2p, R_inc, fmr_R_pv2p) %>%
+  drop_na()
+
+R_state_polls_fmr_inc_model <- train(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted + R_inc, 
+                                 data = R_state_polls_fmr_inc_model_df, method = "lm", trControl = trainControl(method = "LOOCV"))
+
+summary(R_state_polls_fmr_inc_model)
+
+R_state_polls_fmr_inc_demog_model_df <- state_hist %>%
+  select(year, state, R_pa2p_weighted, R_pv2p, R_inc, fmr_R_pv2p, white_pct) %>%
+  drop_na()
+
+R_state_polls_fmr_inc_demog_model <- train(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted + R_inc + white_pct, 
+                                     data = R_state_polls_fmr_inc_demog_model_df, method = "lm", trControl = trainControl(method = "LOOCV"))
+
+summary(R_state_polls_fmr_inc_demog_model)
+
+R_state_polls_fmr_demog_model_df <- state_hist %>%
+  select(year, state, R_pa2p_weighted, R_pv2p, fmr_R_pv2p, white_pct) %>%
+  drop_na()
+
+R_state_polls_fmr_demog_model <- train(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted + white_pct, 
+                                           data = R_state_polls_fmr_demog_model_df, method = "lm", trControl = trainControl(method = "LOOCV"))
+
+summary(R_state_polls_fmr_demog_model)
+
+R_state_models <- tibble(model = c("R_state_polls_fmr_mode", "R_state_polls_fmr_inc_model", "R_state_polls_fmr_inc_demog_model", "R_state_polls_fmr_demog_model"))
+
+R_state_loocv_results <- rbind(R_state_polls_fmr_model$results, R_state_polls_fmr_inc_model$results, R_state_polls_fmr_inc_demog_model$results, R_state_polls_fmr_demog_model$results)
+
+R_state_loocv_results_table <- R_state_models %>% 
+  cbind(R_state_loocv_results) %>% 
+  tibble()
+
+R_state_model_outputs <- export_summs(R_state_polls_fmr_model$finalModel, R_state_polls_fmr_inc_model$finalModel, R_state_polls_fmr_inc_demog_model$finalModel, R_state_polls_fmr_demog_model$finalModel,
+                                error_format = "({round(std.error, 3)})",
+                                coefs = c("Intercept" = "(Intercept)",
+                                          "Republican Weighted Poll Avg." = "R_pa2p_weighted",
+                                          "Last Rep. 2 Party Pop. Vote" = "fmr_R_pv2p",
+                                          "Republican Incumbent" = "R_inc",
+                                          "White % of Pop." = "white_pct"),
+                                statistics = c(N = "nobs",
+                                               R2 = "r.squared",
+                                               R2.adj = "adj.r.squared",
+                                               sigma = "sigma")) %>%
+  filter(`Model 1` != "Model 1")
+
+gt_R_state_models <- R_state_model_outputs %>%
+  gt(rowname_col = "names") %>%
+  tab_header(
+    title = "Model Outputs Predicting State-Level Republican Two-Party Popular Vote"
+  )
+
+R_state_model_final <- lm(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted + R_inc + white_pct, data = R_state_polls_fmr_inc_demog_model_df)
+
+R_state_pred_final_df <- predict.lm(object = R_state_model_final, newdata = state_2020, se.fit=TRUE, interval="confidence", level=0.95)
+
+R_state_preds <- as.data.frame(R_state_pred_final_df$fit)
+R_state_errors <- as.data.frame(R_state_pred_final_df$se.fit)
+
+R_state_preds_2020 <- cbind(state_2020, R_state_preds) %>%
+  select(year, state, fit, lwr, upr) %>%
+  cbind(R_state_errors)
+
+ec_2020 <- ec %>%
+  select(X1, `2020`) %>%
+  mutate(state = X1,
+         ev = `2020`) %>%
+  select(state, ev) %>%
+  drop_na()
+
+R_state_preds_2020_final <- inner_join(R_state_preds_2020, ec_2020, by = "state") %>%
+  mutate(est_winner = ifelse(fit > 0.5, "Trump", "Biden"),
+         lwr_winner = ifelse(lwr > 0.5, "Trump", "Biden"),
+         upr_winner = ifelse(upr > 0.5, "Trump", "Biden")) %>%
+  mutate(est_R_margin = (fit - 0.5) * 2,
+         lwr_R_margin = (lwr - 0.5) * 2,
+         upr_R_margin = (upr - 0.5) * 2) %>%
+  mutate(est_type = ifelse(est_R_margin > 0.1, "Solid Trump",
+                           ifelse(est_R_margin > 0.05, "Lean Trump",
+                                  ifelse(est_R_margin > -0.05, "Toss-Up",
+                                         ifelse(est_R_margin > -0.1, "Lean Biden", "Solid Biden")))))
+
+state_2020_plot <- R_state_preds_2020_final %>% 
+  ggplot(aes(state = state, 
+             fill = est_type, 
+             name = "Predicted Win Margin")) +
+  geom_statebins(border_col = "black", border_size = 0.25) + 
+  theme_statebins() +
+  scale_fill_manual(values = c("#619CFF", "#C3D7F7", "#ECCB9C", "#FACECA", "#F8766D"),
+                    breaks = c("Solid Biden", "Lean Biden", "Toss-Up", "Lean Trump", "Solid Trump")) +
+  labs(title = "2020 Presidential Election Prediction Map",
+       fill = "")
+
+state_2020_ev <- R_state_preds_2020_final %>%
+  group_by(est_type) %>%
+  summarize(total = sum(ev))
+
+ev_bar <- state_2020_ev %>% 
+  ggplot(aes(x = "2020", y = total, fill = fct_relevel(est_type, "Solid Trump", "Lean Trump", "Toss-Up", "Lean Biden", "S Biden"), label = total)) +
+  geom_col(show.legend = FALSE, width = 0.25) + 
+  geom_text(position = position_stack(vjust = 0.5)) +
+  geom_hline(yintercept = 270) +
+  annotate(geom = 'text', x = 0.7, y = 300, label = '270') +
+  coord_flip() + 
+  theme_void() + 
+  labs(fill = "") +
+  scale_fill_manual(values = c("#619CFF", "#C3D7F7", "#ECCB9C", "#FACECA", "#F8766D"),
+                    breaks = c("Solid Biden", "Lean Biden", "Toss-Up", "Lean Trump", "Solid Trump"))
+
+
+
+
 
 
