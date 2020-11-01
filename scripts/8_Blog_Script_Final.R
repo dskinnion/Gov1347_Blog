@@ -393,6 +393,8 @@ sim_R_2020_plot <- sim_R_natl_2020 %>%
   theme(legend.position = "none") +
   geom_vline(xintercept = 0.5)
 
+ggsave("figures/Final_R_natl_sim.png", height = 3, width = 5)
+
 inc_natl_model_final <- lm(inc_pv2p ~ inc_pa2p_weighted + inc_net_approval_weighted, data = inc_polls_approval_model_df)
 
 inc_natl_pred_final_df <- predict.lm(object = inc_natl_model_final, newdata = inc_natl_2020, se.fit=TRUE, interval="confidence", level=0.95)
@@ -423,6 +425,8 @@ sim_inc_2020_plot <- sim_inc_natl_2020 %>%
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0.5, color = "black")
+
+ggsave("figures/Final_inc_natl_sim.png", height = 3, width = 5)
 
 # State Data
 
