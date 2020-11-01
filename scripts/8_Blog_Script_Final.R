@@ -8,6 +8,7 @@ library(geofacet)
 library(broom)
 library(caret)
 library(stringr)
+library(gt)
 
 # Load Data
 
@@ -167,6 +168,7 @@ demog_2020 <- demog %>%
   summarize(white_sum = sum(white_ttl),
             total = sum(total)) %>%
   mutate(white_pct = white_sum / total) %>%
+  mutate(year = 2020) %>%
   select(year, white_pct)
 
 demog_hist <- demog %>%
@@ -227,6 +229,13 @@ hist_natl <- full_join(pv_hist_natl, pres_poll_avg_hist_natl, by = "year") %>%
   mutate(inc_net_approval_weighted = ifelse(is.na(inc_pv2p) == FALSE, net_approval_weighted, NA)) %>%
   mutate(inc_party = ifelse(D_inc == 1, "Democrat", ifelse(R_inc == 1, "Republican", NA)))
 
+fmr_2020 <- pv_hist_natl %>%
+  filter(year == 2016) %>%
+  select(D_pv2p, R_pv2p) %>%
+  mutate(fmr_D_pv2p = D_pv2p,
+         fmr_R_pv2p = R_pv2p) %>%
+  mutate(year = 2020) %>%
+  select(year, fmr_D_pv2p, fmr_R_pv2p)
 # Model Fitting
 
 # D_polls_model_df <- hist_natl %>%
@@ -303,28 +312,117 @@ inc_loocv_results_table <- inc_models %>%
   cbind(inc_loocv_results) %>% 
   tibble()
 
-R_model_outputs <- export_summs(R_polls_model$finalModel, R_polls_fmr_model$finalModel, R_polls_fmr_demog_model$finalModel, 
-                              coefs = c("Intercept" = "(Intercept)",
-                                        "Republican Weighted Poll Avg." = "R_pa2p_weighted",
-                                        "Last Rep. 2 Party Pop. Vote" = "fmr_R_pv2p",
-                                        "White % of Pop." = "white_pct"),
-                              statistics = c(N = "nobs",
-                                             R2 = "r.squared",
-                                             R2.adj = "adj.r.squared",
-                                             sigma = "sigma"))
-
-quick_pdf(R_model_outputs, file = "graphics/R_national_models.pdf")
-
-inc_model_outputs <- export_summs(inc_polls_model$finalModel, inc_polls_approval_model$finalModel,
+R_model_outputs <- export_summs(R_polls_model$finalModel, R_polls_fmr_model$finalModel, R_polls_fmr_demog_model$finalModel,
+                                error_format = "({round(std.error, 3)})",
                                 coefs = c("Intercept" = "(Intercept)",
-                                          "Incumbent's Weighted Poll Avg." = "inc_pa2p_weighted",
-                                          "Incumbent's Weighted Net Approval" = "inc_net_approval_weighted"),
+                                          "Republican Weighted Poll Avg." = "R_pa2p_weighted",
+                                          "Last Rep. 2 Party Pop. Vote" = "fmr_R_pv2p",
+                                          "White % of Pop." = "white_pct"),
                                 statistics = c(N = "nobs",
                                                R2 = "r.squared",
                                                R2.adj = "adj.r.squared",
-                                               sigma = "sigma"))
+                                               sigma = "sigma")) %>%
+  filter(`Model 1` != "Model 1")
 
-quick_pdf(inc_model_outputs, file = "graphics/inc_national_models.pdf")
+gt_R_models <- R_model_outputs %>%
+  gt(rowname_col = "names") %>%
+  tab_header(
+    title = "Model Outputs Predicting Republican Two-Party Popular Vote"
+  )
+
+inc_model_outputs <- export_summs(inc_polls_model$finalModel, inc_polls_approval_model$finalModel,
+                                  error_format = "({round(std.error, 3)})",
+                                  coefs = c("Intercept" = "(Intercept)",
+                                            "Incumbent's Weighted Poll Avg." = "inc_pa2p_weighted",
+                                            "Incumbent's Weighted Net Approval" = "inc_net_approval_weighted"),
+                                  statistics = c(N = "nobs",
+                                                R2 = "r.squared",
+                                                R2.adj = "adj.r.squared",
+                                                sigma = "sigma")) %>%
+  filter(`Model 1` != "Model 1")
+
+gt_inc_models <- inc_model_outputs %>%
+  gt(rowname_col = "names") %>%
+  tab_header(
+    title = "Model Outputs Predicting Incumbent Two-Party Popular Vote"
+  )
+
+natl_2020 <- full_join(fmr_2020, pres_poll_avg_2020_natl, by = "year") %>%
+  full_join(demog_2020, by = "year") %>%
+  full_join(pres_appr_2020, by = "year") %>%
+  mutate(R_inc = 1,
+         D_inc = 0,
+         inc_pa2p_weighted = R_pa2p_weighted,
+         fmr_inc_pv2p = fmr_R_pv2p,
+         inc_net_approval_weighted = net_approval_weighted,
+         inc_party = "Republican")
+
+R_natl_2020 <- natl_2020 %>%
+  select(year, fmr_R_pv2p, R_pa2p_weighted, white_pct)
+
+inc_natl_2020 <- natl_2020 %>%
+  select(year, inc_pa2p_weighted, fmr_inc_pv2p, inc_net_approval_weighted, inc_party)
+
+R_natl_model_final <- lm(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted, data = R_polls_fmr_model_df)
+
+R_natl_pred_final_df <- predict.lm(object = R_natl_model_final, newdata = R_natl_2020, se.fit=TRUE, interval="confidence", level=0.95)
+
+R_natl_pred_est <- R_natl_pred_final_df$fit[1, 1]
+R_natl_pred_lwr <- R_natl_pred_final_df$fit[1, 2]
+R_natl_pred_upr <- R_natl_pred_final_df$fit[1, 3]
+
+sim_R_natl_2020 <- tibble(id = as.numeric(1:10000),
+                   pred_fit = rep(R_natl_pred_est, 10000),
+                   pred_se = rep(R_natl_pred_final_df$se.fit, 10000)) %>% 
+  mutate(pred_prob = map_dbl(.x = pred_fit, .y = pred_se, ~rnorm(n = 1, mean = .x, sd = .y))) %>% 
+  mutate(id = case_when(
+    id %% 2 == 1 ~ id,
+    id %% 2 == 0 ~ id - 1))
+
+sim_R_2020_plot <- sim_R_natl_2020 %>% 
+  ggplot(aes(x = pred_prob, fill = "red")) +
+  geom_density(alpha = 0.2) +
+  theme_classic() +
+  labs(
+    title = "Two-Party Popular Vote Predictive Interval For Trump",
+    subtitle = "results are from 10,000 simulations of our Republican Vote Model",
+    x = "Trump's Predicted Two-Party Popular Vote",
+    y = "Density" ) + 
+  #scale_x_continuous(breaks = seq(46, 60, by = 2), labels = percent_format(accuracy = 1, scale = 1)) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0.5)
+
+inc_natl_model_final <- lm(inc_pv2p ~ inc_pa2p_weighted + inc_net_approval_weighted, data = inc_polls_approval_model_df)
+
+inc_natl_pred_final_df <- predict.lm(object = inc_natl_model_final, newdata = inc_natl_2020, se.fit=TRUE, interval="confidence", level=0.95)
+  
+inc_natl_pred_est <- inc_natl_pred_final_df$fit[1, 1]
+inc_natl_pred_lwr <- inc_natl_pred_final_df$fit[1, 2]
+inc_natl_pred_upr <- inc_natl_pred_final_df$fit[1, 3]
+
+sim_inc_natl_2020 <- tibble(id = as.numeric(1:10000),
+                          pred_fit = rep(inc_natl_pred_est, 10000),
+                          pred_se = rep(inc_natl_pred_final_df$se.fit, 10000)) %>% 
+  mutate(pred_prob = map_dbl(.x = pred_fit, .y = pred_se, ~rnorm(n = 1, mean = .x, sd = .y))) %>% 
+  mutate(id = case_when(
+    id %% 2 == 1 ~ id,
+    id %% 2 == 0 ~ id - 1)) %>%
+  mutate(pred_winner = ifelse(pred_prob > 0.5, 1, 0))
+
+sim_inc_2020_plot <- sim_inc_natl_2020 %>% 
+  ggplot(aes(x = pred_prob, fill = "red")) +
+  geom_density(alpha = 0.2) +
+  theme_classic() +
+  labs(
+    title = "Two-Party Popular Vote Predictive Interval For Trump",
+    subtitle = "results are from 10,000 simulations of our Incumbent Vote Model",
+    x = "Trump's Predicted Two-Party Popular Vote",
+    y = "Density" ) + 
+  #scale_x_continuous(breaks = seq(46, 60, by = 2), labels = percent_format(accuracy = 1, scale = 1)) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0.5, color = "black")
 
 # State Data
 
