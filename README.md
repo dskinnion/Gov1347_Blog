@@ -24,4 +24,4 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 
 ### [Shocks: The Coronavirus Pandemic](posts/7_Blog_Post_Shocks.md)
 
-## [Final Prediction](posts/8_Blog_Post_Final.md)
+### [Final Prediction](posts/8_Blog_Post_Final.md)
