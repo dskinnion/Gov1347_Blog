@@ -626,7 +626,9 @@ gt_R_state_models <- R_state_model_outputs %>%
     title = "Model Outputs Predicting State-Level Republican Two-Party Popular Vote"
   )
 
-R_state_model_final <- lm(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted + R_inc + white_pct, data = R_state_polls_fmr_inc_demog_model_df)
+R_state_train <- slice_sample(R_state_polls_fmr_inc_demog_model_df, prop = 0.75)
+
+R_state_model_final <- lm(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted + R_inc + white_pct, data = R_state_train)
 
 R_state_pred_final_df <- predict.lm(object = R_state_model_final, newdata = state_2020, se.fit=TRUE, interval="confidence", level=0.95)
 
@@ -686,6 +688,7 @@ ev_bar <- state_2020_ev %>%
                     breaks = c("Solid Biden", "Lean Biden", "Toss-Up", "Lean Trump", "Solid Trump"))
 
 ggsave("figures/Final_R_ev_bar.png", height = 1, width = 4)
+
 
 
 
