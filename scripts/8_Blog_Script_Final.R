@@ -26,6 +26,8 @@ ec <- read_csv("data/electoralcollegepost1948.csv")
 
 # Data Wrangling
 
+set.seed(123)
+
 # National Data
 
 pres_poll_avg_2020_natl <- pres_poll_avg_2020 %>%
@@ -626,7 +628,10 @@ gt_R_state_models <- R_state_model_outputs %>%
     title = "Model Outputs Predicting State-Level Republican Two-Party Popular Vote"
   )
 
-R_state_train <- slice_sample(R_state_polls_fmr_inc_demog_model_df, prop = 0.75)
+smp_size <- floor(0.75 * nrow(R_state_polls_fmr_inc_demog_model_df))
+train_ind <- sample(seq_len(nrow(R_state_polls_fmr_inc_demog_model_df)), size = smp_size)
+R_state_train <- R_state_polls_fmr_inc_demog_model_df[train_ind, ]
+R_state_test <- R_state_polls_fmr_inc_demog_model_df[-train_ind, ]
 
 R_state_model_final <- lm(R_pv2p ~ fmr_R_pv2p + R_pa2p_weighted + R_inc + white_pct, data = R_state_train)
 
@@ -638,6 +643,9 @@ R_state_errors <- as.data.frame(R_state_pred_final_df$se.fit)
 R_state_preds_2020 <- cbind(state_2020, R_state_preds) %>%
   select(year, state, fit, lwr, upr) %>%
   cbind(R_state_errors)
+
+R_state_model_OOS_MSE = mean((R_state_test$R_pv2p - predict.lm(R_state_model_final, R_state_test)) ^ 2)
+R_state_model_OOS_RMSE = sqrt(R_state_model_OOS_MSE)
 
 ec_2020 <- ec %>%
   select(X1, `2020`) %>%
@@ -656,7 +664,11 @@ R_state_preds_2020_final <- inner_join(R_state_preds_2020, ec_2020, by = "state"
   mutate(est_type = ifelse(est_R_margin > 0.1, "Solid Trump",
                            ifelse(est_R_margin > 0.05, "Lean Trump",
                                   ifelse(est_R_margin > -0.05, "Toss-Up",
-                                         ifelse(est_R_margin > -0.1, "Lean Biden", "Solid Biden")))))
+                                         ifelse(est_R_margin > -0.1, "Lean Biden", "Solid Biden"))))) %>%
+  mutate(OOS_lwr = fit - 2 * R_state_model_OOS_RMSE,
+         OOS_upr = fit + 2 * R_state_model_OOS_RMSE,
+         OOS_lwr_winner = ifelse(OOS_lwr > 0.5, "Trump", "Biden"),
+         OOS_upr_winner = ifelse(OOS_upr > 0.5, "Trump", "Biden"))
 
 state_2020_plot <- R_state_preds_2020_final %>% 
   ggplot(aes(state = state, 
@@ -689,7 +701,25 @@ ev_bar <- state_2020_ev %>%
 
 ggsave("figures/Final_R_ev_bar.png", height = 1, width = 4)
 
+est_ev <- R_state_preds_2020_final %>%
+  group_by(est_winner) %>%
+  summarize(total = sum(ev))
 
+lwr_ev <- R_state_preds_2020_final %>%
+  group_by(lwr_winner) %>%
+  summarize(total = sum(ev))
+
+upr_ev <- R_state_preds_2020_final %>%
+  group_by(upr_winner) %>%
+  summarize(total = sum(ev))
+
+OOS_lwr_ev <- R_state_preds_2020_final %>%
+  group_by(OOS_lwr_winner) %>%
+  summarize(total = sum(ev))
+
+OOS_upr_ev <- R_state_preds_2020_final %>%
+  group_by(OOS_upr_winner) %>%
+  summarize(total = sum(ev))
 
 
 
