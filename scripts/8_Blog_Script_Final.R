@@ -387,8 +387,8 @@ sim_R_2020_plot <- sim_R_natl_2020 %>%
   geom_density(alpha = 0.2) +
   theme_classic() +
   labs(
-    title = "Two-Party Popular Vote Predictive Interval For Trump",
-    subtitle = "results are from 10,000 simulations of our Republican Vote Model",
+    title = "Trump's Two-Party Popular Vote Predictive Interval",
+    subtitle = "10,000 simulations of Republican Vote Model",
     x = "Trump's Predicted Two-Party Popular Vote",
     y = "Density" ) + 
   #scale_x_continuous(breaks = seq(46, 60, by = 2), labels = percent_format(accuracy = 1, scale = 1)) +
@@ -396,7 +396,7 @@ sim_R_2020_plot <- sim_R_natl_2020 %>%
   theme(legend.position = "none") +
   geom_vline(xintercept = 0.5)
 
-ggsave("figures/Final_R_natl_sim.png", height = 3, width = 5)
+ggsave("figures/Final_R_natl_sim.png", height = 4, width = 6)
 
 inc_natl_model_final <- lm(inc_pv2p ~ inc_pa2p_weighted + inc_net_approval_weighted, data = inc_polls_approval_model_df)
 
@@ -420,8 +420,8 @@ sim_inc_2020_plot <- sim_inc_natl_2020 %>%
   geom_density(alpha = 0.2) +
   theme_classic() +
   labs(
-    title = "Two-Party Popular Vote Predictive Interval For Trump",
-    subtitle = "results are from 10,000 simulations of our Incumbent Vote Model",
+    title = "Trump's Two-Party Popular Vote Predictive Interval",
+    subtitle = "10,000 simulations of Incumbent Vote Model",
     x = "Trump's Predicted Two-Party Popular Vote",
     y = "Density" ) + 
   #scale_x_continuous(breaks = seq(46, 60, by = 2), labels = percent_format(accuracy = 1, scale = 1)) +
@@ -429,7 +429,7 @@ sim_inc_2020_plot <- sim_inc_natl_2020 %>%
   theme(legend.position = "none") +
   geom_vline(xintercept = 0.5, color = "black")
 
-ggsave("figures/Final_inc_natl_sim.png", height = 3, width = 5)
+ggsave("figures/Final_inc_natl_sim.png", height = 4, width = 6)
 
 # State Data
 
@@ -667,12 +667,14 @@ state_2020_plot <- R_state_preds_2020_final %>%
   labs(title = "2020 Presidential Election Prediction Map",
        fill = "")
 
+ggsave("figures/Final_R_state_map.png", height = 4, width = 6)
+
 state_2020_ev <- R_state_preds_2020_final %>%
   group_by(est_type) %>%
   summarize(total = sum(ev))
 
 ev_bar <- state_2020_ev %>% 
-  ggplot(aes(x = "2020", y = total, fill = fct_relevel(est_type, "Solid Trump", "Lean Trump", "Toss-Up", "Lean Biden", "S Biden"), label = total)) +
+  ggplot(aes(x = "2020", y = total, fill = fct_relevel(est_type, "Solid Trump", "Lean Trump", "Toss-Up", "Lean Biden", "Solid Biden"), label = total)) +
   geom_col(show.legend = FALSE, width = 0.25) + 
   geom_text(position = position_stack(vjust = 0.5)) +
   geom_hline(yintercept = 270) +
@@ -683,7 +685,7 @@ ev_bar <- state_2020_ev %>%
   scale_fill_manual(values = c("#619CFF", "#C3D7F7", "#ECCB9C", "#FACECA", "#F8766D"),
                     breaks = c("Solid Biden", "Lean Biden", "Toss-Up", "Lean Trump", "Solid Trump"))
 
-
+ggsave("figures/Final_R_ev_bar.png", height = 1, width = 4)
 
 
 
