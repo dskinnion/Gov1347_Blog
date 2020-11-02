@@ -109,7 +109,7 @@ As we can see, Biden will win if he does indeed win all of the Solid Biden and L
 
 Our model's prediction: **Trump receives 188 Electoral Votes, with a 95% Confidence Interval of (150 -- 204), and Biden receives 350 Electoral Votes, with a 95% Confidence Interval of (334 -- 388).**
 
-However, I felt it was important to introduce slightly more uncertainty into the model, especially given the COVID-19 Pandemic, potentially record Voter Turnout, and the possibility of contested elections. As such, I manually constructed a 95% Confidence Interval using Margin of Error = 2 * OOS RMSE = 4.5%, giving us larger intervals. This resulted in the following prediction: **Trump receives 188 (114 -- 325) Electoral Votes and Biden receives 350 (213 -- 424) Electoral Votes. (95% Confidence Intervals shown in parentheses).**
+However, I felt it was important to introduce slightly more uncertainty into the model, especially given the COVID-19 Pandemic, potentially record Voter Turnout, and the possibility of contested elections. As such, I manually constructed a 95% Confidence Interval using Margin of Error = 2 * OOS RMSE = 4.5%, giving us larger intervals. This resulted in the following prediction: **Trump receives 188 (114 -- 325) Electoral Votes and Biden receives 350 (213 -- 424) Electoral Votes.** (95% Confidence Intervals shown in parentheses).
 
 In both cases, Biden is still predicted to win, but with more uncertainty introduced, it is *possible* for him to either slightly lose or to win in a major landslide victory.
 
