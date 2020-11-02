@@ -41,7 +41,7 @@ The first model predicted the Republican Two-Party Popular Vote Share from just 
 
 The results of the models are summarized below:
 
-![R Natl Models Table](../figures/Final_R_models_table.png)
+![R Natl Models Table](../figures/Final_R_natl_model_table_final.png)
 
 We can see that the second model has the best in-sample fit, with an R-Squared and R-Squared adjusted higher than the other models. In addition, the second model had an out-of-sample (OOS) Root-Mean-Squared-Error (RMSE) of 0.0246, meaning that on average, data points not included in the training set were about 2.5% off from the model's predicted value, which is not bad. Also, while the third model had a smaller OOS RMSE, we can see that the model's predictors were not seen as statistically significant (as shown in the table above). Because of these reasons, I opted to use the second model for my National Popular Vote Prediction.
 
@@ -76,7 +76,7 @@ Again, I used LOOCV in order to select the best model. The first model predicted
 
 The results of the models are summarized below:
 
-![R State Models Table](../figures/Final_R_state_models_table.png)
+![R State Models Table](../figures/Final_R_state_model_table_final.png)
 
 We can see that the third model has the best in-sample fit, with an R-Squared and R-Squared adjusted higher than the other models. In addition, the third model had an out-of-sample (OOS) Root-Mean-Squared-Error (RMSE) of 0.0226, meaning that on average, data points not included in the training set were about 2.25% off from the model's predicted value, which is again not bad. This was the lowest OOS RMSE of the models. It is also interesting to note that Republican Incumbency was not statistically significant in this model. Nonetheless, I decided to keep it in the model because it was better in both cross-validation and in-sample performance. Because of these reasons, I opted to use the third model for my State Vote Predictions.
 

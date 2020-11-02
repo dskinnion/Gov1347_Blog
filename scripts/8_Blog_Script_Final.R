@@ -329,6 +329,28 @@ R_model_outputs <- export_summs(R_polls_model$finalModel, R_polls_fmr_model$fina
                                                sigma = "sigma")) %>%
   filter(`Model 1` != "Model 1")
 
+# Recoding to make table look nicer
+
+R_model_outputs[1,2] = "0.131 *"
+R_model_outputs[1,3] = "0.072"
+R_model_outputs[1,4] = "0.177"
+R_model_outputs[3,2] = "0.740 ***"
+R_model_outputs[3,3] = "0.736 ***"
+R_model_outputs[3,4] = "0.555"
+R_model_outputs[5,3] = "0.121"
+R_model_outputs[5,4] = "0.036"
+R_model_outputs[7,4] = "0.031"
+R_model_outputs[10,2] = "0.840"
+R_model_outputs[10,3] = "0.862"
+R_model_outputs[10,4] = "0.796"
+R_model_outputs[11,2] = "0.826"
+R_model_outputs[11,3] = "0.834"
+R_model_outputs[11,4] = "0.592"
+R_model_outputs[12,2] = "0.021"
+R_model_outputs[12,3] = "0.020"
+R_model_outputs[12,4] = "0.138"
+
+
 gt_R_models <- R_model_outputs %>%
   gt(rowname_col = "names") %>%
   tab_header(
@@ -621,6 +643,35 @@ R_state_model_outputs <- export_summs(R_state_polls_fmr_model$finalModel, R_stat
                                                R2.adj = "adj.r.squared",
                                                sigma = "sigma")) %>%
   filter(`Model 1` != "Model 1")
+
+R_state_model_outputs[1,2] = "-0.026 ***"
+R_state_model_outputs[1,3] = "-0.027 ***"
+R_state_model_outputs[1,4] = "-0.060 ***"
+R_state_model_outputs[1,5] = "-0.059 ***"
+R_state_model_outputs[3,2] = "0.849 ***"
+R_state_model_outputs[3,3] = "0.854 ***"
+R_state_model_outputs[3,4] = "0.918 ***"
+R_state_model_outputs[3,5] = "0.931 ***"
+R_state_model_outputs[5,2] = "0.206 ***"
+R_state_model_outputs[5,3] = "0.209 ***"
+R_state_model_outputs[5,4] = "0.161 ***"
+R_state_model_outputs[5,5] = "0.147 ***"
+R_state_model_outputs[7,3] = "-0.011 ***"
+R_state_model_outputs[7,4] = "-0.005"
+R_state_model_outputs[9,4] = "0.031 ***"
+R_state_model_outputs[9,5] = "0.031 ***"
+R_state_model_outputs[12,2] = "0.932"
+R_state_model_outputs[12,3] = "0.935"
+R_state_model_outputs[12,4] = "0.953"
+R_state_model_outputs[12,5] = "0.952"
+R_state_model_outputs[13,2] = "0.932"
+R_state_model_outputs[13,3] = "0.934"
+R_state_model_outputs[13,4] = "0.952"
+R_state_model_outputs[13,5] = "0.952"
+R_state_model_outputs[14,2] = "0.026"
+R_state_model_outputs[14,3] = "0.025"
+R_state_model_outputs[14,4] = "0.022"
+R_state_model_outputs[14,5] = "0.022"
 
 gt_R_state_models <- R_state_model_outputs %>%
   gt(rowname_col = "names") %>%
