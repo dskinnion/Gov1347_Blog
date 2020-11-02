@@ -57,7 +57,7 @@ Using the data from 2020:
 * *Last Rep. Two-Party PV*: 0.488
 * *Rep. Weighted Poll Avg.*: 0.452
 
-Our model's prediction: *Trump receives a Two-Party Vote Share of 0.464, with a 95% Confidence Interval of (0.445 -- 0.482). Biden receives a Two-Party Vote Share of 0.536, with a 95% Confidence Interval of (0.518 -- 0.555).*
+Our model's prediction: **Trump receives a Two-Party Vote Share of 0.464, with a 95% Confidence Interval of (0.445 -- 0.482). Biden receives a Two-Party Vote Share of 0.536, with a 95% Confidence Interval of (0.518 -- 0.555).**
 
 This interval is shown below as a distribution of simulated election outcomes from the Republican National PV Model:
 
@@ -86,6 +86,8 @@ Rep. Two-Party PV = -0.063 + 0.157 * Last Rep. Two-Party PV + 0.929 * Rep. Weigh
 ```
 for each of the states.
 
+These coefficients mean that for every 1% increase in Last Republican Two-Party PV, the model predicts a 0.157% increase in Republican Two-Party PV, for every 1% increase in Republican Weighted Poll Avg., the model predicts a 0.929% increase in Republican Two-Party PV, for every 1% increase in White Percent of Population, the model predicts as 0.03% increase in Republican Two-Party PV, and if the Republican Candidate is an Incumbent, the model predicts a decrease of 0.3% in Republican Two-Party PV (this one is 100 times in magnitude compared to the others because the other variables were all measures as percentages).
+
 Using this model to predict the 2020 State results, we get the following prediction map:
 
 ![R State Model Map](../figures/Final_R_state_map.png)
@@ -105,12 +107,17 @@ This gives us the following Electoral College Break-Down:
 
 As we can see, Biden will win if he does indeed win all of the Solid Biden and Lean Biden states.
 
-Our model's prediction: *Trump receives 188 Electoral Votes, with a 95% Confidence Interval of (150 -- 204), and Biden receives 350 Electoral Votes, with a 95% Confidence Interval of (334 -- 388).*
+Our model's prediction: **Trump receives 188 Electoral Votes, with a 95% Confidence Interval of (150 -- 204), and Biden receives 350 Electoral Votes, with a 95% Confidence Interval of (334 -- 388).**
 
-However, I felt it was important to introduce slightly more uncertainty into the model, especially given the COVID-19 Pandemic, potentially record Voter Turnout, and the possibility of contested elections. As such, I manually constructed a 95% Confidence Interval using Margin of Error = 2 * OOS RMSE = 4.5%, giving us larger intervals. This resulted in the following prediction: *Trump receives 188 (114 -- 325) Electoral Votes and Biden receives 350 (213 -- 424) Electoral Votes. (95% Confidence Intervals shown in parentheses). 
+However, I felt it was important to introduce slightly more uncertainty into the model, especially given the COVID-19 Pandemic, potentially record Voter Turnout, and the possibility of contested elections. As such, I manually constructed a 95% Confidence Interval using Margin of Error = 2 * OOS RMSE = 4.5%, giving us larger intervals. This resulted in the following prediction: **Trump receives 188 (114 -- 325) Electoral Votes and Biden receives 350 (213 -- 424) Electoral Votes. (95% Confidence Intervals shown in parentheses).**
 
-In both cases, Biden is still predicted to win, but with a larger uncertainty introduced, it is *possible* for him to either slightly lose or to win in a major landslide victory.
+In both cases, Biden is still predicted to win, but with more uncertainty introduced, it is *possible* for him to either slightly lose or to win in a major landslide victory.
 
+### Final Thoughts
+
+I would truly be surprised if President Trump won re-election. However, it is not impossible, especially if polls are wrong yet again. If the polls are correct, however, and Biden is truly favored to win back the Midwestern states won by Trump in 2016, Trump will have a hard time winning at all.
+
+But, with the possibility of contested elections due to mail-in voting, and the chance that votes may be thrown out entirely, the results of the election may be called into question by either side of aisle, and many Americans fear that there [will not be peace after the election](https://time.com/5903361/contested-election-history/).
 
 
 
