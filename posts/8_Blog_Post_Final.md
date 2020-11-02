@@ -99,7 +99,7 @@ Where states are categorized as:
 * *Lean Biden*: Biden is predicted to win by > 5%
 * *Solid Biden*: Biden is predicted to win by > 10%
 
-We can see that many states that voted for Trump in 2016 now are categorized as Lean Biden, like Wisconsin, Michigan, and Pennsylvania. Now Toss-Up states are those that usually lean Republican, like Georgia, Texas, and Arizona.
+We can see that many states that voted for Trump in 2016 now are categorized as Lean Biden, like Wisconsin, Michigan, and Pennsylvania. Now Toss-Up states are those that usually lean Republican, like Georgia, Texas, and Arizona. Please note that Maine and Nebraska are treated as giving all of their Electoral Votes to the winner, whereas in reality they split the vote by district.
 
 This gives us the following Electoral College Break-Down:
 
