@@ -40,7 +40,7 @@ This produced the following Electoral College Map Prediction:
 
 ![2020 State Preds](../figures/R_state_ec_map.png)
 
-However, some of these races were predicted to be extremely close, so I instead decided to color in the map by breaking down certainty. Those breaks were Solid (predicted to win by >10%), Lean (predicted to win b y >5%), and Toss-Up (within 5%). This break-down produced the following map:
+However, some of these races were predicted to be extremely close, so I instead decided to color in the map by breaking down certainty. Those breaks were Solid (predicted to win by >10%), Lean (predicted to win by >5%), and Toss-Up (within 5%). This break-down produced the following map:
 
 ![2020 State Preds With Break-Down](../figures/Final_R_state_map.png)
 
