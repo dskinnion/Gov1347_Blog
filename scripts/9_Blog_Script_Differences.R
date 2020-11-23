@@ -145,6 +145,7 @@ pv_counties_wider %>%
               x = -25,
               y = 30,
               color = 'red') +
+    theme_classic() +
     theme(legend.position = "none")
 
 ggsave("figures/2020_vs_2016.png", height = 5, width = 5)
@@ -188,7 +189,8 @@ Miami_Dade <- pv_counties_all_years %>%
   labs(title = "Dem. Win Margin in Miami Dade, FL Over Time",
        y = "Dem. Win Margin") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 ggsave("figures/Miami_Dade_FL.png", height = 3, width = 5)
 
@@ -201,7 +203,8 @@ Jackson <- pv_counties_all_years %>%
   labs(title = "Dem. Win Margin in Jackson, MO Over Time",
        y = "Dem. Win Margin") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 ggsave("figures/Jackson_MO.png", height = 3, width = 5)
 
@@ -214,9 +217,10 @@ Lake <- pv_counties_all_years %>%
   labs(title = "Dem. Win Margin in Lake County, CA Over Time",
        y = "Dem. Win Margin") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
-ggsave("figures/Lake_CA.png", height = 3, width = 5)
+ggsave("figures/Lake_CA.png", height = 3, width = 5) 
 
 
 Starr <- pv_counties_all_years %>%
@@ -228,7 +232,8 @@ Starr <- pv_counties_all_years %>%
   labs(title = "Starr") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Hidalgo <- pv_counties_all_years %>%
   filter(county == "Hidalgo", state == "Texas") %>%
@@ -239,7 +244,8 @@ Hidalgo <- pv_counties_all_years %>%
   labs(title = "Hidalgo") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Cameron <- pv_counties_all_years %>%
   filter(county == "Cameron", state == "Texas") %>%
@@ -250,7 +256,8 @@ Cameron <- pv_counties_all_years %>%
   labs(title = "Cameron") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Maverick <- pv_counties_all_years %>%
   filter(county == "Maverick", state == "Texas") %>%
@@ -261,7 +268,8 @@ Maverick <- pv_counties_all_years %>%
   labs(title = "Maverick") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Kenedy <- pv_counties_all_years %>%
   filter(county == "Kenedy", state == "Texas") %>%
@@ -272,7 +280,8 @@ Kenedy <- pv_counties_all_years %>%
   labs(title = "Kenedy") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Jim_Hogg <- pv_counties_all_years %>%
   filter(county == "Jim Hogg", state == "Texas") %>%
@@ -283,7 +292,8 @@ Jim_Hogg <- pv_counties_all_years %>%
   labs(title = "Jim Hogg") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Zapata <- pv_counties_all_years %>%
   filter(county == "Zapata", state == "Texas") %>%
@@ -294,7 +304,8 @@ Zapata <- pv_counties_all_years %>%
   labs(title = "Zapata") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Duval <- pv_counties_all_years %>%
   filter(county == "Duval", state == "Texas") %>%
@@ -305,7 +316,8 @@ Duval <- pv_counties_all_years %>%
   labs(title = "Duval") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Brooks <- pv_counties_all_years %>%
   filter(county == "Brooks", state == "Texas") %>%
@@ -316,7 +328,8 @@ Brooks <- pv_counties_all_years %>%
   labs(title = "Brooks") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Reeves <- pv_counties_all_years %>%
   filter(county == "Reeves", state == "Texas") %>%
@@ -327,7 +340,8 @@ Reeves <- pv_counties_all_years %>%
   labs(title = "Reeves") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Webb <- pv_counties_all_years %>%
   filter(county == "Webb", state == "Texas") %>%
@@ -338,7 +352,8 @@ Webb <- pv_counties_all_years %>%
   labs(title = "Webb") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 Willacy <- pv_counties_all_years %>%
   filter(county == "Willacy", state == "Texas") %>%
@@ -349,7 +364,8 @@ Willacy <- pv_counties_all_years %>%
   labs(title = "Willacy") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL)
+  xlab(NULL) +
+  theme_classic()
 
 grid.arrange(arrangeGrob(Starr, Maverick, Kenedy, Jim_Hogg,
                          Zapata, Duval, Brooks, Reeves,
