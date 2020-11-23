@@ -27,3 +27,5 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 ### [Final Prediction](posts/8_Blog_Post_Final.md)
 
 ### [Differences](posts/9_Blog_Post_Differences.md)
+
+### [Reflection](posts/10_Blog_Post_Reflection.md)
