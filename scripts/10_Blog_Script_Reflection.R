@@ -112,7 +112,7 @@ mean_error <- final_comps %>%
   pull(1)
 
 ggplot(final_comps) +
-  geom_histogram(aes(x = error), binwidth = 0.005, color = ) +
+  geom_histogram(aes(x = error), binwidth = 0.005, color = 'black', fill = 'white') +
   labs(x = "Residual Error",
        y = "Count",
        title = "Residual Errors from State-Level Model") +
