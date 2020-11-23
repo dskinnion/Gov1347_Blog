@@ -77,6 +77,21 @@ ggplot(poll_comps, aes(x = R_pa2p_weighted, y = R_pv2p)) +
 
 ggsave("figures/Refl_Actual_vs_Poll.png", height = 3, width = 5)
 
+# Electoral Map
+
+state_2020_ec_plot <- R_state_preds_2020_final %>% 
+  ggplot(aes(state = state, 
+             fill = est_winner, 
+             name = "Predicted Winner")) +
+  geom_statebins(border_col = "black", border_size = 0.25) + 
+  theme_statebins() +
+  scale_fill_manual(values = c("#619CFF", "#F8766D"),
+                    breaks = c("Biden", "Trump")) +
+  labs(title = "2020 Presidential Election Prediction Map",
+       fill = "")
+
+ggsave("figures/R_state_ec_map.png", height = 4, width = 6)
+
 # RMSE
 
 RMSE <- final_comps %>%
