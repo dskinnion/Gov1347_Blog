@@ -101,3 +101,44 @@ RMSE <- final_comps %>%
   select(rmse) %>%
   pull(1)
 
+# Errors
+
+final_comps <- final_comps %>%
+  mutate(error = R_pv2p - fit)
+
+mean_error <- final_comps %>%
+  summarize(mean_error = mean(error)) %>%
+  select(mean_error) %>%
+  pull(1)
+
+ggplot(final_comps) +
+  geom_histogram(aes(x = error), binwidth = 0.005, color = ) +
+  labs(x = "Residual Error",
+       y = "Count",
+       title = "Residual Errors from State-Level Model") +
+  geom_vline(xintercept = mean_error, color = 'red') +
+  theme_classic()
+
+ggsave("figures/Refl_errors_hist.png", height = 4, width = 6)
+
+# Error map
+
+state_2020_error_plot <- final_comps %>% 
+  ggplot(aes(state = state, 
+             fill = error, 
+             name = "Error")) +
+  geom_statebins(border_col = "black", border_size = 0.25) + 
+  theme_statebins() +
+  scale_fill_gradient2(high = "#F8766D",
+                       mid = "white",
+                       low = "#619CFF",
+                       breaks = c(-.125, 0, 0.125),
+                       limit = c(-0.125, 0.125)) +
+  labs(title = "2020 Presidential Election Prediction Errors",
+       fill = "")
+
+ggsave("figures/Refl_errors_map.png", height = 4, width = 6)
+
+final_comps %>%
+  arrange(desc(error))
+
