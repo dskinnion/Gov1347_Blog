@@ -51,6 +51,8 @@ ggplot(final_comps, aes(x = fit, y = R_pv2p)) +
        title = "Actual vs. Predicted Trump Two-Party Vote Share (State-Level)") +
   theme_classic()
 
+ggsave("figures/Refl_Pred_vs_actual.png", height = 3, width = 5)
+
 ggplot(poll_comps, aes(x = R_pa2p_weighted, y = fit)) +
   geom_point() +
   geom_abline(intercept = 0, slope = 1) +
@@ -61,6 +63,8 @@ ggplot(poll_comps, aes(x = R_pa2p_weighted, y = fit)) +
        title = "Trump's Predicted Vote Share vs. Polling Average (State-Level)") +
   theme_classic()
 
+ggsave("figures/Refl_Pred_vs_Polls.png", height = 3, width = 5)
+
 ggplot(poll_comps, aes(x = R_pa2p_weighted, y = R_pv2p)) +
   geom_point() +
   geom_abline(intercept = 0, slope = 1) +
@@ -70,6 +74,8 @@ ggplot(poll_comps, aes(x = R_pa2p_weighted, y = R_pv2p)) +
        y = "Trump's Actual Vote Share",
        title = "Trump's Actual Vote Share vs. Polling Average (State-Level)") +
   theme_classic()
+
+ggsave("figures/Refl_Actual_vs_Poll.png", height = 3, width = 5)
 
 # RMSE
 
