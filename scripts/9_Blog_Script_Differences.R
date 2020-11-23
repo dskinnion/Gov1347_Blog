@@ -107,7 +107,6 @@ pv_counties_wider %>%
   ggplot() +
     geom_point(aes(x = D_win_margin_2016, y = D_win_margin_2020, alpha = 0.1)) +
     geom_point(data = pv_counties_wider[pv_counties_wider$county_state %in% c("Miami-Dade, Florida, 12086",
-                                                                              "Jackson, Missouri, 29095",
                                                                               "Lake, California, 6033"), ],
                pch = 21, fill = NA, size = 4, color = 'red', stroke = 1,
                aes(x = D_win_margin_2016, y = D_win_margin_2020)) +
@@ -140,10 +139,6 @@ pv_counties_wider %>%
     geom_text(label = "Lake, CA",
               x = 5,
               y = 40,
-              color = 'red') +
-    geom_text(label = "Jackson, MO",
-              x = -25,
-              y = 30,
               color = 'red') +
     theme_classic() +
     theme(legend.position = "none")
@@ -190,6 +185,7 @@ Miami_Dade <- pv_counties_all_years %>%
        y = "Dem. Win Margin") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 ggsave("figures/Miami_Dade_FL.png", height = 3, width = 5)
@@ -204,6 +200,7 @@ Jackson <- pv_counties_all_years %>%
        y = "Dem. Win Margin") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 ggsave("figures/Jackson_MO.png", height = 3, width = 5)
@@ -218,6 +215,7 @@ Lake <- pv_counties_all_years %>%
        y = "Dem. Win Margin") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 ggsave("figures/Lake_CA.png", height = 3, width = 5) 
@@ -233,6 +231,7 @@ Starr <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Hidalgo <- pv_counties_all_years %>%
@@ -245,6 +244,7 @@ Hidalgo <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Cameron <- pv_counties_all_years %>%
@@ -257,6 +257,7 @@ Cameron <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Maverick <- pv_counties_all_years %>%
@@ -269,6 +270,7 @@ Maverick <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Kenedy <- pv_counties_all_years %>%
@@ -281,6 +283,7 @@ Kenedy <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Jim_Hogg <- pv_counties_all_years %>%
@@ -292,7 +295,8 @@ Jim_Hogg <- pv_counties_all_years %>%
   labs(title = "Jim Hogg") +
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
-  xlab(NULL) +
+  xlab(NULL) + 
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Zapata <- pv_counties_all_years %>%
@@ -305,6 +309,7 @@ Zapata <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Duval <- pv_counties_all_years %>%
@@ -317,6 +322,7 @@ Duval <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Brooks <- pv_counties_all_years %>%
@@ -329,6 +335,7 @@ Brooks <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Reeves <- pv_counties_all_years %>%
@@ -341,6 +348,7 @@ Reeves <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Webb <- pv_counties_all_years %>%
@@ -353,6 +361,7 @@ Webb <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 Willacy <- pv_counties_all_years %>%
@@ -365,6 +374,7 @@ Willacy <- pv_counties_all_years %>%
   scale_x_continuous(breaks = c(2000, 2004, 2008, 2012, 2016, 2020)) +
   ylab(NULL) +
   xlab(NULL) +
+  geom_hline(yintercept = 0, color = 'red') +
   theme_classic()
 
 grid.arrange(arrangeGrob(Starr, Maverick, Kenedy, Jim_Hogg,
