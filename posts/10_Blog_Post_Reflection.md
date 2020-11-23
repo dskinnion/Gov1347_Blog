@@ -50,6 +50,14 @@ For a final Electoral Vote Prediction, the model predicted that Trump would rece
 
 ### Model Accuracy
 
+The actual election results were that Trump received a Two-Party Vote Share of 0.4803 and Biden received a Two-Party Vote Share of 0.5197. In the Electoral College, Trump won 232 Votes to Biden's 306 Votes.
+
+***From a classification standpoint, the state-level predictions were actually pretty good.***
+
+The model was able to accurately predict the winner in 49 out of the 51 races (50 States and DC). Some highlights were that the model was able to accurately predict the races in the Midwest (even though this model predicted a bigger Biden win in these states, he was still able to claim victory), and in the newer battleground states of Georgia and Arizona.
+
+The two races that were incorrectly predicted were Florida and North Carolina. Both of these states were predicted to go for Biden, but instead voted for Trump. These two states account for 44 electoral votes, because they are larger states, which is why the Electoral Vote Prediction was pretty far off. 
+
 ### Proposed Hypotheses
 
 ### Proposed Quantitative Tests
