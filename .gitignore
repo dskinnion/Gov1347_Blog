@@ -6,3 +6,6 @@
 *.Rproj
 *.DS_Store
 *.Rhistory
+
+figures/Final_R_natl_sim.png
+figures/Final_inc_natl_sim.png
