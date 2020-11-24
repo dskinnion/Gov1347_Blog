@@ -139,6 +139,53 @@ state_2020_error_plot <- final_comps %>%
 
 ggsave("figures/Refl_errors_map.png", height = 4, width = 6)
 
-final_comps %>%
-  arrange(desc(error))
+# Poll error vs residuals
 
+poll_comps <- poll_comps %>%
+  mutate(poll_error = R_pv2p - R_pa2p_weighted,
+         model_error = R_pv2p - fit)
+
+poll_comps %>%
+  ggplot() +
+  geom_point(aes(x = poll_error, y = model_error, color = R_pv2p)) +
+  labs(x = "Poll Error (Trump's Actual Vote Share - Polling Average)",
+       y = "Model Residual",
+       title = "Model Residuals vs. Poll Errors",
+       legend = "Trump Two-Party Vote Share") +
+  geom_abline(color = 'black') +
+  geom_smooth(aes(x = poll_error, y = model_error), formula = y ~ x, method = 'lm', se = FALSE, color = 'red') +
+  theme_classic()
+
+ggsave("figures/Refl_poll_error_vs_residuals.png", height = 4, width = 6)
+
+r <- cor(poll_comps$poll_error, poll_comps$model_error)
+R2 <- r^2
+
+mean_poll_error <- mean(poll_comps$poll_error)
+
+poll_comps %>%
+  select(state, poll_error, R_pv2p, fit, model_error) %>%
+  arrange(desc(poll_error))
+
+poll_comps %>%
+  filter(state %in% c("Michigan", "Wisconsin", "Pennsylvania", "Texas", "Georgia", "Florida", "North Carolina",
+                      "Arizona", "Iowa", "Ohio")) %>%
+  select(state, poll_error, R_pv2p, fit, model_error) %>%
+  arrange(desc(poll_error))
+
+# Trump PV2p vs poll error
+
+poll_comps %>%
+  ggplot() +
+  geom_point(aes(x = R_pv2p, y = poll_error)) +
+  theme_classic() +
+  geom_smooth(aes(x = R_pv2p, y = poll_error), formula = y ~ x, method = 'lm', se = FALSE) +
+  geom_hline(yintercept = 0, color = 'red') +
+  labs(x = "Trump Two-Party Vote Share",
+       y = "Polling Error",
+       title = "Polling Error vs. Support for Trump")
+
+ggsave("figures/Refl_poll_error_vs_trump_support.png", height = 4, width = 6)
+
+r <- cor(poll_comps$R_pv2p, poll_comps$poll_error)
+R2 <- r^2
