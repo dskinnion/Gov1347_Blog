@@ -1,9 +1,13 @@
 # Load libraries
 
-library(tidyverse)
 library(usmap)
-library(maps)
 library(loo)
 library(geofacet)
 library(broom)
+library(caret)
 library(stringr)
+library(gt)
+library(statebins)
+library(gridExtra)
+library(grid)
+library(tidyverse)
