@@ -30,4 +30,4 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 
 ### [Reflection](posts/10_Blog_Post_Reflection.md)
 
-### [Media Narrative][posts/11_Blog_Post_Narrative.md]
+### [Media Narrative](posts/11_Blog_Post_Narrative.md)
