@@ -29,3 +29,5 @@ Please feel free to reach out to me if you have any questions, comments, recomme
 ### [Differences](posts/9_Blog_Post_Differences.md)
 
 ### [Reflection](posts/10_Blog_Post_Reflection.md)
+
+### [Media Narrative][posts/11_Blog_Post_Narrative.md]
