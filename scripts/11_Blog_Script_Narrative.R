@@ -126,6 +126,9 @@ pv_county$D_zs_change = pv_county$D_margin_zs_2020 - pv_county$D_margin_zs_2016
 
 county_cv_pv <- inner_join(covid_county, pv_county, by = "fips")
 
+county_cv_pv$winner_2020 = ifelse(county_cv_pv$D_win_margin_2020 > 0, 100, -100)
+county_cv_pv$winner_2016 = ifelse(county_cv_pv$D_win_margin_2016 > 0, 100, -100)
+
 # Plots
 
 ggplot(county_cv_pv) +
@@ -151,6 +154,38 @@ ggplot(county_cv_pv) +
 ggplot(county_cv_pv) +
   geom_point(aes(x = D_win_margin_2016, y = dif_change, alpha = 0.5)) +
   geom_smooth(aes(x = D_win_margin_2016, y = dif_change), method = 'lm')
+
+ggplot(county_cv_pv) +
+  geom_point(aes(x = log_deaths_p100k, y = dif_change, alpha = 0.5, color = D_win_margin_2020)) +
+  geom_smooth(aes(x = log_deaths_p100k, y = dif_change, group = winner_2020, color = winner_2020), method = 'lm', se = FALSE) +
+  scale_color_gradient2(low = 'red',
+                        mid = 'purple',
+                        high = 'blue',
+                        midpoint = 0) +
+  scale_alpha(guide = 'none') +
+  labs(color = "Dem. Win Margin \n (2020)",
+       x = 'Log(COVID Deaths per 100k)',
+       y = 'Change in Dem. Win Margin (2020 - 2016)',
+       title = 'How did COVID-19 Deaths \n Affect the 2020 Election?') +
+  theme_classic()
+
+ggsave("figures/Narrative_byparty.png", height = 4, width = 6)
+
+ggplot(county_cv_pv) +
+  geom_point(aes(y = log_deaths_p100k, x = D_win_margin_2016, alpha = 0.5, color = D_win_margin_2020)) +
+  geom_smooth(aes(y = log_deaths_p100k, x = D_win_margin_2016), method = 'lm', se = FALSE, color = 'black') +
+  scale_color_gradient2(low = 'red',
+                        mid = 'purple',
+                        high = 'blue',
+                        midpoint = 0) +
+  scale_alpha(guide = 'none') +
+  labs(color = "Dem. Win Margin \n (2020)",
+       x = 'Dem. Win Margin in 2016',
+       y = 'Log(COVID Deaths per 100k)',
+       title = 'How are COVID Deaths Related to Party?') +
+  theme_classic()
+
+ggsave("figures/Narrative_deaths_party.png", height = 4, width = 6)
 
 # Model
 

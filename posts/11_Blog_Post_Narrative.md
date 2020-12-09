@@ -20,5 +20,11 @@ What we could do instead, would be to look at the difference in a county's vote 
 
 If the media narrative is correct that an increase in COVID-19 death rates actually led to more support for Trump, then we should notice that on the county level, those with higher rates of COVID-19 would vote in higher proportions for Trump in 2020 than they did in 2016.
 
+### Some Important Caveats
+
+The purpose of this blog is not to give a definitive answer to whether or not the media narrative is true. Instead, I will provide explanations and analysis as to whether or not the data initially support the media narrative. There are plenty of confounding variables that may affect the variables in question. For instance, increasing polarization may lead to red states becoming more Republican, and blue states becoming more Democratic. Increasing polarization may also lead to red states becoming hotspots for COVID-19 once mask-wearing became politicized, whereas blue states may recover more because of the same effect. I will attempt to look at this one confounding variable (albeit in a somewhat circular fashion due to a lack of current data), but note that there are many more. Again, the analysis provided here will not be determinative, but instead only exploratory.
+
+Also, due to the wide range of values for COVID-19 related variables (eg. deaths, cases, and both rates), I have created new variables with the log of each. However, because many counties have not reported any deaths, the log variable was calculated as -Inf (since the log(0) is impossible), so I recoded these as 0 (even though that would technically indicate 1 death).
+
 
 
