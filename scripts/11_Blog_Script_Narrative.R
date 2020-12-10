@@ -128,6 +128,8 @@ county_cv_pv <- inner_join(covid_county, pv_county, by = "fips")
 
 county_cv_pv$winner_2020 = ifelse(county_cv_pv$D_win_margin_2020 > 0, 100, -100)
 county_cv_pv$winner_2016 = ifelse(county_cv_pv$D_win_margin_2016 > 0, 100, -100)
+county_cv_pv$winner_party_2020 = ifelse(county_cv_pv$D_win_margin_2020 > 0, "D", "R")
+county_cv_pv$winner_party_2016 = ifelse(county_cv_pv$D_win_margin_2016 > 0, "D", "R")
 
 # Plots
 
@@ -156,8 +158,8 @@ ggplot(county_cv_pv) +
   geom_smooth(aes(x = D_win_margin_2016, y = dif_change), method = 'lm')
 
 ggplot(county_cv_pv) +
-  geom_point(aes(x = log_deaths_p100k, y = dif_change, alpha = 0.5, color = D_win_margin_2020)) +
-  geom_smooth(aes(x = log_deaths_p100k, y = dif_change, group = winner_2020, color = winner_2020), method = 'lm', se = FALSE) +
+  geom_point(aes(x = log_deaths_p100k, y = abs_change, alpha = 0.5, color = D_win_margin_2020)) +
+  geom_smooth(aes(x = log_deaths_p100k, y = abs_change, group = winner_2020, color = winner_2020), method = 'lm', se = FALSE) +
   scale_color_gradient2(low = 'red',
                         mid = 'purple',
                         high = 'blue',
@@ -188,14 +190,25 @@ ggsave("figures/Narrative_deaths_party.png", height = 4, width = 6)
 
 # Model
 
-margin_model <- lm(data = county_cv_pv, formula = D_win_margin_2020 ~ log_cases_p100k + D_win_margin_2016)
+margin_model <- lm(data = county_cv_pv, formula = D_win_margin_2020 ~ log_deaths_p100k : winner_party_2016)
 
 summary(margin_model)
 
-change_model <- lm(data = county_cv_pv, formula = dif_change ~ log_cases_p100k + D_win_margin_2016)
+change_model <- lm(data = county_cv_pv, formula = abs_change ~ log_deaths_p100k * winner_party_2016)
 
 summary(change_model)
 
+# Correlation
 
+cor(county_cv_pv$log_deaths_p100k, county_cv_pv$abs_change)
+
+dem <- county_cv_pv %>%
+  filter(winner_party_2016 == "D")
+
+rep <- county_cv_pv %>%
+  filter(winner_party_2016 == "R")
+
+cor(dem$log_deaths_p100k, dem$abs_change)
+cor(rep$log_deaths_p100k, rep$abs_change)
 
   
