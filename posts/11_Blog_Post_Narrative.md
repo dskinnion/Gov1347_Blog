@@ -26,5 +26,27 @@ The purpose of this blog is not to give a definitive answer to whether or not th
 
 Also, due to the wide range of values for COVID-19 related variables (eg. deaths, cases, and both rates), I have created new variables with the log of each. However, because many counties have not reported any deaths, the log variable was calculated as -Inf (since the log(0) is impossible), so I recoded these as 0 (even though that would technically indicate 1 death).
 
+### Testing the Implication
+
+Now we need to investigate whether or not counties with higher COVID-19 death rates truly did shift towards Trump in 2020 compared to 2016. To check these, I calculated the change in each county's Democratic Win Margin (2020 - 2016). A positive value indicates that a county voted more Democratic in 2020 compared to 2016. A negative value indicates that a county voted more Republican in 2020 compared to 2016. Plotting this as our dependent variable against COVID-19 death rates will give us a better picture of whether or not the two variables are associated with one another.
+
+![COVID vs Shift](../figures/Narrative_byparty.png)
+
+Additionally plotted are two regression lines: One for counties which voted for Trump in 2016, and one for counties which voted for Clinton in 2016. The purpose of this differentiation is to show that the trend is not skewed by the large number of Republican counties (which typically have fewer people) and smaller number of Democratic counties (which typically have more people).
+
+As we can see, there is indeed a positive association between COVID-19 death rate and shift towards Trump in 2020. This trend appears for both Democratic and Republican counties, as differentiated by their 2016 vote. Still, we must ask ourselves whether or not there are confounding variables which may create this relationship.
+
+### An Exploration of A Possible Confounding Variable
+
+One important consideration is that of polarization. We know that in recent years, conservatives have been becoming more conservative, and liberals have become more liberal. If we can show that liberal counties have lower rates of COVID-19 and conservative counties have higher rates of COVID-19, then it would be likely that counties with higher rates of COVID-19 also leaned more towards Trump in 2020 not because of COVID-19, but because of polarization.
+
+![COVID vs Party](../figures/Narrative_deaths_party.png)
+
+In this graph, we can see that counties with a higher Democratic win margins in 2016 have higher COVID-19 death rates (per 100k). This is the opposite of what we would expect if polarization was the confounding variable explaining the association between COVID-19 death rates and increase in Trump support in 2020. (Although not graphed, using Democratic win margins in 2020 rather than in 2016 yields nearly identical results).
+
+This shows that polarization is likely not a confounding variable for this relationship, lending more strength to the media narrative. However, there are many possibilities for other confounding variables that may exist. So, while we have not disproven the media narrative, we cannot definitively say that it is indeed true.
+
+### Considerations of Possible Explanations
+
 
 

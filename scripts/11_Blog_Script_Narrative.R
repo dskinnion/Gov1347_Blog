@@ -172,15 +172,14 @@ ggplot(county_cv_pv) +
 ggsave("figures/Narrative_byparty.png", height = 4, width = 6)
 
 ggplot(county_cv_pv) +
-  geom_point(aes(y = log_deaths_p100k, x = D_win_margin_2016, alpha = 0.5, color = D_win_margin_2020)) +
-  geom_smooth(aes(y = log_deaths_p100k, x = D_win_margin_2016), method = 'lm', se = FALSE, color = 'black') +
+  geom_point(aes(y = log_deaths_p100k, x = D_win_margin_2016, alpha = 0.5)) +
+  geom_smooth(aes(y = log_deaths_p100k, x = D_win_margin_2016), method = 'lm', se = FALSE, color = 'red') +
   scale_color_gradient2(low = 'red',
                         mid = 'purple',
                         high = 'blue',
                         midpoint = 0) +
   scale_alpha(guide = 'none') +
-  labs(color = "Dem. Win Margin \n (2020)",
-       x = 'Dem. Win Margin in 2016',
+  labs(x = 'Dem. Win Margin in 2016',
        y = 'Log(COVID Deaths per 100k)',
        title = 'How are COVID Deaths Related to Party?') +
   theme_classic()
