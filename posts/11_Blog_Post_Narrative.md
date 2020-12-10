@@ -34,7 +34,7 @@ Now we need to investigate whether or not counties with higher COVID-19 death ra
 
 Additionally plotted are two regression lines: One for counties which voted for Trump in 2016, and one for counties which voted for Clinton in 2016. The purpose of this differentiation is to show that the trend is not skewed by the large number of Republican counties (which typically have fewer people) and smaller number of Democratic counties (which typically have more people).
 
-As we can see, there is indeed a positive association between COVID-19 death rate and shift towards Trump in 2020. This trend appears for both Democratic and Republican counties, as differentiated by their 2016 vote. Still, we must ask ourselves whether or not there are confounding variables which may create this relationship.
+As we can see, there is indeed a positive association between COVID-19 death rate and shift towards Trump in 2020. This trend appears most clearly in Democratic counties, as differentiated by their 2016 vote. It is interesting to note that the trend-line for Republican counties, while slightly positive, is almost 0, indicating that perhaps there was no effect of COVID-19 death rates on Trump's change in support for Republican counties.
 
 ### An Exploration of A Possible Confounding Variable
 
