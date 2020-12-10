@@ -166,7 +166,7 @@ ggplot(county_cv_pv) +
   labs(color = "Dem. Win Margin \n (2020)",
        x = 'Log(COVID Deaths per 100k)',
        y = 'Change in Dem. Win Margin (2020 - 2016)',
-       title = 'How did COVID-19 Deaths \n Affect the 2020 Election?') +
+       title = 'How did COVID-19 Deaths Affect the 2020 Election?') +
   theme_classic()
 
 ggsave("figures/Narrative_byparty.png", height = 4, width = 6)
