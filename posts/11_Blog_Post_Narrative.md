@@ -62,6 +62,7 @@ The regression lines were given by the following equations:
 
 Democratic Counties: 
 `change = 10.8098 - 2.585(log_death_rate)`
+
 Republican Counties: 
 `change = -0.088 - 0.0911(log_death_rate)`
 
